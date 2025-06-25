@@ -1,0 +1,46 @@
+import { createBrowserRouter } from 'react-router-dom';
+import RootLayout from '../Layout';
+import ProtectedRoute from './ProtectedRoutes';
+import Login from '../pages/login/Login';
+import AdminDashboard from '../pages/dashboard/AdminDashboard';
+import UserDashboard from '../pages/dashboard/UserDashboard';
+import AddRquest_OutPatient from '../pages/add_request/OutPatient';
+import AddRequest_Miscellaneous from '../pages/add_request/Miscellaneous';
+import ClaimHistory_OutPatient from '../pages/claim_history/OutPatient';
+import ClaimHistory_Miscellaneous from '../pages/claim_history/Miscellaneous';
+import Drafts from '../pages/draft/Drafts';
+
+export const router = createBrowserRouter([
+  { path: '/login', element: <Login /> },
+
+  {
+    path: '/',
+    element: <RootLayout />,
+    children: [
+      {
+        element: <ProtectedRoute allowedRoles={['user']} />,
+        children: [
+          { path: 'dashboard', element: <UserDashboard />},
+        ],
+      },
+
+      {
+        element: <ProtectedRoute allowedRoles={['admin', 'user']} />,
+        children: [
+          { path: 'new-request/outpatient', element: <AddRquest_OutPatient /> },
+          { path: 'new-request/miscellaneous', element: <AddRequest_Miscellaneous /> },
+          { path: 'claim-history/outpatient', element: <ClaimHistory_OutPatient /> },
+          { path: 'claim-history/miscellaneous', element: <ClaimHistory_Miscellaneous /> },
+          { path: 'drafts', element: <Drafts /> },
+        ],
+      },
+
+      {
+        element: <ProtectedRoute allowedRoles={['admin']} />,
+        children: [
+          { path: 'admin-dashboard', element: <AdminDashboard />}
+        ],
+      },
+    ],
+  },
+]);
