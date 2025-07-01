@@ -24,6 +24,7 @@ export const router = createBrowserRouter([
         element: <ProtectedRoute allowedRoles={['user']} />,
         children: [
           { path: 'dashboard', element: <UserDashboard />},
+          { path: 'drafts', element: <Drafts /> },
         ],
       },
 
@@ -34,7 +35,6 @@ export const router = createBrowserRouter([
           { path: 'new-request/miscellaneous', element: <AddRequest_Miscellaneous /> },
           { path: 'claim-history/outpatient', element: <ClaimHistory_OutPatient /> },
           { path: 'claim-history/miscellaneous', element: <ClaimHistory_Miscellaneous /> },
-          { path: 'drafts', element: <Drafts /> },
         ],
       },
 
