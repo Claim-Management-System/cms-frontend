@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../context/authContext';
 
 interface ProtectedRouteProps {
   allowedRoles: Array<'admin' | 'user'>;
