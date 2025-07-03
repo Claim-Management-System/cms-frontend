@@ -1,0 +1,120 @@
+/* For global styles */
+
+:root {
+    --s50: #8F9094;
+    --s60: #77CBEB;
+    --s80: #4C4E54;
+    --s100: #1CA8DD;
+    --securiti-form-bg: #F4F6F8;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 1024px) {
+    :root {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 820px) {
+    :root {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 375px) {
+    :root {
+        font-size: 12px;
+    }
+}
+
+/* Circular Pro */
+@font-face {
+    font-family: 'LLCirc';
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-book.eot');
+    /* IE9 Compat Modes */
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-book.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('assets/fonts/circular-pro/lineto-circular-pro-book.woff') format('woff');
+    /* Pretty Modern Browsers */
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'LLCirc';
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-medium.eot');
+    /* IE9 Compat Modes */
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-medium.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('assets/fonts/circular-pro/lineto-circular-pro-medium.woff') format('woff');
+    /* Pretty Modern Browsers */
+    font-weight: normal;
+    /* or 400 */
+}
+
+@font-face {
+    font-family: 'LLCirc';
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-bold.eot');
+    /* IE9 Compat Modes */
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-bold.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('assets/fonts/circular-pro/lineto-circular-pro-bold.woff') format('woff');
+    /* Pretty Modern Browsers */
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'LLCirc';
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-black.eot');
+    /* IE9 Compat Modes */
+    src: url('assets/fonts/circular-pro/lineto-circular-pro-black.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('assets/fonts/circular-pro/lineto-circular-pro-black.woff') format('woff');
+    /* Pretty Modern Browsers */
+    font-weight: 700;
+}
+
+/* ITC Avant Garde Gothic Std */
+@font-face {
+    font-family: 'ITCAvantG';
+    src: url('assets/fonts/avant-garde/ITCAvantGardeStd-Bk.eot');
+    /* IE9 Compat Modes */
+    src: url('assets/fonts/avant-garde/ITCAvantGardeStd-Bk.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('assets/fonts/avant-garde/ITCAvantGardeStd-Bk.woff') format('woff');
+    /* Pretty Modern Browsers */
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'ITCAvantG';
+    src: url('assets/fonts/avant-garde/ITCAvantGardeStd-Md.eot');
+    /* IE9 Compat Modes */
+    src: url('assets/fonts/avant-garde/ITCAvantGardeStd-Md.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('assets/fonts/avant-garde/ITCAvantGardeStd-Md.woff') format('woff');
+    /* Pretty Modern Browsers */
+    font-weight: normal;
+    /* or 500 */
+}
+
+@font-face {
+    font-family: 'ITCAvantG';
+    src: url('assets/fonts/avant-garde/ITCAvantGardeStd-Bold.eot');
+    /* IE9 Compat Modes */
+    src: url('assets/fonts/avant-garde/ITCAvantGardeStd-Bold.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('assets/fonts/avant-garde/ITCAvantGardeStd-Bold.woff') format('woff');
+    /* Pretty Modern Browsers */
+    font-weight: 700;
+}
