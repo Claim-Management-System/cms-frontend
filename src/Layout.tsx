@@ -3,11 +3,9 @@ import Sidebar from './components/sidebar/Sidebar';
 
 const RootLayout = () => {
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar>
-        <Outlet />
-      </Sidebar>
-    </div>
+    <Sidebar>
+      <Outlet />
+    </Sidebar>
   );
 };
 
