@@ -1,0 +1,171 @@
+@import '../index.css';
+
+/* --- Base Styles (Desktop First) --- */
+body {
+    /* Prevents scrolling on the body, useful for full-screen layouts */
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+}
+
+.innerBox {
+    height: 100vh;
+}
+
+.inner1 {
+    background-color: var(--s100);
+    flex: 1.85;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 40vh) 100%, 0 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+}
+
+.inner2 {
+    flex: 1;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.logo {
+    margin-right: 3.125rem;
+    width: 31.25rem;
+    height: auto;
+}
+
+.iconBottomLeft {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 15rem;
+}
+
+.iconTopRight {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 15rem;
+}
+
+.mobile-icon {
+    display: none;
+}
+
+
+@media (max-width: 1024px) {
+
+    .container {
+        /* Set as the positioning context for the absolute logo */
+        position: relative;
+        min-height: 100vh;
+
+        /* Use Flexbox to perfectly center the single remaining item in the flow (.inner2) */
+        display: flex;
+        justify-content: center; /* Horizontal centering */
+        align-items: center;     /* Vertical centering */
+        
+        /* Padding is no longer needed for positioning */
+    }
+
+    /* This pseudo-element creates the slanted background color */
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--s100);
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 95vh), 0% 100%);
+        z-index: 0;
+        width: 100vw; 
+        height: 100vh; 
+    }
+
+    .innerBox {
+        height: auto;
+        position: relative;
+        z-index: 1; 
+    }
+
+    /* --- This is the key change: The Logo container is taken out of the document flow --- */
+    .inner1 {
+        position: absolute;
+        
+        top: 5rem; 
+        left: 50%;
+        transform: translateX(-50%); 
+
+        z-index: 2;
+
+        flex: none;
+        clip-path: none;
+        background-color: transparent;
+    }
+
+    .inner2 {
+        justify-content: center;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .logo {
+        margin-right: 0;
+        width: 26rem;
+    }
+
+    .desktop-icon {
+        display: none;
+    }
+
+    .mobile-icon {
+        display: block;
+    }
+
+    .mobile-icon.iconTopRight {
+        top: 11rem;
+        right: 6rem;
+        width: 13rem;
+    }
+
+    .mobile-icon.iconBottomLeft {
+        bottom: 10rem;
+        left: 4rem;
+        width: 13rem;
+    }
+}
+
+/* Below had to finetune the screen based on varying sizes */
+
+@media (max-width: 820px) {
+    .mobile-icon.iconTopRight {
+        top: 8rem;
+        right: 6rem;
+        width: 11rem;
+    }
+
+    .mobile-icon.iconBottomLeft {
+        bottom: 8rem;
+        left: 1rem;
+        width: 11rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-icon.iconTopRight {
+        top: 10rem;
+        right: 3rem;
+        width: 12rem;
+    }
+
+    .mobile-icon.iconBottomLeft {
+        bottom: 10rem;
+        left: -2.5rem;
+        width: 12rem;
+    }
+}
+
