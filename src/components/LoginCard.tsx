@@ -6,7 +6,6 @@ import {
     TextField,
     Button,
     Box,
-    Divider,
     FormControlLabel,
     Checkbox,
     InputAdornment,
@@ -111,17 +110,13 @@ const LoginCard: React.FC = () => {
                         LOG IN
                     </Button>
 
-                    <Divider 
-                        className="form-divider"
+                    <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        className="divider-text"
                     >
-                        <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            className="divider-text"
-                        >
-                            OR
-                        </Typography>
-                    </Divider>
+                        OR
+                    </Typography>
 
                     <Button
                         fullWidth
