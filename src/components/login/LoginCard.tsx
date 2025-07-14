@@ -12,7 +12,7 @@ import {
     IconButton,
 } from '@mui/material';
 import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material'; 
-import googleIcon from '../assets/logos/google-gsuite.svg';
+import googleIcon from '../../assets/logos/google-gsuite.svg';
 import './LoginCard.css';
 
 

@@ -1,10 +1,10 @@
-import './LoginScreen.css';
-import LoginCard from '../components/LoginCard.tsx';
+import './Login.css';
+import LoginCard from '../../components/login/LoginCard.tsx';
 
-import iconTopRight from '../assets/logos/icon-top-right.svg';
-import securitiLogo from '../assets/logos/securiti-logo.svg';
-import iconBottomLeft from '../assets/logos/icon-bottom-left.svg';
-import iconMobile from '../assets/logos/icon-mobile.svg';
+import iconTopRight from '../../assets/logos/icon-top-right.svg';
+import securitiLogo from '../../assets/logos/securiti-logo.svg';
+import iconBottomLeft from '../../assets/logos/icon-bottom-left.svg';
+import iconMobile from '../../assets/logos/icon-mobile.svg';
 
 function SplitScreenLayout() {
 
