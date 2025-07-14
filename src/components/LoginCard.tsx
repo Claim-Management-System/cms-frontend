@@ -21,7 +21,7 @@ const LoginCard: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleClickShowPassword = () => {
+    const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
@@ -76,7 +76,7 @@ const LoginCard: React.FC = () => {
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
+                                            onClick={toggleShowPassword}
                                             edge="end"
                                         >
                                             {showPassword ? <VisibilityOff className="visibility-icon" /> : <Visibility className="visibility-icon" />}
