@@ -123,7 +123,7 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
   const [expandedItems, setExpandedItems] = useState<string[]>([])
   
   const { user, logout } = useAuth();
-  const menuItems = user.role === 'admin' ? adminMenuItems : userMenuItems;
+  const menuItems = user?.role === 'admin' ? adminMenuItems : userMenuItems;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
