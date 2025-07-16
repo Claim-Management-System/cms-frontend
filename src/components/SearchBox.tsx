@@ -27,7 +27,14 @@ function SearchBox({ onSearchChange, placeholder = "Search...", debounceDelay = 
       size="small"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
-      sx={{ marginY: 1, width: 300 }}
+      sx={{
+        width: 350,
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: '#1CA8DD',
+          },
+        },
+      }}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
