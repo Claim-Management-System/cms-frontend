@@ -67,7 +67,10 @@ body {
 
 /* Logo Section */
 .logo-section {
-    padding: 24px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    padding-left: 24px;
+    padding-right: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,14 +78,10 @@ body {
 
 .logo-wrapper {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 8px;
-}
-
-.logo {
-    height: 45px;
-    width: 'auto';
-    display: 'block';
+    height: 100%;
+    width: 100%;
 }
 
 /* Menu Items Section */
