@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@mui/material";
 import { Pagination as MuiPagination } from "@mui/material";
 
@@ -28,9 +29,18 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
         shape="rounded"
         siblingCount={0}
         boundaryCount={2}
+        sx={{
+          '& .Mui-selected': {
+            backgroundColor: '#1CA8DD',
+            color: 'white',
+            '&:hover': {
+              backgroundColor: '#1785b0',
+            },
+          },
+        }}
       />
     </Box>
   );
 }
 
-export default Pagination;
+export default React.memo(Pagination);
