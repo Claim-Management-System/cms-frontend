@@ -156,7 +156,18 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
     <Box className="drawer-container">
       <Box className="logo-section">
         <Box className="logo-wrapper">
-          <img src={SecuritiLogo} alt="Securiti Logo"  className="logo" />
+          <img 
+            src={SecuritiLogo} 
+            alt="Securiti Logo"  
+            style={{ 
+              maxWidth: '290px', 
+              maxHeight: '50px', 
+              width: 'auto', 
+              height: 'auto', 
+              objectFit: 'contain', 
+              display: 'block' 
+            }}
+          />
         </Box>
       </Box>
 
