@@ -1,12 +1,20 @@
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 
-function AddRequestButton() {
+interface AddRequestButtonProps {
+  path: string;
+}
+
+function AddRequestButton({ path }: AddRequestButtonProps) {
+    const navigate = useNavigate();
+
     return (
         <Button
             variant="contained"
             size="large"
             endIcon={<AddIcon />}
+            onClick={() => navigate(path)}
             sx={{
                 backgroundColor: '#1CA8DD',
                 color: 'white',
