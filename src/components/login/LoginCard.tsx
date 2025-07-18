@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authContext';
+import { useError } from '../../context/errorContext';
+import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material'; 
 import {
     Card,
     CardContent,
@@ -12,11 +16,6 @@ import {
     IconButton,
     CircularProgress
 } from '@mui/material';
-import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material'; 
-import { login } from '../../services/dataServices/auth';
-import { useError } from '../../context/errorContext';
-import { useAuth } from '../../context/authContext';
-import { useNavigate } from 'react-router-dom';
 import googleIcon from '../../assets/logos/google-gsuite.svg';
 import './LoginCard.css';
 
@@ -27,7 +26,7 @@ const LoginCard: React.FC = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const { setError } = useError();
-    const { login: setAuthUser } = useAuth();
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const toggleShowPassword = () => {
@@ -38,12 +37,15 @@ const LoginCard: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const { User } = await login(email, password);
-            setAuthUser(User);
-            if (User.role === "admin") {
-                navigate('/admin-dashboard');
+            const result = await login(email, password);
+            if (result.success && result.user) {
+                if (result.user.role === "admin") {
+                    navigate('/admin-dashboard');
+                } else {
+                    navigate('/');
+                }
             } else {
-                navigate('/');
+                setError(result.error || 'Login failed. Please try again.');
             }
         } catch (error: any) {
             setError(error.message || 'Login failed. Please try again.');
