@@ -1,10 +1,13 @@
-import { useState } from 'react';
 import { Box, Tabs, Tab, Chip } from '@mui/material'
+
+interface ClaimsStatusProps {
+    currentStatus: string;
+    onStatusChange: (newStatus: string) => void;
+}
 
 const STATUS_MAP = ['total', 'accepted', 'denied', 'pending'];
 
-function ClaimsStatus() {
-    const [currentStatus, setCurrentStatus] = useState<string>('total');
+export default function ClaimsStatus({ currentStatus, onStatusChange }: ClaimsStatusProps) {
     const counts: { [key: string]: number } = { total: 10, accepted: 40, denied: 20, pending: 30 };
 
     const renderTabLabel = (label: string, count: number) => (
@@ -19,12 +22,7 @@ function ClaimsStatus() {
     );
 
     const handleTabChange = (event: React.SyntheticEvent, newIndex: number) => {
-        handleStatusChange(STATUS_MAP[newIndex]);
-    };
-
-    const handleStatusChange = (newStatus: string) => {
-        setCurrentStatus(newStatus);
-        // fetchClaims(newStatus, 1); // Reset to page 1 on status change
+        onStatusChange(STATUS_MAP[newIndex]);
     };
 
     return (
@@ -42,5 +40,3 @@ function ClaimsStatus() {
         </Tabs>
     )
 }
-
-export default ClaimsStatus

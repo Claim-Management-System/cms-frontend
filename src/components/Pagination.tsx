@@ -1,4 +1,3 @@
-import React from "react";
 import { Box } from "@mui/material";
 import { Pagination as MuiPagination } from "@mui/material";
 
@@ -8,7 +7,12 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+  
+    const handlePageChange = (event: unknown, newPage: number) => {
+      onPageChange(newPage)
+    }
+
   return (
     <Box 
       sx={{
@@ -24,7 +28,7 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
       <MuiPagination
         count={totalPages}
         page={currentPage}
-        onChange={(_, pg) => onPageChange(pg)}
+        onChange={handlePageChange}
         color="primary"
         shape="rounded"
         siblingCount={0}
@@ -42,5 +46,3 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
     </Box>
   );
 }
-
-export default React.memo(Pagination);
