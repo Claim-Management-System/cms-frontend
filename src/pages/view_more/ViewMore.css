@@ -1,0 +1,34 @@
+.view-more-container {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    background-color: white;
+    height: 100vh;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.left-panel,
+.right-panel {
+    flex: 1;
+    background-color: white;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.right-panel {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .view-more-container {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .left-panel,
+    .right-panel {
+        flex: 1 1 100%;
+        height: auto;
+    }
+}
