@@ -1,0 +1,128 @@
+.popup-dialog .MuiDialog-paper {
+    border-radius: 8px;
+}
+
+.close-button {
+    z-index: 1;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    gap: 5px;
+}
+
+.employee-name {
+    font-size: 24px !important;
+    color: #35383E !important;
+    font-weight: 450 !important;
+}
+
+.popup-field {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.popup-label {
+    font-size: 16px !important;
+    font-weight: 450 !important;
+    color: #797A7F !important;
+}
+
+.popup-value {
+    font-size: 16px !important;
+    color: #1A1A1A !important;
+}
+
+.employee-info {
+    color: #35383E !important;
+}
+
+.status-accepted {
+    color: #86B62C !important;
+    font-weight: 450 !important;
+}
+
+.status-denied {
+    color: #F6772C !important;
+    font-weight: 450 !important;
+}
+
+.total-amount-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.total-amount-label {
+    font-size: 12px !important;
+    color: #8F9094 !important;
+    font-weight: 450 !important;
+}
+
+.total-amount-value {
+    font-size: 16px !important;
+    color: #1CA8DD !important;
+    font-weight: 450 !important;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.forward-button {
+    height: 35px !important;
+    padding: 8px 16px !important;
+    background-color: #1CA8DD !important;
+    color: white !important;
+    font-size: 12px !important;
+    text-transform: none !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.forward-button:hover {
+    background-color: #1991c4 !important;
+}
+
+.forward-button .MuiSvgIcon-root {
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.reason-dropdown {
+    margin-top: 4px !important;
+}
+
+.reason-dropdown .MuiOutlinedInput-root {
+    border-radius: 4px;
+    height: 35px;
+}
+
+.reason-dropdown .MuiInputLabel-root {
+    color: #4C4E54;
+    font-size: 12px;
+    transform: translate(14px, 8px) scale(1);
+}
+
+.reason-dropdown .MuiInputLabel-root.MuiInputLabel-shrink {
+    transform: translate(14px, -6px) scale(0.75);
+}
+
+.reason-dropdown .MuiOutlinedInput-notchedOutline {
+    border-color: #D2EEF8;
+}
+
+.reason-dropdown .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #1CA8DD;
+}
+
+.reason-dropdown .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #1CA8DD;
+    border-width: 1px;
+}

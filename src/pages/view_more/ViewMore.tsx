@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReceiptView from '../../components/receiptView/ReceiptView';
 import ReceiptPreview from '../../components/receiptPreview/ReceiptPreview';
+import Buttons from '../../components/buttons/Buttons';
+import AcceptPopup from '../../components/popups/AcceptPopup';
+import DeclinePopup from '../../components/popups/DeclinePopup';
 import { type FormType, type MiscFormData, type OpdFormData } from '../../types';
 import './ViewMore.css';
+
+/**
+ * Example usage with admin functionality:
+ * 
+ * <ViewMore
+ *   formType="misc"
+ *   formData={formData}
+ *   date="2024-01-15"
+ *   time="10:30 AM"
+ *   status="pending"
+ *   images={["image1.jpg", "image2.jpg"]}
+ *   userRole="admin"
+ *   employeeName="John Doe"
+ *   employeeId="EMP001"
+ *   totalAmount={1250.00}
+ *   onAccept={() => console.log('Request accepted')}
+ *   onDecline={(reason) => console.log('Request declined:', reason)}
+ *   onForwardToFinance={() => console.log('Forwarded to finance')}
+ * />
+ */
 
 interface ViewMoreProps {
     formType: FormType;
@@ -11,6 +34,13 @@ interface ViewMoreProps {
     time: string;
     status: string;
     images: string[];
+    userRole?: string;
+    employeeName?: string;
+    employeeId?: string;
+    totalAmount?: number;
+    onAccept?: () => void;
+    onDecline?: (reason: string) => void;
+    onForwardToFinance?: () => void;
 }
 
 const ViewMore: React.FC<ViewMoreProps> = ({
@@ -19,11 +49,54 @@ const ViewMore: React.FC<ViewMoreProps> = ({
     date,
     time,
     status,
-    images
+    images,
+    userRole,
+    employeeName = '',
+    employeeId = '',
+    totalAmount = 0,
+    onAccept,
+    onDecline,
+    onForwardToFinance
 }) => {
+    const [acceptPopupOpen, setAcceptPopupOpen] = useState(false);
+    const [declinePopupOpen, setDeclinePopupOpen] = useState(false);
+
+    const handleAcceptClick = () => {
+        setAcceptPopupOpen(true);
+    };
+
+    const handleDeclineClick = () => {
+        setDeclinePopupOpen(true);
+    };
+
+    const handleAcceptPopupClose = () => {
+        setAcceptPopupOpen(false);
+    };
+
+    const handleDeclinePopupClose = () => {
+        setDeclinePopupOpen(false);
+    };
+
+    const handleForwardToFinance = () => {
+        onForwardToFinance?.();
+        setAcceptPopupOpen(false);
+        onAccept?.();
+    };
+
+    const handleReasonSelect = (reason: string) => {
+        onDecline?.(reason);
+        setDeclinePopupOpen(false);
+    };
+
     return (
         <div className="view-more-container">
             <div className="left-panel">
+                {userRole === 'admin' && (
+                    <Buttons
+                        onDeclineClick={handleDeclineClick}
+                        onAcceptClick={handleAcceptClick}
+                    />
+                )}
                 <ReceiptView
                     formType={formType}
                     formData={formData}
@@ -35,6 +108,24 @@ const ViewMore: React.FC<ViewMoreProps> = ({
             <div className="right-panel">
                 <ReceiptPreview mode="view" images={images} />
             </div>
+            
+            <AcceptPopup
+                open={acceptPopupOpen}
+                onClose={handleAcceptPopupClose}
+                employeeName={employeeName}
+                employeeId={employeeId}
+                totalAmount={totalAmount}
+                onForwardToFinance={handleForwardToFinance}
+            />
+            
+            <DeclinePopup
+                open={declinePopupOpen}
+                onClose={handleDeclinePopupClose}
+                employeeName={employeeName}
+                employeeId={employeeId}
+                totalAmount={totalAmount}
+                onReasonSelect={handleReasonSelect}
+            />
         </div>
     );
 };

@@ -1,8 +1,3 @@
-
-// import { RouterProvider } from 'react-router-dom';
-// import { router } from './routes/Router';
-// import { AuthProvider } from './context/authContext';
-// import { ErrorProvider } from './context/errorContext';
 import ViewMore from './pages/view_more/ViewMore';
 import type { MiscFormData, OpdFormData } from './types';
 
@@ -29,22 +24,50 @@ function App() {
     totalAmount: '500.00',
   };
 
+  // Admin-related data
+  // To test different scenarios:
+  // - Set userRole to 'admin' to show admin buttons
+  // - Set userRole to 'user' or any other value to hide admin buttons
+  const adminData = {
+    userRole: 'admin', // Change to 'user' to hide admin buttons
+    employeeName: 'John Doe',
+    employeeId: 'EMP001',
+    totalAmount: 150.00, // Total amount from the form
+  };
+
+  // Event handlers for admin actions
+  const handleAccept = () => {
+    console.log('Request accepted by admin');
+    alert('Request has been accepted!');
+  };
+
+  const handleDecline = (reason: string) => {
+    console.log('Request declined by admin. Reason:', reason);
+    alert(`Request has been declined. Reason: ${reason}`);
+  };
+
+  const handleForwardToFinance = () => {
+    console.log('Request forwarded to finance department');
+    alert('Request has been forwarded to the finance department!');
+  };
+
 
   return (
-
-    // <AuthProvider>
-    //   <ErrorProvider>
-    //     <RouterProvider router={router} />
-    //   </ErrorProvider>
-    // </AuthProvider>
     <>
       <ViewMore
         formType="MISCELLANEOUS EXPENSE FORM"
         formData={miscFormData}
         date="2024-07-30"
         time="10:00 AM"
-        status="Accepted"
+        status="Pending"
         images={sampleImages}
+        userRole={adminData.userRole}
+        employeeName={adminData.employeeName}
+        employeeId={adminData.employeeId}
+        totalAmount={adminData.totalAmount}
+        onAccept={handleAccept}
+        onDecline={handleDecline}
+        onForwardToFinance={handleForwardToFinance}
       />
     </>
   );
