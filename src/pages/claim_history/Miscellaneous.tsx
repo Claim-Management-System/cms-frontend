@@ -8,12 +8,12 @@ import ClaimsStatus from '../../components/ClaimsStatus'
 import ClaimTable from '../../components/claimsTable/ClaimTable'
 import Pagination from '../../components/Pagination'
 import { useError } from '../../context/errorContext';
-import { getClaims } from '../../services/dataServices/claimRequests'
+import { getClaimsHistory } from '../../services/dataServices/claimsHistory'
 import { useAuth } from '../../context/authContext'
 
 export default function Miscellaneous() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [totalPages, setTotalPages] = useState(7);
+    const [totalPages, setTotalPages] = useState(1);
     const [claimData, setClaimData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     
@@ -36,9 +36,9 @@ export default function Miscellaneous() {
         setIsLoading(true);
         
         try {
-            const response = await getClaims(currentStatus, searchTerm, currentPage);
+            const response = await getClaimsHistory(currentStatus, searchTerm, currentPage);
             setClaimData(response.data);
-            setTotalPages(response.pagination?.totalPages || 1)
+            // setTotalPages(response.pagination?.totalPages || 1)
         } catch (error: any) {
             setError(error?.message || 'Failed to fetch claims');
         } finally {

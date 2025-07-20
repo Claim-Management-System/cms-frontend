@@ -7,7 +7,7 @@ import ClaimsStatus from '../../components/ClaimsStatus'
 import ClaimTable from '../../components/claimsTable/ClaimTable'
 import Pagination from '../../components/Pagination'
 import { useError } from '../../context/errorContext';
-import { getClaims } from '../../services/dataServices/claimRequests'
+import { getClaimsHistory } from '../../services/dataServices/claimsHistory'
 import { useAuth } from '../../context/authContext'
 import AddRequestButton from '../../components/AddRequestButton'
 
@@ -15,7 +15,7 @@ import AddRequestButton from '../../components/AddRequestButton'
 export default function OutPatient() {
     const [searchTerm, setSearchTerm] = useState('');
     const [claimData, setClaimData] = useState([])
-    const [totalPages, setTotalPages] = useState(7);
+    const [totalPages, setTotalPages] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     
     const { setError } = useError();
@@ -36,9 +36,9 @@ export default function OutPatient() {
     const fetchAllClaims = async () => {
         setIsLoading(true);
         try {
-            const response = await getClaims(currentStatus, searchTerm, currentPage);
-            setClaimData(response.data);
-            setTotalPages(response.pagination?.totalPages || 1)
+            const response = await getClaimsHistory(currentStatus, searchTerm, currentPage);
+            setClaimData(response.data || []);
+            // setTotalPages(response.pagination?.totalPages || 1)
         } catch (error: any) {
             setError(error?.message || 'Failed to fetch claims');
         } finally {
@@ -48,7 +48,7 @@ export default function OutPatient() {
 
     useEffect(() => {
         fetchAllClaims();
-    }, [currentPage, searchTerm]);
+    }, [currentStatus, currentPage, searchTerm]);
 
 
     return (
