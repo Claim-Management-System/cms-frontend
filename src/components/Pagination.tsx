@@ -1,5 +1,4 @@
-import { Box } from "@mui/material";
-import { Pagination as MuiPagination } from "@mui/material";
+import { Box, Pagination as MuiPagination } from "@mui/material";
 
 interface PaginationProps {
   currentPage: number;
@@ -7,14 +6,14 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
-  
-    const handlePageChange = (event: unknown, newPage: number) => {
-      onPageChange(newPage)
-    }
+function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+
+  const handlePageChange = (event: unknown, newPage: number) => {
+    onPageChange(newPage)
+  };
 
   return (
-    <Box 
+    totalPages > 1 && <Box 
       sx={{
         display: "flex", 
         alignItems: "center", 
@@ -46,3 +45,5 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
     </Box>
   );
 }
+
+export default Pagination

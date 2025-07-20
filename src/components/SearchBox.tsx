@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { TextField, InputAdornment } from '@mui/material';
 import { Search } from '@mui/icons-material';
 
@@ -46,4 +46,4 @@ function SearchBox({ onSearchChange, placeholder = "Search...", debounceDelay = 
   );
 }
 
-export default React.memo(SearchBox);
+export default SearchBox;
