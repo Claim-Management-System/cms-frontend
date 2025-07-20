@@ -22,7 +22,7 @@ function ClaimsStatus({ currentStatus, onStatusChange }: ClaimsStatusProps) {
     </Box>
   );
 
-  const handleTabChange = (event: React.SyntheticEvent, newIndex: number) => {
+  const handleTabChange = (_event: React.ChangeEvent<unknown>, newIndex: number) => {
     onStatusChange(STATUS_MAP[newIndex]);
   };
 

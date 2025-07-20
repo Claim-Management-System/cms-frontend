@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Pagination as MuiPagination } from "@mui/material";
 
 interface PaginationProps {
@@ -8,7 +9,7 @@ interface PaginationProps {
 
 function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
 
-  const handlePageChange = (event: unknown, newPage: number) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, newPage: number) => {
     onPageChange(newPage)
   };
 
