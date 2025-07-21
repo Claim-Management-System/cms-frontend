@@ -31,6 +31,7 @@ function App() {
   const adminData = {
     userRole: 'admin', // Change to 'user' to hide admin buttons
     employeeName: 'John Doe',
+    employeeEmail: 'shane.securiti.com',
     employeeId: 'EMP001',
     totalAmount: 150.00, // Total amount from the form
   };
@@ -63,6 +64,7 @@ function App() {
         images={sampleImages}
         userRole={adminData.userRole}
         employeeName={adminData.employeeName}
+        employeeEmail={adminData.employeeEmail}
         employeeId={adminData.employeeId}
         totalAmount={adminData.totalAmount}
         onAccept={handleAccept}

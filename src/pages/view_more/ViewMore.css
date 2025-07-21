@@ -1,6 +1,5 @@
 .view-more-container {
     display: flex;
-    gap: 24px;
     padding: 24px;
     background-color: white;
     height: 100vh;
@@ -17,8 +16,16 @@
     overflow-y: auto;
 }
 
-.right-panel {
-    flex: 1;
+.view-more-header {
+    display: flex;
+    justify-content: space-between;
+    align-items:end;
+    flex-basis: 100%;
+    margin-left: 24px;
+    margin-right: 24px;
+    border-bottom: solid 1px #E9E9EA;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 @media (max-width: 768px) {

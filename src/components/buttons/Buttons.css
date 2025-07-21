@@ -1,7 +1,6 @@
 .admin-buttons-container {
     display: flex;
     gap: 16px;
-    margin-bottom: 24px;
 }
 
 .decline-button {

@@ -5,6 +5,7 @@ import Buttons from '../../components/buttons/Buttons';
 import AcceptPopup from '../../components/popups/AcceptPopup';
 import DeclinePopup from '../../components/popups/DeclinePopup';
 import { type FormType, type MiscFormData, type OpdFormData } from '../../types';
+import UserTitle from '../../components/userTitle/UserTitle';
 import './ViewMore.css';
 
 /**
@@ -37,6 +38,7 @@ interface ViewMoreProps {
     userRole?: string;
     employeeName?: string;
     employeeId?: string;
+    employeeEmail?: string;
     totalAmount?: number;
     onAccept?: () => void;
     onDecline?: (reason: string) => void;
@@ -52,6 +54,7 @@ const ViewMore: React.FC<ViewMoreProps> = ({
     images,
     userRole,
     employeeName = '',
+    employeeEmail = '',
     employeeId = '',
     totalAmount = 0,
     onAccept,
@@ -90,13 +93,21 @@ const ViewMore: React.FC<ViewMoreProps> = ({
 
     return (
         <div className="view-more-container">
-            <div className="left-panel">
+            <div className="view-more-header">
+                {employeeName && (
+                    <UserTitle 
+                        mainText={employeeName} 
+                        subText={employeeEmail}
+                    />
+                )}
                 {userRole === 'admin' && (
                     <Buttons
                         onDeclineClick={handleDeclineClick}
                         onAcceptClick={handleAcceptClick}
                     />
                 )}
+            </div>
+            <div className="left-panel">
                 <ReceiptView
                     formType={formType}
                     formData={formData}
