@@ -6,7 +6,7 @@ interface ClaimsStatusProps {
   onStatusChange: (newStatus: string) => void;
 }
 
-const STATUS_MAP = ['total', 'accepted', 'denied', 'pending'];
+const STATUS_MAP = ['total', 'approved', 'rejected', 'pending'];
 
 function ClaimsStatus({ currentStatus, onStatusChange }: ClaimsStatusProps) {
     const counts: { [key: string]: number } = { total: 10, accepted: 40, denied: 20, pending: 30 };

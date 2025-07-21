@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import './ClaimTable.css';
 
 export interface ClaimRecord {
   id: string;
-  date: string;
+  created_at: string;
   name: string;
   amount: number;
+  employee_number: string;
   purpose?: string;
   status?: "Accepted" | "Denied" | "Pending" | "Completed" | "Forwarded";
   relationship?: string;
@@ -28,6 +30,7 @@ interface ClaimTableProps {
 }
 
 const ActionsCell = ({ params, category }: ActionsCellProps) => {
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -40,7 +43,13 @@ const ActionsCell = ({ params, category }: ActionsCellProps) => {
   };
 
   const handleAction = (action: string) => {
-    console.log(action, params.id);
+    if(action === 'View') {
+      navigate(`/claim-history/${params.row?.id}`);
+    } else if(action === 'Accepted') {
+      console.log("call accept claim api")
+    } else if(action === 'Declined') {
+      console.log("call rejected claim api")
+    }
     handleClose();
   };
 
@@ -78,10 +87,11 @@ const ActionsCell = ({ params, category }: ActionsCellProps) => {
 
 
 export default function ClaimTable({ data, userRole, claimType, category, loading }: ClaimTableProps) {
+
   const columns: GridColDef<(typeof data)[number]>[] = React.useMemo(() => {
     const baseColumns: Record<string, GridColDef<ClaimRecord>> = {
       date: {
-        field: 'date',
+        field: 'created_at',
         headerName: 'Date',
         flex: 0.9,
         align: 'left',
@@ -90,18 +100,18 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         headerClassName: 'date-column-header',
       },
       purpose: {
-        field: 'purpose',
+        field: 'description',
         headerName: 'Purpose',
-        flex: 1,
+        flex: 1.4,
         align: 'left',
         headerAlign: 'left',
       },
       status: {
         field: 'status',
         headerName: 'Status',
-        flex: 0.9,
-        headerAlign: 'center',
+        flex: 0.7,
         align: 'center',
+        headerAlign: 'left',
         headerClassName: 'status-column-header',
         renderCell: (params: GridRenderCellParams<ClaimRecord>) => {
           const status = params.row.status;
@@ -111,14 +121,13 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         }
       },
       amount: {
-        field: 'amount',
+        field: 'submitted_amount',
         headerName: 'Amount',
         type: 'number',
-        flex: 0.8,
-        headerAlign: 'center',
+        flex: 0.7,
         align: 'center',
+        headerAlign: 'left',
         headerClassName: 'amount-column-header',
-        valueFormatter: (params: { value: number }) => params.value ? params.value.toLocaleString() : '',
       },
       relationship: {
         field: 'relationship',
@@ -142,7 +151,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         filterable: false,
         align: 'left',
         headerAlign: 'left',
-        renderCell: (params) => <ActionsCell params={params} category={category} />
+        renderCell: (params) => <ActionsCell params={params} category={category}/>
       }
     };
 
@@ -151,7 +160,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
     if (userRole === 'user' && claimType === 'misc' && category === 'claim history') {
       finalColumns = [
         baseColumns.date,
-        { ...baseColumns.purpose, headerName: 'Purpose' },
+        baseColumns.purpose,
         baseColumns.status,
         baseColumns.amount,
         baseColumns.actions,
@@ -159,20 +168,46 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
     } else if (userRole === 'user' && claimType === 'outpatient' && category === 'claim history') {
       finalColumns = [
         baseColumns.date,
-        { ...baseColumns.purpose, headerName: 'Title' },
+        baseColumns.purpose,
         baseColumns.relationship,
         baseColumns.status,
-        { ...baseColumns.amount, headerName: 'Balance' },
+        baseColumns.amount,
         baseColumns.actions,
       ];
     } else if (userRole === 'admin' && claimType === 'outpatient' && category === 'claim history') {
-      finalColumns = [baseColumns.date, baseColumns.name, baseColumns.relationship, baseColumns.status, baseColumns.amount, baseColumns.actions];
+      finalColumns = [
+        baseColumns.date, 
+        baseColumns.name, 
+        baseColumns.relationship, 
+        baseColumns.status, 
+        baseColumns.amount, 
+        baseColumns.actions
+      ];
     } else if (userRole === 'admin' && claimType === 'misc' && category === 'claim history') {
-      finalColumns = [baseColumns.date, baseColumns.name, baseColumns.purpose, baseColumns.status, baseColumns.amount, baseColumns.actions];
+      finalColumns = [
+        baseColumns.date, 
+        baseColumns.name,
+        baseColumns.purpose, 
+        baseColumns.status, 
+        baseColumns.amount, 
+        baseColumns.actions
+      ];
     } else if (userRole === 'admin' && claimType === 'outpatient' && category === 'claim requests') {
-      finalColumns = [baseColumns.date, baseColumns.name, baseColumns.relationship, baseColumns.amount, baseColumns.actions];
+      finalColumns = [
+        baseColumns.date, 
+        baseColumns.name, 
+        baseColumns.relationship, 
+        baseColumns.amount, 
+        baseColumns.actions
+      ];
     } else if (userRole === 'admin' && claimType === 'misc' && category === 'claim requests') {
-      finalColumns = [baseColumns.date, baseColumns.name, baseColumns.purpose, baseColumns.amount, baseColumns.actions];
+      finalColumns = [
+        baseColumns.date, 
+        baseColumns.name, 
+        baseColumns.purpose, 
+        baseColumns.amount, 
+        baseColumns.actions
+      ];
     }
 
     return finalColumns;

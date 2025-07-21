@@ -40,8 +40,8 @@
   color: #E59300;
 }
 
-.status-chip.accepted {
-  background-color: #F6FDF1;
+.status-chip.approved {
+  background-color: #EFFCE8;
   color: #85B52C;
 }
 
@@ -50,7 +50,7 @@
   color: #86B62C;
 }
 
-.status-chip.denied {
+.status-chip.rejected {
   background-color: #FDF1F1;
   color: #F6772C;
 }
@@ -145,7 +145,7 @@
 
 .claim-table-container .MuiDataGrid-columnHeader,
 .claim-table-container .MuiDataGrid-cell {
-    padding: 0px 40px !important;
+    padding: 0px 15px !important;
 }
 
 
@@ -156,7 +156,7 @@
 .claim-table-container .MuiDataGrid-cell.status-column-cell,
 .claim-table-container .MuiDataGrid-columnHeader.amount-column-header,
 .claim-table-container .MuiDataGrid-cell.amount-column-cell {
-    padding-left: 65px !important;
+    padding-left: 55px !important;
 }
 
 .claim-table-container .MuiDataGrid-cell {

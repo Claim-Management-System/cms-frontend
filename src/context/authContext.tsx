@@ -7,9 +7,9 @@ interface User {
   name: string;
   email: string;
   role: 'admin' | 'user';
-  avatar?: string;
+  employeeId: string;
+  profile_picture: string;
   department?: string;
-  employeeId?: string;
 }
 
 interface AuthContextType {
