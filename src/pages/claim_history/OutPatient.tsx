@@ -3,18 +3,18 @@ import { Box } from '@mui/material'
 import { useSearchParams } from 'react-router-dom';
 import Header from '../../components/Header'
 import SearchBox from '../../components/SearchBox'
+import AddRequestButton from '../../components/AddRequestButton'
 import ClaimsStatus from '../../components/ClaimsStatus'
-import ClaimTable from '../../components/claimsTable/ClaimTable'
+import ClaimTable, { type ClaimRecord } from '../../components/claimsTable/ClaimTable'
 import Pagination from '../../components/Pagination'
 import { useError } from '../../context/errorContext';
-import { getClaimsHistory } from '../../services/dataServices/claimsHistory'
+import { getClaimsHistory, getUserClaimsHistory } from '../../services/dataServices/claimsHistory'
 import { useAuth } from '../../context/authContext'
-import AddRequestButton from '../../components/AddRequestButton'
-
+import formatDate from '../../services/constantServices/formatDate';
 
 export default function OutPatient() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [claimData, setClaimData] = useState([])
+    const [claimData, setClaimData] = useState<ClaimRecord[]>([])
     const [totalPages, setTotalPages] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     
@@ -36,9 +36,16 @@ export default function OutPatient() {
     const fetchAllClaims = async () => {
         setIsLoading(true);
         try {
-            const response = await getClaimsHistory(currentStatus, searchTerm, currentPage);
-            setClaimData(response.data || []);
-            // setTotalPages(response.pagination?.totalPages || 1)
+            let data;
+            if(user?.role === 'admin') {
+                data = await getClaimsHistory("medical", currentStatus, searchTerm, currentPage);
+            } else {
+                const employeeId = user?.employeeId;
+                data = await getUserClaimsHistory(employeeId!, currentStatus, searchTerm, currentPage);
+            }
+
+            setClaimData(formatDate(data.claims) || []);
+            setTotalPages(data.countPages || 1)
         } catch (error: any) {
             setError(error?.message || 'Failed to fetch claims');
         } finally {
