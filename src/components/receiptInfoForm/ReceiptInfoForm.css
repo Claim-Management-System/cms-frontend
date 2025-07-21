@@ -1,0 +1,111 @@
+@import '../../index.css';
+
+.receipt-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- General styling for all custom form controls --- */
+.custom-form-control .MuiOutlinedInput-root {
+    border-radius: 8px;
+    height: 45px;
+    /* Applied border-radius */
+}
+
+/* --- Style for multiline input --- */
+.custom-form-control .MuiInputBase-multiline {
+    height: auto;
+    padding: 12px 0px;
+}
+
+.custom-form-control .MuiOutlinedInput-input {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: 'LLCirc';
+    /* Placeholder and input text size */
+}
+
+/* --- Style for the border of the input field --- */
+.custom-form-control .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+    /* Default border color */
+}
+
+/* --- Style for the border on hover --- */
+.custom-form-control .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+    /* Border color on hover */
+}
+
+/* --- Style for the border when the input is focused --- */
+.custom-form-control .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+    border-width: 1px;
+}
+
+/* --- Style for the input label --- */
+.custom-form-control .MuiInputLabel-root {
+    color: var(--s80);
+    /* Default label color */
+    font-weight: 500;
+    font-size: 16px;
+    font-family: 'LLCirc';
+    transform: translate(15px, -17px) scale(1);
+}
+
+.custom-form-control .MuiFormLabel-asterisk {
+    color: #D96758;
+}
+
+.custom-form-control .MuiInputLabel-shrink {
+    background: #fff;
+    padding: 0 4px;
+}
+
+/* --- When form is submitted, style invalid fields --- */
+.submitted .custom-form-control:has(:invalid) .MuiOutlinedInput-notchedOutline {
+    border-color: #F6772C;
+}
+
+.submitted .custom-form-control:has(:invalid) .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #F6772C;
+}
+
+/* --- Style for the label when the input is focused --- */
+.custom-form-control .MuiInputLabel-root.Mui-focused {
+    color: var(--s80);
+}
+
+/* --- Style for dropdown menu items --- */
+.MuiMenuItem-root {
+    height: 45px;
+    box-sizing: border-box;
+    padding: 10px 16px !important;
+}
+
+/* --- Action Buttons --- */
+.form-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    /* margin-top: 24px; */
+}
+
+.submit-button {
+    background-color: #1CA8DD !important;
+    color: #FFFFFF !important;
+    text-transform: none !important;
+    font-size: 16px !important;
+    padding: 8px 24px !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    min-width: 200px !important;
+    font-family: 'LLCirc';
+}
+
+.error-message {
+    color: #F6772C;
+    margin: 0;
+    font-size: 16px;
+}
