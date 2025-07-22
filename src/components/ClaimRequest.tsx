@@ -5,6 +5,7 @@ import SearchBox from './SearchBox';
 import ClaimTable from './claimsTable/ClaimTable';
 import Pagination from './Pagination';
 import formatDate from '../services/constantServices/formatDate';
+import addRelationship from '../services/constantServices/addRelationship';
 import { useError } from '../context/errorContext';
 import { getClaimsRequest } from '../services/dataServices/claimsRequest';
 import { type ClaimRecord } from '../types';
@@ -32,8 +33,13 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
         setIsLoading(true);
         try {
             const data = await getClaimsRequest({ claimType: apiClaimType, search, page });
-            const claims = data.claims?.length > 0 ? formatDate(data.claims) : [];
-            setClaimData(claims);
+            let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
+
+            if (apiClaimType === 'medical') {
+                allClaims = addRelationship(allClaims)
+            }
+
+            setClaimData(allClaims);
             setTotalPages(data.pageCount || 1);
         } catch (error: any) {
             setError(error?.message || 'Failed to fetch claims');

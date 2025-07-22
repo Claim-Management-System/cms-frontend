@@ -11,6 +11,7 @@ import { useError } from '../context/errorContext';
 import { useAuth } from '../context/authContext';
 import { getClaimsHistory, getEmployeeClaimsHistory } from '../services/dataServices/claimsHistory';
 import formatDate from '../services/constantServices/formatDate';
+import addRelationship from '../services/constantServices/addRelationship';
 import { type ClaimRecord } from '../types';
 
 
@@ -67,8 +68,14 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
           page: currentPage,
         });
       }
-      const claims = data.claims?.length > 0 ? formatDate(data.claims) : [];
-      setClaimData(claims);
+      
+      let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
+      
+      if(apiClaimType === 'medical') {
+        allClaims = addRelationship(allClaims)
+      }
+
+      setClaimData(allClaims);
       setTotalPages(data.pageCount || 1);
     } catch (error: any) {
       setError(error?.message || 'Failed to fetch claims');

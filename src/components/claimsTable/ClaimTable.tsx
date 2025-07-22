@@ -123,12 +123,12 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       relationship: {
         field: 'relationship',
         headerName: 'Relationship',
-        flex: 0.9,
+        flex: 1.2,
         align: 'left',
         headerAlign: 'left',
       },
       name: {
-        field: 'name',
+        field: 'employee_name',
         headerName: 'Name',
         flex: 0.9,
         align: 'left',
@@ -137,7 +137,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       actions: {
         field: 'actions',
         headerName: '',
-        flex: 0.4,
+        flex: 0.3,
         sortable: false,
         filterable: false,
         align: 'left',
