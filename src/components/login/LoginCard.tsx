@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authContext';
+import { useError } from '../../context/errorContext';
+import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material'; 
 import {
     Card,
     CardContent,
@@ -10,8 +14,8 @@ import {
     Checkbox,
     InputAdornment,
     IconButton,
+    CircularProgress
 } from '@mui/material';
-import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material'; 
 import googleIcon from '../../assets/logos/google-gsuite.svg';
 import './LoginCard.css';
 
@@ -20,9 +24,34 @@ const LoginCard: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const { setError } = useError();
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
+        setShowPassword(prev => !prev);
+    };
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const result = await login(email, password);
+            if (result.success && result.user) {
+                if (result.user.role === "admin") {
+                    navigate('/admin-dashboard');
+                } else {
+                    navigate('/');
+                }
+            } else {
+                setError(result.error || 'Login failed. Please try again.');
+            }
+        } catch (error: any) {
+            setError(error.message || 'Login failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -32,7 +61,7 @@ const LoginCard: React.FC = () => {
                     LOG IN
                 </Typography>
 
-                <Box component="form" noValidate autoComplete="off" className="login-form">
+                <Box component="form" noValidate autoComplete="off" className="login-form" onSubmit={handleLogin}>
                     <Box className="fields-container"> {/* This was made so that the remember me checkbox is right below the password field*/}
                         <TextField
                             className="email-field styled-textfield"
@@ -106,8 +135,10 @@ const LoginCard: React.FC = () => {
                         fullWidth
                         variant="contained"
                         className="login-button"
+                        type="submit"
+                        disabled={loading}
                     >
-                        LOG IN
+                        {loading ? <CircularProgress size={24} color="inherit" /> : 'LOG IN'}
                     </Button>
 
                     <Typography
