@@ -26,7 +26,7 @@ const LoginCard: React.FC = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const { setError } = useError();
-    const { login } = useAuth();
+    const { loginUser } = useAuth();
     const navigate = useNavigate();
 
     const toggleShowPassword = () => {
@@ -37,7 +37,7 @@ const LoginCard: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const result = await login(email, password);
+            const result = await loginUser(email, password);
             if (result.success && result.user) {
                 if (result.user.role === "admin") {
                     navigate('/admin-dashboard');

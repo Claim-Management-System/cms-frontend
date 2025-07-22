@@ -122,7 +122,7 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [expandedItems, setExpandedItems] = useState<string[]>([])
   
-  const { user, logout } = useAuth();
+  const { user, logoutUser } = useAuth();
   const menuItems = user?.role === 'admin' ? adminMenuItems : userMenuItems;
 
   const handleDrawerToggle = () => {
@@ -145,12 +145,12 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
   }
 
   const handleLogout = () => {
-    logout()
+    logoutUser()
     navigate('/login')
   }
 
   // Helper to check if a menu or submenu is active
-  const isActive = (path?: string) => path && location.pathname === path;
+  const checkIsActive = (path?: string) => path && location.pathname === path;
 
   const drawer = (
     <Box className="drawer-container">
@@ -178,7 +178,7 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
           {menuItems.map((item) => {
             const hasSubItems = item.subItems && item.subItems.length > 0;
             const isExpanded = expandedItems.includes(item.text);
-            const active = !hasSubItems && isActive(item.path);
+            const active = !hasSubItems && checkIsActive(item.path);
 
             return (
               <Box key={item.text} className="menu-item-box">
@@ -215,7 +215,7 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
                         <ListItem className="sub-list-item" key={subItem.text}>
                           <ListItemButton
                             onClick={() => handleMenuItemClick(subItem.path)}
-                            className={`sub-list-item-button${isActive(subItem.path) ? ' active' : ''}`}
+                            className={`sub-list-item-button${checkIsActive(subItem.path) ? ' active' : ''}`}
                           >
                             <ListItemIcon className={`sub-list-item-icon`}>
                               {subItem.text === 'Outpatient' ? <PersonOutlineIcon /> : <CategoryIcon />}
@@ -243,10 +243,10 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
           <ListItem key="Settings" disablePadding className="menu-item-box">
             <ListItemButton
               onClick={() => handleMenuItemClick('/settings')}
-              className={`list-item-button${isActive('/settings') ? ' active' : ''}`}
+              className={`list-item-button${checkIsActive('/settings') ? ' active' : ''}`}
             >
-              <ListItemIcon className={`list-item-icon${isActive('/settings') ? ' active' : ''}`}><SettingsIcon /></ListItemIcon>
-              <ListItemText primary="Settings" className={`list-item-text${isActive('/settings') ? ' active' : ''}`} />
+              <ListItemIcon className={`list-item-icon${checkIsActive('/settings') ? ' active' : ''}`}><SettingsIcon /></ListItemIcon>
+              <ListItemText primary="Settings" className={`list-item-text${checkIsActive('/settings') ? ' active' : ''}`} />
             </ListItemButton>
           </ListItem>
           <ListItem key="Log Out" disablePadding className="menu-item-box">

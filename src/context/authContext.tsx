@@ -7,16 +7,16 @@ interface User {
   name: string;
   email: string;
   role: 'admin' | 'user';
-  avatar?: string;
+  employeeId: string;
+  profile_picture: string;
   department?: string;
-  employeeId?: string;
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; user?: User; error?: string }>;
-  logout: () => void;
+  loginUser: (email: string, password: string) => Promise<{ success: boolean; user?: User; error?: string }>;
+  logoutUser: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const loginUser  = async (email: string, password: string) => {
     try {
       const { User } = await apiLogin(email, password);
       setUser(User);
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logout = () => {
+  const logoutUser = () => {
     setUser(null);
     setIsAuthenticated(false);
     sessionStorage.removeItem('user');
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, loginUser, logoutUser }}>
       {children}
     </AuthContext.Provider>
   );
