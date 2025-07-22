@@ -1,4 +1,4 @@
-import type { ClaimRecord } from "../../components/claimsTable/ClaimTable";
+import { type ClaimRecord } from '../../types';
 
 const formatDate = (claimsData: ClaimRecord[]): ClaimRecord[] => {
 

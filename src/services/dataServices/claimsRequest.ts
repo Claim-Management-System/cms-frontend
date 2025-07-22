@@ -1,11 +1,17 @@
 import apiClient from './axiosConfig';
 
-export const getClaimsRequest = async (search: string, page: number) => {
+type getClaimsRequestProps = {
+  claimType: 'miscellaneous' | 'medical';
+  search: string;
+  page: number;
+}
+
+export const getClaimsRequest = async ({claimType, search, page}: getClaimsRequestProps) => {
   try {
     const response = await apiClient.get('/api/claims', {
-      params: { page, search },
+      params: { claimType, page, search, status: 'pending' },
     });
-    return response;
+    return response.data;
   } catch (error: any) {
     throw error;
   }

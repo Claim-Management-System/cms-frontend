@@ -1,13 +1,19 @@
 import apiClient from './axiosConfig';
 
-export const getClaimsHistory = async (claimType: string, status: string, search: string, page: number) => {
+
+type getClaimsHistoryProps = {
+  claimType: 'miscellaneous' | 'medical';
+  status: string;
+  search: string;
+  page: number;
+}
+
+const getClaimsHistory = async ({ claimType, status, search, page }: getClaimsHistoryProps) => {
   try {
     const params: any = { claimType, page, search };
-
     if (status !== 'total') {
       params.status = status;
     }
-
     const response = await apiClient.get('/api/claims', { params });
     return response.data;
   } catch (error: any) {
@@ -16,26 +22,38 @@ export const getClaimsHistory = async (claimType: string, status: string, search
 };
 
 
-export const getUserClaimsHistory = async (employeeId: string, status: string, search: string, page: number) => {
+
+type getEmployeeClaimsHistoryProps = {
+  employeeId: string;
+  claimType: 'miscellaneous' | 'medical';
+  status: string;
+  search: string;
+  page: number
+}
+
+const getEmployeeClaimsHistory = async ({employeeId, claimType, status, search, page}: getEmployeeClaimsHistoryProps) => {
   try {
      const response = await apiClient.get('/api/claims/employee', {
-      params: { employeeId, status, page, search },
+      params: { employeeId, claimType, status, page, search },
     });
-    return response;
-  } catch (error) {
+    return response.data;
+  } catch (error: any) {
     throw error
   }
 }
 
 
-export const getClaim = async (claimId: string) => {
+
+const getClaim = async (claimId: string) => {
   try {
     const response = await apiClient.get('/api/claims', {
       params: { id: claimId }
     })
-
-    return response
-  } catch (error) {
+    return response.data
+  } catch (error: any) {
     throw error
   }
 }
+
+
+export { getClaimsHistory, getEmployeeClaimsHistory, getClaim }

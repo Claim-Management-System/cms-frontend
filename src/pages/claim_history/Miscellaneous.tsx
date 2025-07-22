@@ -1,92 +1,14 @@
-import { useState, useEffect } from 'react'
-import { Box } from '@mui/material'
-import { useSearchParams } from 'react-router-dom';
-import Header from '../../components/Header'
-import SearchBox from '../../components/SearchBox'
-import AddRequestButton from '../../components/AddRequestButton'
-import ClaimsStatus from '../../components/ClaimsStatus'
-import ClaimTable, { type ClaimRecord } from '../../components/claimsTable/ClaimTable'
-import Pagination from '../../components/Pagination'
-import { useError } from '../../context/errorContext';
-import { getClaimsHistory, getUserClaimsHistory } from '../../services/dataServices/claimsHistory'
-import { useAuth } from '../../context/authContext'
-import formatDate from '../../services/constantServices/formatDate';
+import ClaimHistory from "../../components/ClaimHistory";
 
+function Miscellaneous() {
+  return (
+    <ClaimHistory
+      pageTitle="Claim Requests / MISC. EXPENSES"
+      apiClaimType="miscellaneous"
+      tableClaimType="miscellaneous"
+      newRequestPath="/new-request/miscellaneous"
+    />
+  );
+};
 
-export default function Miscellaneous() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [totalPages, setTotalPages] = useState(1);
-    const [claimData, setClaimData] = useState<ClaimRecord[]>([])
-    const [isLoading, setIsLoading] = useState(true);
-    
-    const { setError } = useError();
-    const { user } = useAuth();
-    
-    const [searchParams, setSearchParams] = useSearchParams();
-    const currentStatus = searchParams.get('status') || 'total';
-    const currentPage = parseInt(searchParams.get('page') || '1', 10);
-
-    const handleStatusChange = (newStatus: string) => {
-        setSearchParams({ status: newStatus, page: '1' });
-    };
-
-    const handlePageChange = (newPage: number) => {
-        setSearchParams({ status: currentStatus, page: String(newPage) });
-    };
-
-    const fetchAllClaims = async () => {
-        setIsLoading(true);
-        
-        try {
-            let data;
-            if(user?.role === 'admin') {
-                data = await getClaimsHistory("miscellaneous", currentStatus, searchTerm, currentPage);
-            } else {
-                const employeeId = user?.employeeId;
-                data = await getUserClaimsHistory(employeeId!, currentStatus, searchTerm, currentPage);
-            }
-            setClaimData(formatDate(data.claims));
-            setTotalPages(data.pageCount || 1);
-        } catch (error: any) {
-            setError(error?.message || 'Failed to fetch claims');
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchAllClaims();
-    }, [currentStatus, currentPage, searchTerm]);
-
-    return (
-        <Box sx={{ marginX: 3 }}>
-            <Header pageName='Claim Requests / MISC. EXPENSES' />
-
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingX: 3, marginTop: 2, alignItems: 'center' }}>
-                <SearchBox onSearchChange={setSearchTerm} />
-                <AddRequestButton path='/new-request/miscellaneous' />
-            </Box>
-
-            <Box sx={{ paddingX: 3, marginY: 4 }}>
-                <ClaimsStatus
-                    currentStatus={currentStatus}
-                    onStatusChange={handleStatusChange}
-                />
-            </Box>
-
-            <ClaimTable
-                data={claimData}
-                userRole={user?.role || "user"}
-                claimType="misc"
-                category="claim history"
-                loading={isLoading}
-            />
-
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-            />
-        </Box>
-    )
-}
+export default Miscellaneous

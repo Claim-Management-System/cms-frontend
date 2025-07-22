@@ -2,18 +2,9 @@ import * as React from 'react';
 import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { type ClaimRecord } from '../../types';
 import './ClaimTable.css';
 
-export interface ClaimRecord {
-  id: string;
-  created_at: string;
-  name: string;
-  amount: number;
-  employee_number: string;
-  purpose?: string;
-  status?: "Accepted" | "Denied" | "Pending" | "Completed" | "Forwarded";
-  relationship?: string;
-}
 
 interface ActionsCellProps {
   params: GridRenderCellParams<ClaimRecord>;
@@ -23,7 +14,7 @@ interface ActionsCellProps {
 interface ClaimTableProps {
   data: ClaimRecord[];
   userRole: "admin" | "user";
-  claimType: "misc" | "outpatient";
+  claimType: "miscellaneous" | "outpatient";
   category: "claim history" | "claim requests";
   onStatusChange?: (id: string, newStatus: ClaimRecord['status']) => void;
   loading?: boolean;
@@ -93,7 +84,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       date: {
         field: 'created_at',
         headerName: 'Date',
-        flex: 0.9,
+        flex: 0.7,
         align: 'left',
         headerAlign: 'left',
         cellClassName: 'date-column-cell',
@@ -109,7 +100,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       status: {
         field: 'status',
         headerName: 'Status',
-        flex: 0.7,
+        flex: 0.8,
         align: 'center',
         headerAlign: 'left',
         headerClassName: 'status-column-header',
@@ -124,9 +115,9 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         field: 'submitted_amount',
         headerName: 'Amount',
         type: 'number',
-        flex: 0.7,
+        flex: 0.8,
         align: 'center',
-        headerAlign: 'left',
+        headerAlign: 'center',
         headerClassName: 'amount-column-header',
       },
       relationship: {
@@ -157,7 +148,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
 
     let finalColumns: GridColDef<ClaimRecord>[] = [];
 
-    if (userRole === 'user' && claimType === 'misc' && category === 'claim history') {
+    if (userRole === 'user' && claimType === 'miscellaneous' && category === 'claim history') {
       finalColumns = [
         baseColumns.date,
         baseColumns.purpose,
@@ -183,7 +174,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         baseColumns.amount, 
         baseColumns.actions
       ];
-    } else if (userRole === 'admin' && claimType === 'misc' && category === 'claim history') {
+    } else if (userRole === 'admin' && claimType === 'miscellaneous' && category === 'claim history') {
       finalColumns = [
         baseColumns.date, 
         baseColumns.name,
@@ -200,7 +191,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         baseColumns.amount, 
         baseColumns.actions
       ];
-    } else if (userRole === 'admin' && claimType === 'misc' && category === 'claim requests') {
+    } else if (userRole === 'admin' && claimType === 'miscellaneous' && category === 'claim requests') {
       finalColumns = [
         baseColumns.date, 
         baseColumns.name, 
