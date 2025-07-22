@@ -52,6 +52,15 @@ function App() {
     alert('Request has been forwarded to the finance department!');
   };
 
+  const handleEdit = (newAmount: number, reason: string) => {
+    const updatedData = {
+      ...miscFormData,
+      totalAmount: newAmount.toString(),
+    };
+    console.log('Request edited by admin. Reason:', reason, 'New Data:', updatedData);
+    alert(`Request has been edited. Reason: ${reason}`);
+  };
+
 
   return (
     <>
@@ -70,6 +79,7 @@ function App() {
         onAccept={handleAccept}
         onDecline={handleDecline}
         onForwardToFinance={handleForwardToFinance}
+        onEdit={handleEdit}
       />
     </>
   );

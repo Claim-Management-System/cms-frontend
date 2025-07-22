@@ -4,6 +4,7 @@ import ReceiptPreview from '../../components/receiptPreview/ReceiptPreview';
 import Buttons from '../../components/buttons/Buttons';
 import AcceptPopup from '../../components/popups/AcceptPopup';
 import DeclinePopup from '../../components/popups/DeclinePopup';
+import EditPopup from '../../components/popups/EditPopup';
 import { type FormType, type MiscFormData, type OpdFormData } from '../../types';
 import UserTitle from '../../components/userTitle/UserTitle';
 import './ViewMore.css';
@@ -43,6 +44,7 @@ interface ViewMoreProps {
     onAccept?: () => void;
     onDecline?: (reason: string) => void;
     onForwardToFinance?: () => void;
+    onEdit?: (newAmount: number, reason: string) => void;
 }
 
 const ViewMore: React.FC<ViewMoreProps> = ({
@@ -59,10 +61,12 @@ const ViewMore: React.FC<ViewMoreProps> = ({
     totalAmount = 0,
     onAccept,
     onDecline,
-    onForwardToFinance
+    onForwardToFinance,
+    onEdit
 }) => {
     const [acceptPopupOpen, setAcceptPopupOpen] = useState(false);
     const [declinePopupOpen, setDeclinePopupOpen] = useState(false);
+    const [editPopupOpen, setEditPopupOpen] = useState(false);
 
     const handleAcceptClick = () => {
         setAcceptPopupOpen(true);
@@ -72,12 +76,20 @@ const ViewMore: React.FC<ViewMoreProps> = ({
         setDeclinePopupOpen(true);
     };
 
+    const handleEditClick = () => {
+        setEditPopupOpen(true);
+    };
+
     const handleAcceptPopupClose = () => {
         setAcceptPopupOpen(false);
     };
 
     const handleDeclinePopupClose = () => {
         setDeclinePopupOpen(false);
+    };
+
+    const handleEditPopupClose = () => {
+        setEditPopupOpen(false);
     };
 
     const handleForwardToFinance = () => {
@@ -89,6 +101,11 @@ const ViewMore: React.FC<ViewMoreProps> = ({
     const handleReasonSelect = (reason: string) => {
         onDecline?.(reason);
         setDeclinePopupOpen(false);
+    };
+
+    const handleEdit = (newAmount: number, reason: string) => {
+        onEdit?.(newAmount, reason);
+        setEditPopupOpen(false);
     };
 
     return (
@@ -104,6 +121,7 @@ const ViewMore: React.FC<ViewMoreProps> = ({
                     <Buttons
                         onDeclineClick={handleDeclineClick}
                         onAcceptClick={handleAcceptClick}
+                        onEditClick={handleEditClick}
                     />
                 )}
             </div>
@@ -136,6 +154,15 @@ const ViewMore: React.FC<ViewMoreProps> = ({
                 employeeId={employeeId}
                 totalAmount={totalAmount}
                 onReasonSelect={handleReasonSelect}
+            />
+
+            <EditPopup
+                open={editPopupOpen}
+                onClose={handleEditPopupClose}
+                employeeName={employeeName}
+                employeeId={employeeId}
+                totalAmount={totalAmount}
+                onEdit={handleEdit}
             />
         </div>
     );

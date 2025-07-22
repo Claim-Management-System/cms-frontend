@@ -126,3 +126,28 @@
     border-color: #1CA8DD;
     border-width: 1px;
 }
+
+.edit-button {
+    height: 35px !important;
+    padding: 8px 16px !important;
+    background-color: #E59300 !important;
+    color: white !important;
+    font-size: 12px !important;
+    text-transform: none !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.edit-button:hover {
+    background-color: #d48700 !important;
+}
+
+.edit-button .MuiSvgIcon-root {
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.popup-input {
+    margin-top: 8px !important;
+}

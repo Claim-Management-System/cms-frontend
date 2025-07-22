@@ -46,3 +46,25 @@
 .accept-button .MuiSvgIcon-root {
     color: white !important;
 } 
+
+.editing-button {
+    width: 200px !important;
+    height: 40px !important;
+    border-radius: 4px !important;
+    padding: 8px 24px !important;
+    border: 1px solid #E59300 !important;
+    background-color: #E59300 !important;
+    color: white !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.edit-button:hover {
+    background-color: #d48700 !important;
+    border: 1px solid #d48700 !important;
+}
+
+.edit-button .MuiSvgIcon-root {
+    color: white !important;
+} 
