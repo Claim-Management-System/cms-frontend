@@ -152,11 +152,14 @@
 /* this block below is for centering the status and amount columns, and adding padding to the left of the date column */
 .claim-table-container .MuiDataGrid-columnHeader.date-column-header,
 .claim-table-container .MuiDataGrid-cell.date-column-cell,
-.claim-table-container .MuiDataGrid-columnHeader.status-column-header,
 .claim-table-container .MuiDataGrid-cell.status-column-cell,
 .claim-table-container .MuiDataGrid-columnHeader.amount-column-header,
 .claim-table-container .MuiDataGrid-cell.amount-column-cell {
     padding-left: 55px !important;
+}
+
+.claim-table-container .MuiDataGrid-columnHeader.status-column-header {
+   padding-left: 30px !important;
 }
 
 .claim-table-container .MuiDataGrid-cell {

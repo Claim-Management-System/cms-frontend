@@ -3,7 +3,7 @@ import ClaimHistory from "../../components/ClaimHistory";
 function Miscellaneous() {
   return (
     <ClaimHistory
-      pageTitle="Claim Requests / MISC. EXPENSES"
+      pageTitle="Claim History / MISC. EXPENSES"
       apiClaimType="miscellaneous"
       tableClaimType="miscellaneous"
       newRequestPath="/new-request/miscellaneous"

@@ -102,7 +102,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         headerName: 'Status',
         flex: 0.8,
         align: 'center',
-        headerAlign: 'left',
+        headerAlign: 'center',
         headerClassName: 'status-column-header',
         renderCell: (params: GridRenderCellParams<ClaimRecord>) => {
           const status = params.row.status;
