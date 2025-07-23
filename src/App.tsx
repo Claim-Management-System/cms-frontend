@@ -15,6 +15,7 @@ function App() {
     //   </ErrorProvider>
     // </AuthProvider>
     <Miscellaneous />
+    // <OutPatient />
   );
 }
 

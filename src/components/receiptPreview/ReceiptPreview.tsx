@@ -2,7 +2,7 @@ import type React from "react"
 import { useState, type ChangeEvent, useEffect } from "react"
 import { Button, Box, Typography, IconButton } from "@mui/material"
 import {
-    // Clear as ClearIcon,
+    Clear as ClearIcon,
     ArrowBackIosNew,
     ArrowForwardIos,
     PlayArrow as PlayArrowIcon,
@@ -70,23 +70,23 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
         }
     }
 
-    // const handleRemovePreview = (index: number) => {
-    //     if (previews.length === 0) return
+    const handleRemovePreview = (index: number) => {
+        if (previews.length === 0) return
 
-    //     setShowDuplicateError(false)
+        setShowDuplicateError(false)
 
-    //     const newFiles = [...files]
-    //     newFiles.splice(index, 1)
-    //     setFiles(newFiles)
-    //     onImageUpload(newFiles);
+        const newFiles = [...files]
+        newFiles.splice(index, 1)
+        setFiles(newFiles);
+        onImageUpload?.(newFiles);
 
-    //     const newPreviews = [...previews]
-    //     URL.revokeObjectURL(newPreviews[index])
-    //     newPreviews.splice(index, 1)
-    //     setPreviews(newPreviews)
+        const newPreviews = [...previews]
+        URL.revokeObjectURL(newPreviews[index])
+        newPreviews.splice(index, 1)
+        setPreviews(newPreviews)
 
-    //     setActiveIndex((prev) => Math.min(prev, newPreviews.length))
-    // }
+        setActiveIndex((prev) => Math.min(prev, newPreviews.length))
+    }
 
     const handleReplaceImage = (event: ChangeEvent<HTMLInputElement>) => {
         if (mode === "view") return;
@@ -202,14 +202,6 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                                             alt={`Receipt preview ${activeIndex + 1}`}
                                             className="receipt-image"
                                         />
-                                        {/* <IconButton
-                                            aria-label="delete"
-                                            className="remove-btn"
-                                            size="small"
-                                            onClick={() => handleRemovePreview(activeIndex)}
-                                        >
-                                            <ClearIcon fontSize="inherit" />
-                                        </IconButton> */}
                                     </div>
                                 </div>
                             ) : (
@@ -230,6 +222,16 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                         </Box>
                     )}
                 </Box>
+                {mode === "upload" && activeIndex < previews.length && (
+                    <Box className="remove-button-section">
+                        <Button
+                            className="remove-image-button"
+                            onClick={() => handleRemovePreview(activeIndex)}
+                        >
+                            Remove
+                        </Button>
+                    </Box>
+                )}
             </Box>
         </Box>
     )

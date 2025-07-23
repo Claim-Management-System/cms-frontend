@@ -14,7 +14,7 @@
 .preview-box {
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 550px;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     background-color: #f8f9fa;
@@ -184,7 +184,7 @@
 .image-preview-wrapper {
     position: relative;
     width: 90%;
-    height: 90%;
+    height: 95%;
 }
 
 .image-container {
@@ -199,24 +199,31 @@
     object-fit: contain;
     /* necessary because otherwise looks ugly stretched */
     border-radius: 6px;
-    /* border: 1px solid #e0e0e0;  */
+    border: 1px solid #e0e0e0; 
 }
 
-/* .remove-btn {
-    position: absolute !important;
-    top: -6px;
-    right: -6px;
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    color: #666 !important;
-    width: 20px !important;
-    height: 20px !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+.remove-button-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
 }
 
-.remove-btn:hover {
-    background-color: rgba(255, 255, 255, 1) !important;
-    color: #333 !important;
-} */
+.remove-image-button.MuiButton-root {
+    background-color: #D96758 !important;
+    color: white !important;
+    text-transform: none !important;
+    padding: 4px 12px !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    font-family: 'LLCirc';
+    font-size: 12px;
+}
+
+.remove-image-button.MuiButton-root:hover {
+    background-color: #C85647 !important;
+}
 
 .upload-section {
     padding: 16px 24px 24px 24px;
