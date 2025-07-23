@@ -2,11 +2,12 @@ import type React from "react"
 import { useState, type ChangeEvent, useEffect } from "react"
 import { Button, Box, Typography, IconButton } from "@mui/material"
 import {
-    Clear as ClearIcon,
     ArrowBackIosNew,
     ArrowForwardIos,
     PlayArrow as PlayArrowIcon,
+    ZoomIn as ZoomInIcon, // <-- Import ZoomInIcon
 } from "@mui/icons-material"
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch" // <-- Import library
 import "./ReceiptPreview.css"
 
 interface ReceiptPreviewProps {
@@ -28,6 +29,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
     const [previews, setPreviews] = useState<string[]>([])
     const [activeIndex, setActiveIndex] = useState(0)
     const [showDuplicateError, setShowDuplicateError] = useState(false)
+    const [isHovered, setIsHovered] = useState(false) // <-- Add hover state
 
     useEffect(() => {
         if (mode === "view") {
@@ -177,7 +179,11 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                             </IconButton>
 
                             {activeIndex < previews.length ? (
-                                <div className="image-preview-wrapper">
+                                <div
+                                    className="image-preview-wrapper"
+                                    onMouseEnter={() => setIsHovered(true)} // <-- Add mouse enter handler
+                                    onMouseLeave={() => setIsHovered(false)} // <-- Add mouse leave handler
+                                >
                                     {showDuplicateError && mode === "upload" && (
                                         <Box className="duplicate-error-box">
                                             <Box className="duplicate-error-content">
@@ -196,13 +202,25 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                                             <PlayArrowIcon className="duplicate-error-arrow" />
                                         </Box>
                                     )}
-                                    <div className="image-container">
-                                        <img
-                                            src={previews[activeIndex] || "/placeholder.svg"}
-                                            alt={`Receipt preview ${activeIndex + 1}`}
-                                            className="receipt-image"
-                                        />
-                                    </div>
+                                    {/* --- START: Zoom implementation --- */}
+                                    <TransformWrapper wheel={{ step: 20 }}>
+                                        <TransformComponent
+                                            wrapperStyle={{ width: "100%", height: "100%" }}
+                                            contentStyle={{ width: "100%", height: "100%" }}
+                                        >
+                                            <img
+                                                src={previews[activeIndex] || "/placeholder.svg"}
+                                                alt={`Receipt preview ${activeIndex + 1}`}
+                                                className="receipt-image"
+                                            />
+                                        </TransformComponent>
+                                    </TransformWrapper>
+                                    {/* {isHovered && !showDuplicateError && (
+                                        <div className="zoom-icon-overlay">
+                                            <ZoomInIcon fontSize="small" />
+                                        </div>
+                                    )} */}
+                                    {/* --- END: Zoom implementation --- */}
                                 </div>
                             ) : (
                                 mode === "upload" && <UploadPlaceholder />

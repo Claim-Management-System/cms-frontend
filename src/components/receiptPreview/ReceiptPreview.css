@@ -38,14 +38,14 @@
     color: #626469;
     margin-bottom: 4px !important;
     font-size: 16px !important;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
 }
 
 .preview-subtitle {
     color: #626469;
     margin: 0 !important;
     font-size: 12px !important;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
 }
 
 .preview-content {
@@ -73,12 +73,13 @@
     border-radius: 8px;
     font-size: 12px;
     height: 60px;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
 }
 
 
 .upload-placeholder .MuiTypography-root {
     font-size: 12px;
+    font-family: 'LLCirc' !important;
 }
 
 .upload-placeholder .MuiButton-root {
@@ -91,7 +92,7 @@
     box-shadow: none !important;
     text-transform: none !important;
     min-width: unset !important;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
 }
 
 .carousel-container {
@@ -119,6 +120,8 @@
     top: 50%;
     transform: translateY(-50%);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-family: 'LLCirc' !important;
+    cursor: auto;
 }
 
 .duplicate-error-content {
@@ -134,14 +137,14 @@
     color: white !important;
     font-weight: 500 !important;
     text-align: center;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
 }
 
 .duplicate-error-body {
     font-size: 12px !important;
     color: white !important;
     text-align: center;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
 }
 
 .duplicate-error-button.MuiButton-root {
@@ -154,7 +157,7 @@
     text-transform: none !important;
     border-radius: 4px !important;
     margin-top: 16px !important;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
 }
 
 .duplicate-error-button.MuiButton-root:hover {
@@ -185,13 +188,12 @@
     position: relative;
     width: 90%;
     height: 95%;
+    cursor: zoom-in;
+    /* Add a zoom cursor hint */
 }
 
-.image-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
+/* --- DEPRECATED: image-container is no longer needed as a separate element --- */
+/* .image-container { ... } */
 
 .receipt-image {
     width: 100%;
@@ -199,8 +201,32 @@
     object-fit: contain;
     /* necessary because otherwise looks ugly stretched */
     border-radius: 6px;
-    border: 1px solid #e0e0e0; 
 }
+
+/* --- START: New styles for zoom --- */
+/* .zoom-icon-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.2s ease-in-out;
+} */
+
+.react-transform-component {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- END: New styles for zoom --- */
 
 .remove-button-section {
     display: flex;
@@ -217,7 +243,7 @@
     font-weight: 500 !important;
     box-shadow: none !important;
     border-radius: 4px !important;
-    font-family: 'LLCirc';
+    font-family: 'LLCirc' !important;
     font-size: 12px;
 }
 

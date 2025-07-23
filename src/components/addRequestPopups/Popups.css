@@ -29,6 +29,8 @@
     border-radius: 8px;
     width: 435px;
     height: 590px;
+    font-family: 'LLCirc';
+    font-weight: 450 !important;
 }
 
 .popup-content.submitted, .popup-content.not-accepted {
@@ -46,15 +48,18 @@
 
 .popup-main-text {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 450 !important;
     margin-bottom: 8px;
     color: #4C4E54;
+    font-family: 'LLCirc';
 }
 
 .popup-secondary-text {
     font-size: 14px;
     margin-bottom: 24px;
     color: #626469;
+    font-family: 'LLCirc';
+    font-weight: 450 !important;
 }
 
 .popup-actions {
@@ -70,6 +75,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 450 !important;
     width: 330px;
+    font-family: 'LLCirc';
 } 
