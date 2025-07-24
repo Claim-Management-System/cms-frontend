@@ -1,7 +1,7 @@
 .view-more-container {
     display: flex;
     padding: 24px;
-    background-color: white;
+    background-color: #F8F9FA;
     height: 100vh;
     box-sizing: border-box;
     flex-wrap: wrap;
@@ -11,7 +11,7 @@
 .left-panel,
 .right-panel {
     flex: 1;
-    background-color: white;
+    background-color: #F8F9FA;
     padding: 24px;
     overflow-y: auto;
 }
