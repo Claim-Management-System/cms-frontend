@@ -121,7 +121,7 @@ const NewRequestOpd: React.FC = () => {
                 mainText={formType}
                 subText="Shane Hussain Naqvi - Director"
             />
-            <main className="main-content">
+            <main className="main-body">
                 <div className="form-section">
                     <ReceiptInfoForm
                         formType={formType}
