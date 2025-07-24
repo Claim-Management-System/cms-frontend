@@ -1,0 +1,184 @@
+@import '../../index.css';
+
+* {
+  font-family: 'LLCirc', sans-serif;
+}
+
+.claim-table-container {
+  height: 685px;
+  width: 100%;
+  background-color: #f9fafb;
+  min-width: 1000px;
+
+}
+
+.claim-table-container .MuiDataGrid-root {
+  margin: 2 !important;
+  font-family: 'Circular Pro', sans-serif;
+  font-size: 16px;
+  border: none;
+  color: #595959;
+  display: flex;
+  justify-content: center;
+}
+
+.claim-table-container .MuiDataGrid-cell[data-field="status"] .status-chip {
+  width: 105px;
+  height: 35px !important;
+  font-weight: 450;
+  border-radius: 8px !important;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.claim-table-container .MuiDataGrid-cell[data-field="status"] .status-chip:hover {
+  opacity: 0.8;
+}
+
+.status-chip.pending {
+  background-color: #FDFBF1;
+  color: #E59300;
+}
+
+.status-chip.approved {
+  background-color: #EFFCE8;
+  color: #85B52C;
+}
+
+.status-chip.completed {
+  background-color: #EFFCE8;
+  color: #86B62C;
+}
+
+.status-chip.rejected {
+  background-color: #FDF1F1;
+  color: #F6772C;
+}
+
+.status-chip.forwarded {
+  background-color: #F1FAFD;
+  color: #1CA8DD;
+}
+
+
+/* --- DataGrid Header Styling --- */
+.claim-table-container .MuiDataGrid-columnHeaders {
+  border-radius: 12px;
+  border-bottom: none !important;
+  box-shadow: 0px 4px 4px 0px #ACACAC40 !important;
+  background-color: var(--securiti-form-bg);
+  z-index: 2; /* necessary for the shadow to show */
+}
+
+/* --- Fix for Centered Header Text Shift on Sort Hover --- */
+.claim-table-container .MuiDataGrid-columnHeader .MuiDataGrid-iconButtonContainer {
+  visibility: visible;
+  width: auto;
+}
+
+.claim-table-container .MuiDataGrid-columnHeader .MuiDataGrid-sortIcon {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.claim-table-container .MuiDataGrid-columnHeader:hover .MuiDataGrid-sortIcon,
+.claim-table-container .MuiDataGrid-columnHeader--sorted .MuiDataGrid-sortIcon {
+  opacity: 1;
+}
+
+/* --- DataGrid Row and Cell Styling --- */
+.claim-table-container .MuiDataGrid-virtualScroller {
+  background-color: #f9fafb;
+}
+
+.claim-table-container .MuiDataGrid-row {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 4px 0px #ACACAC40;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-bottom: 8px;
+}
+
+.claim-table-container .MuiDataGrid-row:first-of-type {
+  margin-top: 8px;
+}
+
+.claim-table-container .MuiDataGrid-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* --- Action Icon Styling --- */
+.actions-icon-button {
+  width: 35px;
+  height: 35px;
+}
+
+.three-dots-icon {
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: #595959;
+  border-radius: 50%;
+  position: relative;
+}
+
+.three-dots-icon::before,
+.three-dots-icon::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: #595959;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.three-dots-icon::before {
+  top: -6px;
+}
+
+.three-dots-icon::after {
+  top: 6px;
+}
+
+
+.claim-table-container .MuiDataGrid-columnHeader,
+.claim-table-container .MuiDataGrid-cell {
+    padding: 0px 15px !important;
+}
+
+
+/* this block below is for centering the status and amount columns, and adding padding to the left of the date column */
+.claim-table-container .MuiDataGrid-columnHeader.date-column-header,
+.claim-table-container .MuiDataGrid-cell.date-column-cell,
+.claim-table-container .MuiDataGrid-cell.status-column-cell,
+.claim-table-container .MuiDataGrid-columnHeader.amount-column-header,
+.claim-table-container .MuiDataGrid-cell.amount-column-cell {
+    padding-left: 55px !important;
+}
+
+.claim-table-container .MuiDataGrid-columnHeader.status-column-header {
+   padding-left: 30px !important;
+}
+
+.claim-table-container .MuiDataGrid-cell {
+  border: none !important;
+}
+
+.claim-table-container .MuiDataGrid-cell:focus,
+.claim-table-container .MuiDataGrid-cell:focus-within,
+.claim-table-container .MuiDataGrid-columnHeader:focus,
+.claim-table-container .MuiDataGrid-columnHeader:focus-within {
+  outline: none !important;
+}
+
+.claim-table-container .MuiDataGrid-columnSeparator, 
+.claim-table-container .MuiDataGrid-menuIcon,
+.claim-table-container .MuiDataGrid-footerContainer {
+  display: none !important;
+}
+
+.scrollable-x {
+  scrollbar-width: none; 
+}
