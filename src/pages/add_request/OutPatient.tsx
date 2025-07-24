@@ -4,7 +4,7 @@ import UserTitle from '../../components/userTitle/UserTitle'
 import ReceiptInfoForm from '../../components/receiptInfoForm/ReceiptInfoForm';
 import ReceiptPreview from '../../components/receiptPreview/ReceiptPreview';
 import './AddReq.css';
-import type { FormType, OpdFormData } from '../../types.ts';
+import type { FormType, OpdFormData } from '../../types';
 import FormScanningPopup from '../../components/addRequestPopups/FormScanningPopup.tsx';
 import FormSubmittedPopup from '../../components/addRequestPopups/FormSubmittedPopup.tsx';
 import FormNotAcceptedPopup from '../../components/addRequestPopups/FormNotAcceptedPopup.tsx';

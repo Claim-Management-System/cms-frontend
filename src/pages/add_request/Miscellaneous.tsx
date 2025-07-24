@@ -1,15 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import UserTitle from '../../components/userTitle/UserTitle'
 import ReceiptInfoForm from '../../components/receiptInfoForm/ReceiptInfoForm';
 import ReceiptPreview from '../../components/receiptPreview/ReceiptPreview';
-import './AddReq.css';
-import type { FormType, MiscFormData } from '../../types.ts';
+import Header from '../../components/Header.tsx';
 import FormScanningPopup from '../../components/addRequestPopups/FormScanningPopup.tsx';
 import FormSubmittedPopup from '../../components/addRequestPopups/FormSubmittedPopup.tsx';
 import FormNotAcceptedPopup from '../../components/addRequestPopups/FormNotAcceptedPopup.tsx';
+import { useError } from '../../context/errorContext.tsx';
+import { useAuth } from '../../context/authContext.tsx';
+import { postNewRequest } from '../../services/dataServices/claimsRequest.ts';
+import type { FormType, MiscFormData } from '../../types';
+import './AddReq.css';
 
-const NewRequestMisc: React.FC = () => {
+function NewRequestMisc() {
     const formType: FormType = "MISCELLANEOUS EXPENSE FORM";
     const initialFormData: MiscFormData & { attachments: File[] } = {
         title: '',
@@ -18,13 +23,17 @@ const NewRequestMisc: React.FC = () => {
         totalAmount: '',
         attachments: [],
     };
+
     const [formData, setFormData] = useState<(MiscFormData & { attachments: File[] })>(initialFormData);
-    const [submitted, setSubmitted] = useState(false);
-    const [error, setError] = useState('');
     const [popupState, setPopupState] = useState<'scanning' | 'submitted' | 'not-accepted' | 'none'>('none');
+    const [submitted, setSubmitted] = useState(false);
     const [resetPreview, setResetPreview] = useState(false);
 
-    const isFormValid = useCallback(() => {
+    const navigate = useNavigate()
+    const { setError } = useError();
+    const { user } = useAuth();
+
+    const checkIsFormValid = useCallback(() => {
         const requiredFields: (keyof MiscFormData)[] = ['title', 'itemType', 'description', 'totalAmount'];
         const isFormFilled = requiredFields.every(field => {
             const value = formData[field];
@@ -34,16 +43,6 @@ const NewRequestMisc: React.FC = () => {
         return isFormFilled && hasAttachments;
     }, [formData]);
 
-    useEffect(() => {
-        if (submitted) {
-            if (isFormValid()) {
-                setError('');
-            } else {
-                setError('Please fill out all required fields and upload at least one attachment.');
-            }
-        }
-    }, [formData, submitted, isFormValid]);
-
     const handleFormDataChange = (field: keyof MiscFormData, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
@@ -52,48 +51,51 @@ const NewRequestMisc: React.FC = () => {
         setFormData(prev => ({ ...prev, attachments: files }));
     };
 
-    const resetForm = () => {
-        setFormData(initialFormData);
-        setSubmitted(false);
-        setError('');
-        setResetPreview(true);
-    };
-
-    const submitForm = () => {
-        console.log('Submitting Miscellaneous Expense Form:', formData);
+    const submitForm = async () => {
         setPopupState('scanning');
 
-        // Simulate API call
-        setTimeout(() => {
-            // This is where the logic for which popup to show based on API response will be.
-            // For now, we'll randomly choose one to simulate success/failure.
-            const isSuccess = Math.random() > 0.5;
-            if (isSuccess) {
+        const myFormData = {
+            user_id: user?.id,
+            employee_number: user?.employeeId || 1004,
+            claim_type_id: 1,
+            title: formData.title,
+            description: formData.description,
+            relationship: 'Other',
+            submitted_amount: formData.totalAmount,
+            month: new Date().toLocaleString('default', { month: 'long' }),
+            images: formData.attachments
+        };
+
+        try {
+            const response = await postNewRequest(myFormData)
+            if (response.status >= 200) {
                 setPopupState('submitted');
             } else {
                 setPopupState('not-accepted');
             }
             setResetPreview(false);
-        }, 2000);
+        } catch (error: any) {
+            setError(error.message)
+        } finally {
+            setPopupState('none')
+        }
     };
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         setSubmitted(true);
 
-        if (isFormValid()) {
+        if (checkIsFormValid()) {
             submitForm();
         } else {
             setError('Please fill out all required fields and upload at least one attachment.');
         }
-    };
 
-    const handleReviewRequest = () => {
-        setPopupState('none');
+        setSubmitted(false);
     };
 
     const handleResubmit = () => {
-        if (isFormValid()) {
+        if (checkIsFormValid()) {
             submitForm();
         } else {
             setError('Please fill out all required fields and upload at least one attachment.');
@@ -101,51 +103,63 @@ const NewRequestMisc: React.FC = () => {
         }
     };
 
-    const handleViewHistory = () => {
-        // This should navigate to the view claim history screen.
-        // Since that screen is not made yet, this is a placeholder.
-        console.log("Navigating to View Claim History page...");
-    };
-
     const handleClose = () => {
         setPopupState('none');
-        resetForm();
+        setFormData(initialFormData);
+        setSubmitted(false);
+        setResetPreview(true);
     };
 
     return (
-        <form className="new-request-container" onSubmit={handleSubmit} noValidate>
-            <UserTitle
-                mainText={formType}
-                subText="Shane Hussain Naqvi - Director"
-            />
-            <main className="main-body">
-                <div className="form-section">
-                    <ReceiptInfoForm
-                        formType={formType}
-                        formData={formData}
-                        onFormDataChange={(field: string, value: string) => handleFormDataChange(field as keyof MiscFormData, value)}
-                        submitted={submitted}
-                    />
-                </div>
-                <div className="preview-section">
-                    <ReceiptPreview onImageUpload={handleImageUpload} submitted={submitted} reset={resetPreview} />
-                    <p className="footer-note">
-                        <span className="asterisk">*</span> Please ensure to attach all original receipts while submitting this form.
-                    </p>
-                </div>
-            </main>
-            <div className="form-actions-container">
-                <Button variant="contained" color="primary" className="submit-button" type="submit">
-                    Submit Form
-                </Button>
-                {error && <p className="error-message">{error}</p>}
-            </div>
+        <>
+            <Header pageName='New Request / Misc' />
+            <form className="new-request-container" onSubmit={handleSubmit} noValidate>
+                <UserTitle
+                    mainText={formType}
+                    subText="Shane Hussain Naqvi - Director"
+                />
 
-            {popupState === 'scanning' && <FormScanningPopup />}
-            {popupState === 'submitted' && <FormSubmittedPopup onViewHistory={handleViewHistory} onClose={handleClose} />}
-            {popupState === 'not-accepted' && <FormNotAcceptedPopup onReview={handleReviewRequest} onResubmit={handleResubmit} />}
-        </form>
+                <main className="main-body">
+                    <div className="form-section">
+                        <ReceiptInfoForm
+                            formType={formType}
+                            formData={formData}
+                            onFormDataChange={(field: string, value: string) => handleFormDataChange(field as keyof MiscFormData, value)}
+                            submitted={submitted}
+                        />
+                    </div>
+                    <div className="preview-section">
+                        <ReceiptPreview onImageUpload={handleImageUpload} submitted={submitted} reset={resetPreview} />
+                        <p className="footer-note">
+                            <span className="asterisk">*</span> Please ensure to attach all original receipts while submitting this form.
+                        </p>
+                    </div>
+                </main>
+
+                <div className="form-actions-container">
+                    <Button variant="contained" color="primary" className="submit-button" type="submit">
+                        Submit Form
+                    </Button>
+                </div>
+
+                {popupState === 'scanning' && <FormScanningPopup />}
+                {
+                    popupState === 'submitted' &&
+                    <FormSubmittedPopup
+                        onViewHistory={() => navigate('/claim-history/miscellaneous')}
+                        onClose={handleClose}
+                    />
+                }
+                {
+                    popupState === 'not-accepted' &&
+                    <FormNotAcceptedPopup
+                        onReview={() => setPopupState('none')}
+                        onResubmit={handleResubmit}
+                    />
+                }
+            </form>
+        </>
     );
 };
 
-export default NewRequestMisc; 
+export default NewRequestMisc;

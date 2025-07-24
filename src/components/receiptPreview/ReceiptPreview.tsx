@@ -56,12 +56,6 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
 
         if (event.target.files) {
             const newFiles = Array.from(event.target.files)
-            if (newFiles.length > 0 && isDuplicateFile(newFiles[0])) {
-                setShowDuplicateError(true);
-            } else {
-                setShowDuplicateError(false);
-            }
-
             const currentFilesCount = files.length
             const updatedFiles = [...files, ...newFiles];
             setFiles(updatedFiles);

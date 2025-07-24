@@ -1,9 +1,8 @@
 @import '../../index.css';
 
 .new-request-container {
-    /* padding: 24px; */
+    padding: 24px;
     background-color: #f9fafb;
-    /* margin: auto; */
     width: 100%;
 }
 
