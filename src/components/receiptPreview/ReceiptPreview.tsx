@@ -2,11 +2,12 @@ import type React from "react"
 import { useState, type ChangeEvent, useEffect } from "react"
 import { Button, Box, Typography, IconButton } from "@mui/material"
 import {
-    // Clear as ClearIcon,
     ArrowBackIosNew,
     ArrowForwardIos,
     PlayArrow as PlayArrowIcon,
+    ZoomIn as ZoomInIcon, // <-- Import ZoomInIcon
 } from "@mui/icons-material"
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch" // <-- Import library
 import "./ReceiptPreview.css"
 
 interface ReceiptPreviewProps {
@@ -28,6 +29,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
     const [previews, setPreviews] = useState<string[]>([])
     const [activeIndex, setActiveIndex] = useState(0)
     const [showDuplicateError, setShowDuplicateError] = useState(false)
+    const [isHovered, setIsHovered] = useState(false) // <-- Add hover state
 
     useEffect(() => {
         if (mode === "view") {
@@ -54,12 +56,6 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
 
         if (event.target.files) {
             const newFiles = Array.from(event.target.files)
-            if (newFiles.length > 0 && isDuplicateFile(newFiles[0])) {
-                setShowDuplicateError(true);
-            } else {
-                setShowDuplicateError(false);
-            }
-
             const currentFilesCount = files.length
             const updatedFiles = [...files, ...newFiles];
             setFiles(updatedFiles);
@@ -70,23 +66,23 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
         }
     }
 
-    // const handleRemovePreview = (index: number) => {
-    //     if (previews.length === 0) return
+    const handleRemovePreview = (index: number) => {
+        if (previews.length === 0) return
 
-    //     setShowDuplicateError(false)
+        setShowDuplicateError(false)
 
-    //     const newFiles = [...files]
-    //     newFiles.splice(index, 1)
-    //     setFiles(newFiles)
-    //     onImageUpload(newFiles);
+        const newFiles = [...files]
+        newFiles.splice(index, 1)
+        setFiles(newFiles);
+        onImageUpload?.(newFiles);
 
-    //     const newPreviews = [...previews]
-    //     URL.revokeObjectURL(newPreviews[index])
-    //     newPreviews.splice(index, 1)
-    //     setPreviews(newPreviews)
+        const newPreviews = [...previews]
+        URL.revokeObjectURL(newPreviews[index])
+        newPreviews.splice(index, 1)
+        setPreviews(newPreviews)
 
-    //     setActiveIndex((prev) => Math.min(prev, newPreviews.length))
-    // }
+        setActiveIndex((prev) => Math.min(prev, newPreviews.length))
+    }
 
     const handleReplaceImage = (event: ChangeEvent<HTMLInputElement>) => {
         if (mode === "view") return;
@@ -177,7 +173,11 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                             </IconButton>
 
                             {activeIndex < previews.length ? (
-                                <div className="image-preview-wrapper">
+                                <div
+                                    className="image-preview-wrapper"
+                                    onMouseEnter={() => setIsHovered(true)} // <-- Add mouse enter handler
+                                    onMouseLeave={() => setIsHovered(false)} // <-- Add mouse leave handler
+                                >
                                     {showDuplicateError && mode === "upload" && (
                                         <Box className="duplicate-error-box">
                                             <Box className="duplicate-error-content">
@@ -196,21 +196,25 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                                             <PlayArrowIcon className="duplicate-error-arrow" />
                                         </Box>
                                     )}
-                                    <div className="image-container">
-                                        <img
-                                            src={previews[activeIndex] || "/placeholder.svg"}
-                                            alt={`Receipt preview ${activeIndex + 1}`}
-                                            className="receipt-image"
-                                        />
-                                        {/* <IconButton
-                                            aria-label="delete"
-                                            className="remove-btn"
-                                            size="small"
-                                            onClick={() => handleRemovePreview(activeIndex)}
+                                    {/* --- START: Zoom implementation --- */}
+                                    <TransformWrapper wheel={{ step: 20 }}>
+                                        <TransformComponent
+                                            wrapperStyle={{ width: "100%", height: "100%" }}
+                                            contentStyle={{ width: "100%", height: "100%" }}
                                         >
-                                            <ClearIcon fontSize="inherit" />
-                                        </IconButton> */}
-                                    </div>
+                                            <img
+                                                src={previews[activeIndex] || "/placeholder.svg"}
+                                                alt={`Receipt preview ${activeIndex + 1}`}
+                                                className="receipt-image"
+                                            />
+                                        </TransformComponent>
+                                    </TransformWrapper>
+                                    {/* {isHovered && !showDuplicateError && (
+                                        <div className="zoom-icon-overlay">
+                                            <ZoomInIcon fontSize="small" />
+                                        </div>
+                                    )} */}
+                                    {/* --- END: Zoom implementation --- */}
                                 </div>
                             ) : (
                                 mode === "upload" && <UploadPlaceholder />
@@ -230,6 +234,16 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                         </Box>
                     )}
                 </Box>
+                {mode === "upload" && activeIndex < previews.length && (
+                    <Box className="remove-button-section">
+                        <Button
+                            className="remove-image-button"
+                            onClick={() => handleRemovePreview(activeIndex)}
+                        >
+                            Remove
+                        </Button>
+                    </Box>
+                )}
             </Box>
         </Box>
     )

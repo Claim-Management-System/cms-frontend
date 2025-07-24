@@ -14,6 +14,7 @@
     font-size: 14px !important;
     text-transform: none !important;
     box-shadow: none !important;
+    font-family: 'LLCirc' !important;
 }
 
 .decline-button:hover {
@@ -36,6 +37,7 @@
     font-size: 14px !important;
     text-transform: none !important;
     box-shadow: none !important;
+    font-family: 'LLCirc' !important;
 }
 
 .accept-button:hover {
@@ -58,6 +60,7 @@
     font-size: 14px !important;
     text-transform: none !important;
     box-shadow: none !important;
+    font-family: 'LLCirc' !important;
 }
 
 .edit-button:hover {

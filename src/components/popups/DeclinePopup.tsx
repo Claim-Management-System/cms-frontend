@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton } from '@mui/material';
+import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './Popup.css';
 
@@ -29,9 +29,15 @@ const DeclinePopup: React.FC<DeclinePopupProps> = ({
         'Not Applicable'
     ];
 
-    const handleReasonChange = (reason: string) => {
-        setSelectedReason(reason);
-        onReasonSelect(reason);
+    const handleConfirm = () => {
+        if (selectedReason) {
+            console.log('Claim was declined');
+            console.log('Reason:', selectedReason);
+            onReasonSelect(selectedReason);
+            onClose();
+        } else {
+            console.log('Please select a reason for declining the request.');
+        }
     };
 
     return (
@@ -42,7 +48,7 @@ const DeclinePopup: React.FC<DeclinePopupProps> = ({
             PaperProps={{
                 sx: {
                     width: '350px',
-                    height: '250px',
+                    height: 'auto',
                     maxWidth: 'none',
                     position: 'relative'
                 }
@@ -84,8 +90,9 @@ const DeclinePopup: React.FC<DeclinePopupProps> = ({
                         <InputLabel>Reason why this request was rejected</InputLabel>
                         <Select
                             value={selectedReason}
-                            onChange={(e) => handleReasonChange(e.target.value)}
+                            onChange={(e) => setSelectedReason(e.target.value)}
                             label="Reason why this request was rejected"
+                            className="reason-dropdown-select"
                         >
                             {rejectionReasons.map((reason) => (
                                 <MenuItem key={reason} value={reason}>
@@ -94,6 +101,14 @@ const DeclinePopup: React.FC<DeclinePopupProps> = ({
                             ))}
                         </Select>
                     </FormControl>
+                </Box>
+                <Box className="popup-actions">
+                    <Button
+                        className="confirm-button"
+                        onClick={handleConfirm}
+                    >
+                        Confirm
+                    </Button>
                 </Box>
             </DialogContent>
         </Dialog>

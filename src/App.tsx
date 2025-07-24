@@ -10,7 +10,8 @@ function App() {
 
   const miscFormData: MiscFormData = {
     title: 'Office Supplies Purchase',
-    itemType: 'Stationery',
+    itemType: 'Other',
+    otherItemType: 'Custom office equipment',
     description: 'Bought new pens and notebooks for the team.',
     totalAmount: '150.00',
   };
@@ -19,7 +20,8 @@ function App() {
     title: 'Doctor Visit',
     patientName: 'John Doe',
     relationship: 'Self',
-    purposeOfVisit: 'Monthly Checkup',
+    purposeOfVisit: 'Other',
+    otherPurposeOfVisit: 'Specialist consultation',
     expenseType: 'Consultation',
     totalAmount: '500.00',
   };
@@ -39,17 +41,10 @@ function App() {
   // Event handlers for admin actions
   const handleAccept = () => {
     console.log('Request accepted by admin');
-    alert('Request has been accepted!');
   };
 
   const handleDecline = (reason: string) => {
     console.log('Request declined by admin. Reason:', reason);
-    alert(`Request has been declined. Reason: ${reason}`);
-  };
-
-  const handleForwardToFinance = () => {
-    console.log('Request forwarded to finance department');
-    alert('Request has been forwarded to the finance department!');
   };
 
   const handleEdit = (newAmount: number, reason: string) => {
@@ -58,13 +53,12 @@ function App() {
       totalAmount: newAmount.toString(),
     };
     console.log('Request edited by admin. Reason:', reason, 'New Data:', updatedData);
-    alert(`Request has been edited. Reason: ${reason}`);
   };
 
 
   return (
     <>
-      <ViewMore
+      {/* <ViewMore
         formType="MISCELLANEOUS EXPENSE FORM"
         formData={miscFormData}
         date="2024-07-30"
@@ -78,7 +72,22 @@ function App() {
         totalAmount={adminData.totalAmount}
         onAccept={handleAccept}
         onDecline={handleDecline}
-        onForwardToFinance={handleForwardToFinance}
+        onEdit={handleEdit}
+      /> */}
+      <ViewMore
+        formType="OUT PATIENT CLAIM FORM"
+        formData={opdFormData}
+        date="2024-07-30"
+        time="11:30 AM"
+        status="Pending"
+        images={sampleImages}
+        userRole={adminData.userRole}
+        employeeName={adminData.employeeName}
+        employeeEmail={adminData.employeeEmail}
+        employeeId={adminData.employeeId}
+        totalAmount={parseFloat(opdFormData.totalAmount)}
+        onAccept={handleAccept}
+        onDecline={handleDecline}
         onEdit={handleEdit}
       />
     </>

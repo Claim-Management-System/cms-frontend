@@ -9,26 +9,6 @@ import { type FormType, type MiscFormData, type OpdFormData } from '../../types'
 import UserTitle from '../../components/userTitle/UserTitle';
 import './ViewMore.css';
 
-/**
- * Example usage with admin functionality:
- * 
- * <ViewMore
- *   formType="misc"
- *   formData={formData}
- *   date="2024-01-15"
- *   time="10:30 AM"
- *   status="pending"
- *   images={["image1.jpg", "image2.jpg"]}
- *   userRole="admin"
- *   employeeName="John Doe"
- *   employeeId="EMP001"
- *   totalAmount={1250.00}
- *   onAccept={() => console.log('Request accepted')}
- *   onDecline={(reason) => console.log('Request declined:', reason)}
- *   onForwardToFinance={() => console.log('Forwarded to finance')}
- * />
- */
-
 interface ViewMoreProps {
     formType: FormType;
     formData: MiscFormData | OpdFormData;
@@ -43,7 +23,6 @@ interface ViewMoreProps {
     totalAmount?: number;
     onAccept?: () => void;
     onDecline?: (reason: string) => void;
-    onForwardToFinance?: () => void;
     onEdit?: (newAmount: number, reason: string) => void;
 }
 
@@ -61,7 +40,6 @@ const ViewMore: React.FC<ViewMoreProps> = ({
     totalAmount = 0,
     onAccept,
     onDecline,
-    onForwardToFinance,
     onEdit
 }) => {
     const [acceptPopupOpen, setAcceptPopupOpen] = useState(false);
@@ -92,10 +70,11 @@ const ViewMore: React.FC<ViewMoreProps> = ({
         setEditPopupOpen(false);
     };
 
-    const handleForwardToFinance = () => {
-        onForwardToFinance?.();
-        setAcceptPopupOpen(false);
+    const handleAccept = () => {
+        console.log('Form Data:', formData);
+        console.log('Accept Approved');
         onAccept?.();
+        setAcceptPopupOpen(false);
     };
 
     const handleReasonSelect = (reason: string) => {
@@ -144,7 +123,7 @@ const ViewMore: React.FC<ViewMoreProps> = ({
                 employeeName={employeeName}
                 employeeId={employeeId}
                 totalAmount={totalAmount}
-                onForwardToFinance={handleForwardToFinance}
+                onAccept={handleAccept}
             />
             
             <DeclinePopup
@@ -163,6 +142,7 @@ const ViewMore: React.FC<ViewMoreProps> = ({
                 employeeId={employeeId}
                 totalAmount={totalAmount}
                 onEdit={handleEdit}
+                formData={formData}
             />
         </div>
     );

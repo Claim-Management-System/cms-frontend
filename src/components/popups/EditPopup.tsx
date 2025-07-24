@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, Button, Typography, Box, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import EditIcon from '@mui/icons-material/Edit';
 import './Popup.css';
 
 interface EditPopupProps {
@@ -11,6 +10,7 @@ interface EditPopupProps {
     employeeId: string;
     totalAmount: number;
     onEdit: (newAmount: number, reason: string) => void;
+    formData: any;
 }
 
 const EditPopup: React.FC<EditPopupProps> = ({
@@ -19,17 +19,34 @@ const EditPopup: React.FC<EditPopupProps> = ({
     employeeName,
     employeeId,
     totalAmount,
-    onEdit
+    onEdit,
+    formData,
 }) => {
-    const [amount, setAmount] = useState(totalAmount);
+    const [amount, setAmount] = useState(String(totalAmount));
     const [reason, setReason] = useState('');
 
     useEffect(() => {
-        setAmount(totalAmount);
+        setAmount(String(totalAmount));
     }, [totalAmount]);
 
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (/^[0-9]*\.?[0-9]*$/.test(value)) {
+            setAmount(value);
+        }
+    };
+
     const handleSubmit = () => {
-        onEdit(amount, reason);
+        const numericAmount = Number(amount);
+        if (isNaN(numericAmount)) return;
+
+        const updatedFormData = {
+            ...formData,
+            totalAmount: numericAmount,
+        };
+        console.log('Updated Form Data:', updatedFormData);
+        console.log('Reason for change:', reason);
+        onEdit(numericAmount, reason);
         onClose();
     };
 
@@ -70,9 +87,9 @@ const EditPopup: React.FC<EditPopupProps> = ({
 
                 <TextField
                     label="Amount"
-                    type="number"
+                    type="text"
                     value={amount}
-                    onChange={(e) => setAmount(Number(e.target.value))}
+                    onChange={handleAmountChange}
                     fullWidth
                     className="popup-input"
                 />
@@ -89,9 +106,8 @@ const EditPopup: React.FC<EditPopupProps> = ({
                 
                 <Box className="popup-actions">
                     <Button
-                        className="edit-button"
+                        className="submit-button-edit"
                         onClick={handleSubmit}
-                        endIcon={<EditIcon />}
                     >
                         Submit
                     </Button>

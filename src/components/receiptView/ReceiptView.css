@@ -15,16 +15,16 @@
 }
 
 .status-chip {
-    height: 35px;
     width: 105px;
     border-radius: 8px;
     font-size: 14px;
-    padding: 6px 16px;
+    padding: 6px 8px;
     font-weight: 500;
     text-transform: capitalize;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'LLCirc' !important;
 }
 
 .status-chip.pending {
@@ -59,6 +59,7 @@
     font-size: 14px;
     color: #4C4E54;
     text-align: center;
+    font-family: 'LLCirc' !important;
 }
 
 .receipt-form-container {
@@ -83,6 +84,7 @@
 .custom-form-control .MuiOutlinedInput-input {
     padding: 10px 16px;
     font-size: 14px;
+    font-family: 'LLCirc' !important;
     /* Placeholder and input text size */
 }
 
@@ -111,6 +113,7 @@
     font-weight: 500;
     font-size: 16px;
     transform: translate(15px, -17px) scale(1);
+    font-family: 'LLCirc' !important;
 }
 
 .custom-form-control .MuiFormLabel-asterisk {
@@ -141,6 +144,7 @@
     height: 45px;
     box-sizing: border-box;
     padding: 10px 16px !important;
+    font-family: 'LLCirc' !important;
 }
 
 /* --- Action Buttons --- */

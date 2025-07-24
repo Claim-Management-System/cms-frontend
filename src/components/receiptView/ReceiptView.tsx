@@ -39,6 +39,9 @@ const ReceiptView: React.FC<ReceiptViewProps> = ({ formType, formData, date, tim
             <>
                 <InfoField label="Title" value={data.title} />
                 <InfoField label="Item/Purpose" value={data.itemType} />
+                {data.itemType === 'Other' && (
+                    <InfoField label="Specify Other" value={data.otherItemType ?? ''} />
+                )}
                 <InfoField label="Description" value={data.description} multiline rows={4} />
             </>
         );
@@ -52,6 +55,9 @@ const ReceiptView: React.FC<ReceiptViewProps> = ({ formType, formData, date, tim
                 <InfoField label="Patient's Name" value={data.patientName} />
                 <InfoField label="Relationship" value={data.relationship} />
                 <InfoField label="Purpose of Visit" value={data.purposeOfVisit} />
+                {data.purposeOfVisit === 'Other' && (
+                    <InfoField label="Specify Other" value={data.otherPurposeOfVisit ?? ''} />
+                )}
                 <InfoField label="Specify the type of expense" value={data.expenseType} />
             </>
         )

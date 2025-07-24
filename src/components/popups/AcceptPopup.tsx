@@ -10,7 +10,7 @@ interface AcceptPopupProps {
     employeeName: string;
     employeeId: string;
     totalAmount: number;
-    onForwardToFinance: () => void;
+    onAccept: () => void;
 }
 
 const AcceptPopup: React.FC<AcceptPopupProps> = ({
@@ -19,7 +19,7 @@ const AcceptPopup: React.FC<AcceptPopupProps> = ({
     employeeName,
     employeeId,
     totalAmount,
-    onForwardToFinance
+    onAccept,
 }) => {
     return (
         <Dialog
@@ -68,11 +68,10 @@ const AcceptPopup: React.FC<AcceptPopupProps> = ({
                 
                 <Box className="popup-actions">
                     <Button
-                        className="forward-button"
-                        onClick={onForwardToFinance}
-                        endIcon={<ArrowForwardIcon />}
+                        className="submit-button-accept"
+                        onClick={onAccept}
                     >
-                        Forward to Finance
+                        Submit
                     </Button>
                 </Box>
             </DialogContent>
