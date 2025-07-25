@@ -1,9 +1,13 @@
-import React from 'react'
+import ClaimRequest from '../../components/ClaimRequest';
 
 function Outpatient() {
   return (
-    <div>Outpatient</div>
-  )
+    <ClaimRequest
+      pageTitle="Claim Requests / OPD. EXPENSES"
+      apiClaimType="medical"
+      tableClaimType="outpatient"
+    />
+  );
 }
 
-export default Outpatient
+export default Outpatient;

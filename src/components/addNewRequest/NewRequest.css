@@ -1,0 +1,47 @@
+@import '../../index.css';
+
+.new-request-container {
+    padding: 24px;
+    background-color: #f9fafb;
+    width: 100%;
+}
+
+.main-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 24px;
+    box-sizing: border-box;
+    font-family: 'LLCirc' !important;
+}
+
+.form-section {
+    flex: 1;
+}
+
+.preview-section {
+    flex: 1;
+}
+
+.form-actions-container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.footer-note {
+    font-size: 0.8rem;
+    color: #555;
+    text-align: left;
+    color: #8F9094;
+}
+
+.footer-note .asterisk {
+    color: #D96758;
+}
+
+@media (max-width: 768px) {
+    .main-body {
+        flex-direction: column-reverse;
+    }
+}

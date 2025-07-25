@@ -1,9 +1,13 @@
-import React from 'react'
+import ClaimRequest from '../../components/ClaimRequest';
 
 function Miscellaneous() {
   return (
-    <div>Miscellaneous</div>
-  )
-}
+    <ClaimRequest
+      pageTitle="Claim Requests / MISC. EXPENSES"
+      apiClaimType="miscellaneous"
+      tableClaimType="miscellaneous"
+    />
+  );
+};
 
-export default Miscellaneous
+export default Miscellaneous;
