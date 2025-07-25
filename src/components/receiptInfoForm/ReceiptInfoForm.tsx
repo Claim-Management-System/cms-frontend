@@ -134,20 +134,6 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                 </FormControl>
 
                 <FormControl fullWidth margin="normal" required className="custom-form-control">
-                    <InputLabel htmlFor="patient-name" shrink>Patient's Name</InputLabel>
-                    <OutlinedInput
-                        id="patientName"
-                        name="patientName"
-                        label="Patient's Name"
-                        placeholder="Type here..."
-                        notched
-                        value={data.patientName}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </FormControl>
-
-                <FormControl fullWidth margin="normal" required className="custom-form-control">
                     <InputLabel id="relationship-label" shrink>Relationship</InputLabel>
                     <Select
                         labelId="relationship-label"
@@ -161,11 +147,11 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                         required
                         IconComponent={KeyboardArrowDownIcon}
                     >
-                        <MenuItem value="father">Father</MenuItem>
-                        <MenuItem value="mother">Mother</MenuItem>
-                        <MenuItem value="spouse">Spouse</MenuItem>
-                        <MenuItem value="children">Children</MenuItem>
-                        <MenuItem value="self">Self</MenuItem>
+                        <MenuItem value="Parent">Parent</MenuItem>
+                        <MenuItem value="Spouse">Spouse</MenuItem>
+                        <MenuItem value="Chil">Children</MenuItem>
+                        <MenuItem value="Self">Self</MenuItem>
+                        <MenuItem value="Other">Other</MenuItem>
                     </Select>
                 </FormControl>
 

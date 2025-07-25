@@ -60,7 +60,7 @@ function NewRequestMisc() {
             claim_type_id: formData.itemTypeId,
             title: formData.title,
             description: formData.description,
-            relationship: 'Other',
+            relationship: 'Self',
             submitted_amount: formData.totalAmount,
             month: new Date().toLocaleString('default', { month: 'long' }),
             images: formData.attachments
