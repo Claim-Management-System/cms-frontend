@@ -17,12 +17,10 @@
 
 .form-section {
     flex: 1;
-    /* min-width: 300px; */
 }
 
 .preview-section {
     flex: 1;
-    /* min-width: 300px; */
 }
 
 .form-actions-container {
@@ -34,7 +32,7 @@
 .footer-note {
     font-size: 0.8rem;
     color: #555;
-    text-align: right;
+    text-align: left;
     color: #8F9094;
 }
 

@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import {
-    TextField,
-    MenuItem,
-    // Button,
-    Select,
-    FormControl,
-    InputLabel,
-    // FormHelperText,
-    OutlinedInput,
-    type SelectChangeEvent,
-} from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import type { FormType, MiscFormData, OpdFormData } from '../../types'
 import { useError } from '../../context/errorContext';
 import { getClaimTypesFromApi } from '../../services/dataServices/claimsRequest'
+import type { FormType, FormData } from '../../types'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { 
+    TextField, 
+    MenuItem, 
+    Select, 
+    FormControl, 
+    InputLabel, 
+    OutlinedInput, 
+    type SelectChangeEvent,
+} from '@mui/material';
 import './ReceiptInfoForm.css';
+
 
 interface ReceiptInfoFormProps {
     formType: FormType;
-    formData: MiscFormData | OpdFormData;
+    formData: FormData;
     onFormDataChange: (field: string, value: string) => void;
     submitted: boolean;
 }
 
 interface ClaimType {
-  id: number;
-  type: string;
+    id: number;
+    type: string;
 }
 
 const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, onFormDataChange, submitted }) => {
@@ -41,105 +40,55 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
     };
 
     useEffect(() => {
-    const fetchClaimTypes = async () => {
-      try {
-        const response = await getClaimTypesFromApi(formType); 
-        setClaimTypes(response);
-      } catch (error) {
-        setError("Failed to fetch claim types")
-      }
-    };
+        const fetchClaimTypes = async () => {
+            try {
+                const response = await getClaimTypesFromApi(formType);
+                setClaimTypes(response);
+            } catch (error) {
+                setError("Failed to fetch claim types")
+            }
+        };
 
-    fetchClaimTypes();
-  }, []);
+        fetchClaimTypes();
+    }, []);
 
 
     const renderMiscExpenseFields = () => {
-        const data = formData as MiscFormData;
-
         return (
-            <>
-                <FormControl fullWidth margin="normal" className="custom-form-control">
-                    <InputLabel htmlFor="title" required shrink>Title</InputLabel>
-                    <OutlinedInput
-                        id="title"
-                        name="title"
-                        label="Title"
-                        placeholder="Type here..."
-                        notched
-                        value={data.title}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </FormControl>
-
-                <FormControl fullWidth margin="normal" required className="custom-form-control">
-                    <InputLabel id="item-purpose-label" shrink>Item/Purpose</InputLabel>
-                    <Select
-                        labelId="item-purpose-label"
-                        id="itemType"
-                        name="itemType"
-                        value={data.itemTypeId}
-                        label="Item/Purpose"
-                        onChange={handleSelectChange}
-                        notched
-                        MenuProps={{ autoFocus: false }}
-                        required
-                        IconComponent={KeyboardArrowDownIcon}
-                    >
-                        {claimTypes.map((option) => (
-                            <MenuItem className="capitalize-text" key={option.id} value={option.id}>
-                                {option.type}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-
-                <FormControl fullWidth margin="normal" className="custom-form-control">
-                    <TextField
-                        id="description"
-                        name="description"
-                        label="Description"
-                        multiline
-                        rows={4}
-                        required
-                        placeholder="Type here..."
-                        value={data.description}
-                        onChange={handleInputChange}
-                        inputProps={{ maxLength: 200 }}
-                        helperText={`${data.description.length}/200`}
-                        InputLabelProps={{ shrink: true }}
-                    />
-                </FormControl>
-            </>
+            <FormControl fullWidth margin="normal" required className="custom-form-control">
+                <InputLabel id="item-purpose-label" shrink>Item/Purpose</InputLabel>
+                <Select
+                    labelId="item-purpose-label"
+                    id="itemType"
+                    name="itemTypeId"
+                    value={formData.itemTypeId}
+                    label="Item/Purpose"
+                    onChange={handleSelectChange}
+                    notched
+                    MenuProps={{ autoFocus: false }}
+                    required
+                    IconComponent={KeyboardArrowDownIcon}
+                >
+                    {claimTypes.map((option) => (
+                        <MenuItem className="capitalize-text" key={option.id} value={option.id}>
+                            {option.type}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
         );
     }
 
     const renderOutPatientClaimFields = () => {
-        const data = formData as OpdFormData;
         return (
             <>
-                <FormControl fullWidth margin="normal" className="custom-form-control">
-                    <InputLabel htmlFor="title" required shrink>Title</InputLabel>
-                    <OutlinedInput
-                        id="title"
-                        name="title"
-                        label="Title"
-                        placeholder="Type here..."
-                        notched
-                        value={data.title}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </FormControl>
-
                 <FormControl fullWidth margin="normal" required className="custom-form-control">
                     <InputLabel id="relationship-label" shrink>Relationship</InputLabel>
                     <Select
                         labelId="relationship-label"
                         id="relationship"
                         name="relationship"
-                        value={data.relationship}
+                        value={formData.relationship}
                         label="Relationship"
                         onChange={handleSelectChange}
                         notched
@@ -160,8 +109,8 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                     <Select
                         labelId="purpose-of-visit-label"
                         id="itemType"
-                        name="itemType"
-                        value={data.purposeOfVisit}
+                        name="itemTypeId"
+                        value={formData.itemTypeId}
                         label="Purpose of Visit"
                         onChange={handleSelectChange}
                         notched
@@ -182,7 +131,38 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
 
     return (
         <div className={`receipt-form-container ${submitted ? 'submitted' : ''}`}>
+            <FormControl fullWidth margin="normal" className="custom-form-control">
+                <InputLabel htmlFor="title" required shrink>Title</InputLabel>
+                <OutlinedInput
+                    id="title"
+                    name="title"
+                    label="Title"
+                    placeholder="Type here..."
+                    notched
+                    value={formData.title}
+                    onChange={handleInputChange}
+                    required
+                />
+            </FormControl>
+
             {formType === "MISCELLANEOUS EXPENSE FORM" ? renderMiscExpenseFields() : renderOutPatientClaimFields()}
+
+            <FormControl fullWidth margin="normal" className="custom-form-control">
+                <TextField
+                    id="description"
+                    name="description"
+                    label="Description"
+                    multiline
+                    rows={4}
+                    required
+                    placeholder="Type here..."
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    inputProps={{ maxLength: 200 }}
+                    helperText={`${formData.description?.length}/200`}
+                    InputLabelProps={{ shrink: true }}
+                />
+            </FormControl>
 
             <FormControl fullWidth margin="normal" required className="custom-form-control">
                 <InputLabel htmlFor="total-amount" shrink>Total Amount claimed</InputLabel>

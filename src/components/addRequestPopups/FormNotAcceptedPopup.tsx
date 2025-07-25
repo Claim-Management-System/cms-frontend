@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './Popups.css';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
@@ -20,7 +19,7 @@ const FormNotAcceptedPopup: React.FC<FormNotAcceptedPopupProps> = ({ onReview, o
                         Form not accepted
                     </div>
                     <div className="popup-secondary-text" style={{ color: '#626469' }}>
-                        There was an error in submitting your form. Please check your connection.
+                        There was an error in submitting your form.
                     </div>
                 </div>
                 <div className="popup-actions">
@@ -28,6 +27,7 @@ const FormNotAcceptedPopup: React.FC<FormNotAcceptedPopupProps> = ({ onReview, o
                         className="popup-button"
                         style={{ backgroundColor: '#1CA8DD', color: '#FFFFFF' }}
                         onClick={onReview}
+                        type="button" 
                     >
                         Review Request
                     </button>
@@ -35,6 +35,7 @@ const FormNotAcceptedPopup: React.FC<FormNotAcceptedPopupProps> = ({ onReview, o
                         className="popup-button"
                         style={{ backgroundColor: '#E9E9EA', color: '#4C4E54' }}
                         onClick={onResubmit}
+                        type="button" 
                     >
                         Resubmit
                     </button>

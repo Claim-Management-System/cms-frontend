@@ -12,22 +12,14 @@ export interface ClaimRecord {
 
 export type FormType =
     | "MISCELLANEOUS EXPENSE FORM"
-    | "OUT PATIENT CLAIM FORM";
+    | "OUT PATIENT EXPENSE FORM";
 
-export interface MiscFormData {
-    title: string;
-    itemTypeId: string;
-    description: string;
-    totalAmount: number;
-}
-
-export interface OpdFormData {
-    title: string;
-    patientName: string;
-    relationship: string;
-    purposeOfVisit: string;
-    expenseType: string;
-    totalAmount: number;
+export interface FormData {
+  title: string;
+  itemTypeId: string;
+  description: string;
+  relationship: string;
+  totalAmount: number;
 }
 
 export type newAddRequest = {
@@ -36,7 +28,6 @@ export type newAddRequest = {
   claim_type_id: string,
   title: string,
   description: string,
-  purpose_of_visit?: string,
   relationship: string,
   submitted_amount: number,
   month: string,

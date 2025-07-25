@@ -28,6 +28,7 @@ const FormSubmittedPopup: React.FC<FormSubmittedPopupProps> = ({ onViewHistory, 
                         className="popup-button"
                         style={{ backgroundColor: '#1CA8DD', color: '#FFFFFF' }}
                         onClick={onViewHistory}
+                        type="button" 
                     >
                         View Claim History
                     </button>
@@ -35,6 +36,7 @@ const FormSubmittedPopup: React.FC<FormSubmittedPopupProps> = ({ onViewHistory, 
                         className="popup-button"
                         style={{ backgroundColor: '#E9E9EA', color: '#4C4E54' }}
                         onClick={onClose}
+                        type="button" 
                     >
                         Close
                     </button>

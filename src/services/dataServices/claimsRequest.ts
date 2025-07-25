@@ -25,7 +25,7 @@ export const postNewRequest = async (formData: newAddRequest) => {
     const data = new FormData();
      Object.keys(formData).forEach(key => {
       const typedKey = key as keyof newAddRequest;
-      
+      console.log(typedKey, String(formData[typedKey]))
       if (typedKey !== 'images') {
         data.append(typedKey, String(formData[typedKey]));
       }
@@ -43,11 +43,13 @@ export const postNewRequest = async (formData: newAddRequest) => {
     });
 
     console.log('Claim submitted successfully:', response);
-    return response.data;
+    return response;
   } catch (error: any) {
+    console.log(error)
     throw error;
   }
 }
+
 
 
 export const getClaimTypesFromApi = async (form: FormType) => {
