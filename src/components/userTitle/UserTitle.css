@@ -2,18 +2,18 @@
 
 .user-title-container {
     font-family: 'ITCAvantG', sans-serif !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 40px !important;
 }
 
 .main-text {
-    font-size: 22px;
+    font-size: 20px;
     color: #1F2229;
     margin: 0 0 4px 0;
     font-weight: 300;
 }
 
 .sub-text {
-    font-size: 14px;
+    font-size: 15px;
     color: #35383E;
     margin: 0;
     font-weight: 100;

@@ -8,6 +8,7 @@ import type { FormType, OpdFormData } from '../../types';
 import FormScanningPopup from '../../components/addRequestPopups/FormScanningPopup.tsx';
 import FormSubmittedPopup from '../../components/addRequestPopups/FormSubmittedPopup.tsx';
 import FormNotAcceptedPopup from '../../components/addRequestPopups/FormNotAcceptedPopup.tsx';
+import Header from '../../components/Header.tsx';
 
 const NewRequestOpd: React.FC = () => {
     const formType: FormType = "OUT PATIENT CLAIM FORM";
@@ -17,7 +18,7 @@ const NewRequestOpd: React.FC = () => {
         relationship: '',
         purposeOfVisit: '',
         expenseType: '',
-        totalAmount: '',
+        totalAmount: 0,
         attachments: [],
     };
     const [formData, setFormData] = useState<OpdFormData & { attachments: File[] }>(initialFormData);
@@ -116,37 +117,37 @@ const NewRequestOpd: React.FC = () => {
     };
 
     return (
-        <form className="new-request-container" onSubmit={handleSubmit} noValidate>
-            <UserTitle
-                mainText={formType}
-                subText="Shane Hussain Naqvi - Director"
-            />
-            <main className="main-body">
-                <div className="form-section">
-                    <ReceiptInfoForm
-                        formType={formType}
-                        formData={formData}
-                        onFormDataChange={(field: string, value: string) => handleFormDataChange(field as keyof OpdFormData, value)}
-                        submitted={submitted}
-                    />
+        <>
+            <Header pageName='New Request / Misc' />
+            <form className="new-request-container" onSubmit={handleSubmit} noValidate>
+                <UserTitle mainText={formType} />
+                <main className="main-body">
+                    <div className="form-section">
+                        <ReceiptInfoForm
+                            formType={formType}
+                            formData={formData}
+                            onFormDataChange={(field: string, value: string) => handleFormDataChange(field as keyof OpdFormData, value)}
+                            submitted={submitted}
+                        />
+                    </div>
+                    <div className="preview-section">
+                        <ReceiptPreview onImageUpload={handleImageUpload} submitted={submitted} reset={resetPreview} mode="upload" />
+                        <p className="footer-note">
+                            <span className="asterisk">*</span> Please ensure to attach all original receipts while submitting this form.
+                        </p>
+                    </div>
+                </main>
+                <div className="form-actions-container">
+                    <Button variant="contained" color="primary" className="submit-button" type="submit">
+                        Submit Form
+                    </Button>
+                    {error && <p className="error-message">{error}</p>}
                 </div>
-                <div className="preview-section">
-                    <ReceiptPreview onImageUpload={handleImageUpload} submitted={submitted} reset={resetPreview} mode="upload" />
-                    <p className="footer-note">
-                        <span className="asterisk">*</span> Please ensure to attach all original receipts while submitting this form.
-                    </p>
-                </div>
-            </main>
-            <div className="form-actions-container">
-                <Button variant="contained" color="primary" className="submit-button" type="submit">
-                    Submit Form
-                </Button>
-                {error && <p className="error-message">{error}</p>}
-            </div>
-            {popupState === 'scanning' && <FormScanningPopup />}
-            {popupState === 'submitted' && <FormSubmittedPopup onViewHistory={handleViewHistory} onClose={handleClose} />}
-            {popupState === 'not-accepted' && <FormNotAcceptedPopup onReview={handleReviewRequest} onResubmit={handleResubmit} />}
-        </form>
+                {popupState === 'scanning' && <FormScanningPopup />}
+                {popupState === 'submitted' && <FormSubmittedPopup onViewHistory={handleViewHistory} onClose={handleClose} />}
+                {popupState === 'not-accepted' && <FormNotAcceptedPopup onReview={handleReviewRequest} onResubmit={handleResubmit} />}
+            </form>
+        </>
     );
 };
 

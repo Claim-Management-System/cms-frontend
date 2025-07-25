@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     TextField,
     MenuItem,
@@ -11,8 +11,10 @@ import {
     type SelectChangeEvent,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import './ReceiptInfoForm.css';
 import type { FormType, MiscFormData, OpdFormData } from '../../types'
+import { useError } from '../../context/errorContext';
+import { getClaimTypesFromApi } from '../../services/dataServices/claimsRequest'
+import './ReceiptInfoForm.css';
 
 interface ReceiptInfoFormProps {
     formType: FormType;
@@ -21,7 +23,14 @@ interface ReceiptInfoFormProps {
     submitted: boolean;
 }
 
+interface ClaimType {
+  id: number;
+  type: string;
+}
+
 const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, onFormDataChange, submitted }) => {
+    const [claimTypes, setClaimTypes] = useState<ClaimType[]>([]);
+    const { setError } = useError();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         onFormDataChange(event.target.id, event.target.value);
@@ -31,12 +40,25 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
         onFormDataChange(event.target.name, event.target.value);
     };
 
+    useEffect(() => {
+    const fetchClaimTypes = async () => {
+      try {
+        const response = await getClaimTypesFromApi(formType); 
+        setClaimTypes(response);
+      } catch (error) {
+        setError("Failed to fetch claim types")
+      }
+    };
+
+    fetchClaimTypes();
+  }, []);
+
 
     const renderMiscExpenseFields = () => {
         const data = formData as MiscFormData;
+
         return (
             <>
-                {/* --- Title Field --- */}
                 <FormControl fullWidth margin="normal" className="custom-form-control">
                     <InputLabel htmlFor="title" required shrink>Title</InputLabel>
                     <OutlinedInput
@@ -51,14 +73,13 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                     />
                 </FormControl>
 
-                {/* --- Item/Purpose Field --- */}
                 <FormControl fullWidth margin="normal" required className="custom-form-control">
                     <InputLabel id="item-purpose-label" shrink>Item/Purpose</InputLabel>
                     <Select
                         labelId="item-purpose-label"
                         id="itemType"
                         name="itemType"
-                        value={data.itemType}
+                        value={data.itemTypeId}
                         label="Item/Purpose"
                         onChange={handleSelectChange}
                         notched
@@ -66,32 +87,14 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                         required
                         IconComponent={KeyboardArrowDownIcon}
                     >
-                        <MenuItem value="internet">Internet</MenuItem>
-                        <MenuItem value="courses">Courses</MenuItem>
-                        <MenuItem value="meal-reimbursement">Meal Reimbursement</MenuItem>
-                        <MenuItem value="travelling-fare">Travelling Fare</MenuItem>
-                        <MenuItem value="other">Other</MenuItem>
+                        {claimTypes.map((option) => (
+                            <MenuItem className="capitalize-text" key={option.id} value={option.id}>
+                                {option.type}
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
 
-                {/* --- NEW: Conditionally render TextField for 'Other' --- */}
-                {data.itemType === 'other' && (
-                    <FormControl fullWidth margin="normal" className="custom-form-control">
-                        <InputLabel htmlFor="otherItemType" required shrink>Specify if Selected Other</InputLabel>
-                        <OutlinedInput
-                            id="otherItemType"
-                            name="otherItemType"
-                            label="Specify if Selected Other"
-                            placeholder="Type here..."
-                            notched
-                            value={data.otherItemType || ''}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </FormControl>
-                )}
-
-                {/* --- Description Field --- */}
                 <FormControl fullWidth margin="normal" className="custom-form-control">
                     <TextField
                         id="description"
@@ -116,7 +119,6 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
         const data = formData as OpdFormData;
         return (
             <>
-                {/* --- Title Field --- */}
                 <FormControl fullWidth margin="normal" className="custom-form-control">
                     <InputLabel htmlFor="title" required shrink>Title</InputLabel>
                     <OutlinedInput
@@ -131,7 +133,6 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                     />
                 </FormControl>
 
-                {/* --- Patient's Name Field --- */}
                 <FormControl fullWidth margin="normal" required className="custom-form-control">
                     <InputLabel htmlFor="patient-name" shrink>Patient's Name</InputLabel>
                     <OutlinedInput
@@ -146,7 +147,6 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                     />
                 </FormControl>
 
-                {/* --- Relationship Field --- */}
                 <FormControl fullWidth margin="normal" required className="custom-form-control">
                     <InputLabel id="relationship-label" shrink>Relationship</InputLabel>
                     <Select
@@ -169,13 +169,12 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                     </Select>
                 </FormControl>
 
-                {/* --- Purpose of Visit Field --- */}
                 <FormControl fullWidth margin="normal" required className="custom-form-control">
                     <InputLabel id="purpose-of-visit-label" shrink>Purpose of Visit</InputLabel>
                     <Select
                         labelId="purpose-of-visit-label"
-                        id="purposeOfVisit"
-                        name="purposeOfVisit"
+                        id="itemType"
+                        name="itemType"
                         value={data.purposeOfVisit}
                         label="Purpose of Visit"
                         onChange={handleSelectChange}
@@ -184,47 +183,11 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
                         required
                         IconComponent={KeyboardArrowDownIcon}
                     >
-                        <MenuItem value="monthly-checkup">Monthly Checkup</MenuItem>
-                        <MenuItem value="medical-tests">Medical Tests</MenuItem>
-                        <MenuItem value="other">Other</MenuItem>
-                    </Select>
-                </FormControl>
-
-                {/* --- NEW: Conditionally render TextField for 'Other' --- */}
-                {data.purposeOfVisit === 'other' && (
-                    <FormControl fullWidth margin="normal" className="custom-form-control">
-                        <InputLabel htmlFor="otherPurposeOfVisit" required shrink>Specify if Selected Other</InputLabel>
-                        <OutlinedInput
-                            id="otherPurposeOfVisit"
-                            name="otherPurposeOfVisit"
-                            label="Specify if Selected Other"
-                            placeholder="Type here..."
-                            notched
-                            value={data.otherPurposeOfVisit || ''}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </FormControl>
-                )}
-
-                {/* --- Specify the type of expense Field --- */}
-                <FormControl fullWidth margin="normal" required className="custom-form-control">
-                    <InputLabel id="expense-type-label" shrink>Specify the type of expense</InputLabel>
-                    <Select
-                        labelId="expense-type-label"
-                        id="expenseType"
-                        name="expenseType"
-                        value={data.expenseType}
-                        label="Specify the type of expense"
-                        onChange={handleSelectChange}
-                        notched
-                        MenuProps={{ autoFocus: false }}
-                        required
-                        IconComponent={KeyboardArrowDownIcon}
-                    >
-                        <MenuItem value="consultation">Consultation</MenuItem>
-                        <MenuItem value="medicine">Medicine</MenuItem>
-                        <MenuItem value="lab-tests">Lab Tests</MenuItem>
+                        {claimTypes.map((option) => (
+                            <MenuItem className="capitalize-text" key={option.id} value={option.id}>
+                                {option.type.split('-')[1]}
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
             </>
@@ -235,13 +198,13 @@ const ReceiptInfoForm: React.FC<ReceiptInfoFormProps> = ({ formType, formData, o
         <div className={`receipt-form-container ${submitted ? 'submitted' : ''}`}>
             {formType === "MISCELLANEOUS EXPENSE FORM" ? renderMiscExpenseFields() : renderOutPatientClaimFields()}
 
-            {/* --- Total Amount Field --- */}
             <FormControl fullWidth margin="normal" required className="custom-form-control">
-                <InputLabel htmlFor="total-amount" shrink>Total Amount claimed in numbers</InputLabel>
+                <InputLabel htmlFor="total-amount" shrink>Total Amount claimed</InputLabel>
                 <OutlinedInput
                     id="totalAmount"
                     name="totalAmount"
-                    label="Total Amount claimed in numbers"
+                    label="Total Amount claimed"
+                    type='number'
                     placeholder="Type here..."
                     notched
                     value={formData.totalAmount}

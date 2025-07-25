@@ -11,16 +11,16 @@ import FormNotAcceptedPopup from '../../components/addRequestPopups/FormNotAccep
 import { useError } from '../../context/errorContext.tsx';
 import { useAuth } from '../../context/authContext.tsx';
 import { postNewRequest } from '../../services/dataServices/claimsRequest.ts';
-import type { FormType, MiscFormData } from '../../types';
+import type { FormType, MiscFormData, newAddRequest } from '../../types';
 import './AddReq.css';
 
 function NewRequestMisc() {
     const formType: FormType = "MISCELLANEOUS EXPENSE FORM";
     const initialFormData: MiscFormData & { attachments: File[] } = {
         title: '',
-        itemType: '',
+        itemTypeId: '',
         description: '',
-        totalAmount: '',
+        totalAmount: 0,
         attachments: [],
     };
 
@@ -34,7 +34,7 @@ function NewRequestMisc() {
     const { user } = useAuth();
 
     const checkIsFormValid = useCallback(() => {
-        const requiredFields: (keyof MiscFormData)[] = ['title', 'itemType', 'description', 'totalAmount'];
+        const requiredFields: (keyof MiscFormData)[] = ['title', 'itemTypeId', 'description', 'totalAmount'];
         const isFormFilled = requiredFields.every(field => {
             const value = formData[field];
             return value && String(value).trim() !== '';
@@ -43,7 +43,7 @@ function NewRequestMisc() {
         return isFormFilled && hasAttachments;
     }, [formData]);
 
-    const handleFormDataChange = (field: keyof MiscFormData, value: string) => {
+    const handleFormDataChange = (field: keyof MiscFormData, value: string | number) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
@@ -54,10 +54,10 @@ function NewRequestMisc() {
     const submitForm = async () => {
         setPopupState('scanning');
 
-        const myFormData = {
-            user_id: user?.id,
-            employee_number: user?.employeeId || 1004,
-            claim_type_id: 1,
+        const myFormData: newAddRequest = {
+            user_id: user?.id!,
+            employee_number: user?.employee_number!,
+            claim_type_id: formData.itemTypeId,
             title: formData.title,
             description: formData.description,
             relationship: 'Other',
@@ -116,7 +116,6 @@ function NewRequestMisc() {
             <form className="new-request-container" onSubmit={handleSubmit} noValidate>
                 <UserTitle
                     mainText={formType}
-                    subText="Shane Hussain Naqvi - Director"
                 />
 
                 <main className="main-body">

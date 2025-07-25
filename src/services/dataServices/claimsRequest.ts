@@ -1,4 +1,5 @@
 import apiClient from './axiosConfig';
+import type { newAddRequest, FormType } from '../../types';
 
 type getClaimsRequestProps = {
   claimType: 'miscellaneous' | 'medical';
@@ -18,24 +19,12 @@ export const getClaimsRequest = async ({ claimType, search, page }: getClaimsReq
 };
 
 
-type postNewRequestProps = {
-  user_id: string,
-  employee_number: number,
-  claim_type_id: number,
-  title: string,
-  description: string,
-  purpose_of_visit?: string,
-  relationship: string,
-  submitted_amount: number,
-  month: string,
-  images: File[]
-}
 
-export const postNewRequest = async (formData: postNewRequestProps) => {
+export const postNewRequest = async (formData: newAddRequest) => {
   try {
     const data = new FormData();
      Object.keys(formData).forEach(key => {
-      const typedKey = key as keyof postNewRequestProps;
+      const typedKey = key as keyof newAddRequest;
       
       if (typedKey !== 'images') {
         data.append(typedKey, String(formData[typedKey]));
@@ -59,3 +48,21 @@ export const postNewRequest = async (formData: postNewRequestProps) => {
     throw error;
   }
 }
+
+
+export const getClaimTypesFromApi = async (form: FormType) => {
+  let params: { name?: string } = {};
+
+  if (form === "MISCELLANEOUS EXPENSE FORM") {
+    params.name = 'misc';
+  } else {
+    params.name = 'medical';
+  }
+
+  try {
+    const response = await apiClient.get('/api/claim-types', { params });
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
+};

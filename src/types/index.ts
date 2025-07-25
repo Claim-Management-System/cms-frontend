@@ -16,10 +16,9 @@ export type FormType =
 
 export interface MiscFormData {
     title: string;
-    itemType: string;
-    otherItemType?: string; // NEW: To store the custom value for "Other"
+    itemTypeId: string;
     description: string;
-    totalAmount: string;
+    totalAmount: number;
 }
 
 export interface OpdFormData {
@@ -27,7 +26,19 @@ export interface OpdFormData {
     patientName: string;
     relationship: string;
     purposeOfVisit: string;
-    otherPurposeOfVisit?: string; // NEW: To store the custom value for "Other"
     expenseType: string;
-    totalAmount: string;
+    totalAmount: number;
+}
+
+export type newAddRequest = {
+  user_id: string,
+  employee_number: number,
+  claim_type_id: string,
+  title: string,
+  description: string,
+  purpose_of_visit?: string,
+  relationship: string,
+  submitted_amount: number,
+  month: string,
+  images: File[]
 }
