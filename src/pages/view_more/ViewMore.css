@@ -1,0 +1,42 @@
+.view-more-container {
+    display: flex;
+    padding: 24px;
+    background-color: #F8F9FA;
+    height: 100vh;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.left-panel,
+.right-panel {
+    flex: 1;
+    background-color: #F8F9FA;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.view-more-header {
+    display: flex;
+    justify-content: space-between;
+    align-items:end;
+    flex-basis: 100%;
+    margin-left: 24px;
+    margin-right: 24px;
+    border-bottom: solid 1px #E9E9EA;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .view-more-container {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .left-panel,
+    .right-panel {
+        flex: 1 1 100%;
+        height: auto;
+    }
+}
