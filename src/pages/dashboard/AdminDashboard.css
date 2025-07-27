@@ -1,0 +1,10 @@
+.employee-details {
+    max-width: 1000px;
+    font-size: 28px;
+    font-family: 'ITCAvantG';
+    font-weight: 450;
+    color: #626469;
+    margin: 20px auto !important;
+    border-bottom: 1px solid #d3d3d3;;
+    border-top: 1px solid #d3d3d3;;
+} 

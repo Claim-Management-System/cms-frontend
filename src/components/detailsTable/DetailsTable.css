@@ -1,0 +1,41 @@
+.details-table-container {
+    margin: 30px auto;
+    max-width: 1000px;
+}
+
+.details-table-title {
+    font-family: 'ITCAvantG' !important;
+    color: #626469;
+    margin-bottom: 10px !important;
+    font-size: 24px !important;
+}
+
+.details-table-paper {
+    background-color: #F4F6F8 !important;
+    box-shadow: 0px 4px 4px 0px #0000001A !important;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.details-table-head .MuiTableCell-root {
+    background-color: #333333;
+    color: white;
+    font-family: 'ITCAvantG', sans-serif;
+    border-bottom: none;
+    font-size: 16px;
+}
+
+.details-table-head .MuiTableCell-root:not(:last-child) {
+    border-right: 1px solid #666;
+}
+
+.details-table-paper .MuiTableBody-root .MuiTableCell-root:not(:last-child) {
+    border-right: 1px solid #d3d3d3;
+}
+
+.details-table-paper .MuiTableBody-root .MuiTableCell-root {
+    font-family: 'LLCirc' !important;
+    font-weight: 450 !important;
+    font-size: 15px !important;
+};
+
