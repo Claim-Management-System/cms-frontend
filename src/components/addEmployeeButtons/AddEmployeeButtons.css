@@ -1,0 +1,43 @@
+@import '../../index.css';
+
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.submit-btn,
+.cancel-btn {
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'LLCirc';
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-btn {
+  background-color: #1CA8DD;
+  color: white;
+  border: none;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+.cancel-btn {
+  background-color: #f9fafb;
+  color: #4C4E54;
+  border: 1px solid #4C4E54;
+}
+
+.cancel-btn:hover {
+  opacity: 0.9;
+
+}
