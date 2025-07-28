@@ -6,8 +6,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import './EmployeeInfo.css';
 
-type Role = 'admin' | 'user';
-type RoleExtension = 'normal' | 'ds' | 'hr' | 'social' | 'admin';
+type Role = 'admin' | 'employee';
 type EmployeeType = 'permanent' | 'contractual';
 type MaritalStatus = 'single' | 'married' | 'family';
 
@@ -18,12 +17,15 @@ export interface EmployeeInterface {
   dob: string;
   joiningDate: string;
   role: Role;
-  roleExtension: RoleExtension;
   employeeType: EmployeeType;
   team: string;
   bankAccountNumber: string;
   employeeId: string;
   maritalStatus: MaritalStatus;
+  workLocation: string;
+  jobTitle: string;
+  position: string;
+  phoneNumber: string;
   age?: number;
 }
 
@@ -34,6 +36,7 @@ type EmployeeInfoProps = {
   onFormChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onSelectChange: (e: SelectChangeEvent<string>) => void;
   submitted: boolean;
+  locations: string[];
 };
 
 const generateRandomPassword = (length = 12) => {
@@ -52,6 +55,7 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
   onFormChange,
   onSelectChange,
   submitted,
+  locations,
 }) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -113,6 +117,45 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
             variant="outlined"
             InputLabelProps={{ shrink: true }}
             error={submitted && !formData.email}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} className="custom-form-control">
+          <TextField
+            name="jobTitle"
+            label="Job Title"
+            value={formData.jobTitle}
+            onChange={onFormChange}
+            fullWidth
+            required
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+            error={submitted && !formData.jobTitle}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} className="custom-form-control">
+          <TextField
+            name="position"
+            label="Position"
+            value={formData.position}
+            onChange={onFormChange}
+            fullWidth
+            required
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+            error={submitted && !formData.position}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} className="custom-form-control">
+          <TextField
+            name="phoneNumber"
+            label="Phone Number"
+            value={formData.phoneNumber}
+            onChange={onFormChange}
+            fullWidth
+            required
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+            error={submitted && !formData.phoneNumber}
           />
         </Grid>
         {mode === 'create' && (
@@ -199,26 +242,7 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
               label="Role"
               required
             >
-              <MenuItem value="user">User</MenuItem>
-              <MenuItem value="admin">Admin</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <FormControl fullWidth variant="outlined" className="custom-form-control" error={submitted && !formData.roleExtension}>
-            <InputLabel id="role-extension-label" shrink required>Role Extension</InputLabel>
-            <Select
-              labelId="role-extension-label"
-              name="roleExtension"
-              value={formData.roleExtension}
-              onChange={onSelectChange}
-              label="Role Extension"
-              required
-            >
-              <MenuItem value="normal">Normal</MenuItem>
-              <MenuItem value="ds">DS</MenuItem>
-              <MenuItem value="hr">HR</MenuItem>
-              <MenuItem value="social">Social</MenuItem>
+              <MenuItem value="employee">Employee</MenuItem>
               <MenuItem value="admin">Admin</MenuItem>
             </Select>
           </FormControl>
@@ -292,6 +316,25 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
               <MenuItem value="single">Single</MenuItem>
               <MenuItem value="married">Married</MenuItem>
               <MenuItem value="family">Family</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <FormControl fullWidth variant="outlined" className="custom-form-control" error={submitted && !formData.workLocation}>
+            <InputLabel id="work-location-label" shrink required>Work Location</InputLabel>
+            <Select
+              labelId="work-location-label"
+              name="workLocation"
+              value={formData.workLocation}
+              onChange={onSelectChange}
+              label="Work Location"
+              required
+            >
+              {locations.map((location) => (
+                <MenuItem key={location} value={location}>
+                  {location}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>

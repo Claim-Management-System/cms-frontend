@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import EmployeeInfo from '../../components/employeeInfo/EmployeeInfo';
 import type { EmployeeInterface } from '../../components/employeeInfo/EmployeeInfo';
-import AddEmployeeButtons from '../../components/addEmployeeButtons/AddEmployeeButtons';
 import Header from '../../components/Header';
+import DoneIcon from '@mui/icons-material/Done';
+import BlockIcon from '@mui/icons-material/Block';
 import './AddEmployee.css';
 import type { SelectChangeEvent } from '@mui/material';
+import { getLocations } from '../../services/dataServices/location';
 
 const requiredFields: (keyof EmployeeInterface)[] = [
     'firstName', 'lastName', 'email', 'dob', 'joiningDate', 'role',
-    'roleExtension', 'employeeType', 'team', 'bankAccountNumber',
-    'employeeId', 'maritalStatus'
+    'employeeType', 'team', 'bankAccountNumber',
+    'employeeId', 'maritalStatus', 'workLocation', 'jobTitle', 'position', 'phoneNumber'
 ];
 
 const dummyEmployeeData: EmployeeInterface = {
@@ -18,13 +20,16 @@ const dummyEmployeeData: EmployeeInterface = {
   email: 'john.doe@example.com',
   dob: '1990-01-01',
   joiningDate: '2020-01-15',
-  role: 'user',
-  roleExtension: 'normal',
+  role: 'employee',
   employeeType: 'permanent',
   team: 'Development',
   bankAccountNumber: '1234567890',
   employeeId: 'EMP123',
   maritalStatus: 'single',
+  workLocation: 'New York',
+  jobTitle: 'Software Engineer',
+  position: 'Senior',
+  phoneNumber: '123-456-7890',
 };
 
 type AddEmployeeProps = {
@@ -39,19 +44,31 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({ mode = 'edit', employeeData =
     email: '',
     dob: '',
     joiningDate: '',
-    role: 'user',
-    roleExtension: 'normal',
+    role: 'employee',
     employeeType: 'permanent',
     team: '',
     bankAccountNumber: '',
     employeeId: '',
     maritalStatus: 'single',
+    workLocation: '',
     age: undefined,
+    jobTitle: '',
+    position: '',
+    phoneNumber: '',
   });
 
   const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [validationError, setValidationError] = useState('');
+  const [locations, setLocations] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const locationData = await getLocations();
+      setLocations(locationData);
+    };
+    fetchLocations();
+  }, []);
 
 
   const isFormValid = useCallback(() => {
@@ -129,9 +146,8 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({ mode = 'edit', employeeData =
 
   return (
     <>
-      <Header pageName='Add Employee' />
+      <Header pageName={mode === 'edit' ? 'Edit Employee' : 'Add New Employee'} />
       <div className="add-employee-container">
-        <h1>{mode === 'edit' ? 'Edit Employee' : 'Add New Employee'}</h1>
         <form onSubmit={handleSubmit} noValidate>
           <EmployeeInfo
             mode={mode}
@@ -140,11 +156,19 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({ mode = 'edit', employeeData =
             onFormChange={handleChange}
             onSelectChange={handleSelectChange}
             submitted={submitted}
+            locations={locations}
           />
           <div className="form-actions">
             {validationError && <p className="validation-error">{validationError}</p>}
             <div className="buttons-wrapper">
-              <AddEmployeeButtons onCancel={handleCancel} />
+              <button type="button" className="cancel-btn" onClick={handleCancel}>
+                Cancel
+                <BlockIcon sx={{ fontSize: 16, marginLeft: '8px' }} />
+              </button>
+              <button type="submit" className="submit-btn">
+                Submit
+                <DoneIcon sx={{ fontSize: 16, marginLeft: '8px' }} />
+              </button>
             </div>
           </div>
         </form>
