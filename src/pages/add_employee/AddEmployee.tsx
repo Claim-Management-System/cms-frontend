@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import EmployeeInfo from '../../components/employeeInfo/EmployeeInfo';
 import type { EmployeeInterface } from '../../components/employeeInfo/EmployeeInfo';
 import AddEmployeeButtons from '../../components/addEmployeeButtons/AddEmployeeButtons';
+import Header from '../../components/Header';
 import './AddEmployee.css';
 import type { SelectChangeEvent } from '@mui/material';
 
@@ -11,12 +12,27 @@ const requiredFields: (keyof EmployeeInterface)[] = [
     'employeeId', 'maritalStatus'
 ];
 
+const dummyEmployeeData: EmployeeInterface = {
+  firstName: 'John',
+  lastName: 'Doe',
+  email: 'john.doe@example.com',
+  dob: '1990-01-01',
+  joiningDate: '2020-01-15',
+  role: 'user',
+  roleExtension: 'normal',
+  employeeType: 'permanent',
+  team: 'Development',
+  bankAccountNumber: '1234567890',
+  employeeId: 'EMP123',
+  maritalStatus: 'single',
+};
+
 type AddEmployeeProps = {
-  mode: 'create' | 'edit';
+  mode?: 'create' | 'edit';
   employeeData?: EmployeeInterface;
 };
 
-const AddEmployee: React.FC<AddEmployeeProps> = ({ mode, employeeData }) => {
+const AddEmployee: React.FC<AddEmployeeProps> = ({ mode = 'edit', employeeData = dummyEmployeeData }) => {
   const [formData, setFormData] = useState<Omit<EmployeeInterface, 'age'> & { age?: number }>({
     firstName: '',
     lastName: '',
@@ -112,25 +128,28 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({ mode, employeeData }) => {
   };
 
   return (
-    <div className="add-employee-container">
-      <h1>{mode === 'edit' ? 'Edit Employee' : 'Add New Employee'}</h1>
-      <form onSubmit={handleSubmit} noValidate>
-        <EmployeeInfo
-          mode={mode}
-          formData={formData}
-          password={password}
-          onFormChange={handleChange}
-          onSelectChange={handleSelectChange}
-          submitted={submitted}
-        />
-        <div className="form-actions">
-          {validationError && <p className="validation-error">{validationError}</p>}
-          <div className="buttons-wrapper">
-            <AddEmployeeButtons onCancel={handleCancel} />
+    <>
+      <Header pageName='Add Employee' />
+      <div className="add-employee-container">
+        <h1>{mode === 'edit' ? 'Edit Employee' : 'Add New Employee'}</h1>
+        <form onSubmit={handleSubmit} noValidate>
+          <EmployeeInfo
+            mode={mode}
+            formData={formData}
+            password={password}
+            onFormChange={handleChange}
+            onSelectChange={handleSelectChange}
+            submitted={submitted}
+          />
+          <div className="form-actions">
+            {validationError && <p className="validation-error">{validationError}</p>}
+            <div className="buttons-wrapper">
+              <AddEmployeeButtons onCancel={handleCancel} />
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 };
 
