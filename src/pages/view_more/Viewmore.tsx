@@ -9,6 +9,7 @@ import AcceptPopup from '../../components/popups/AcceptPopup';
 import DeclinePopup from '../../components/popups/DeclinePopup';
 import EditPopup from '../../components/popups/EditPopup';
 import UserTitle from '../../components/userTitle/UserTitle';
+import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { getClaim, updateClaimStatus } from '../../services/dataServices/claimsHistory';
 import { getEmployee } from '../../services/dataServices/employee';
 import { Button } from '@mui/material';
@@ -17,7 +18,6 @@ import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
 import './ViewMore.css';
-
 
 const images = [
     "https://i.pinimg.com/564x/34/7b/40/347b40a091f421e63e060bd22e6e1b86.jpg",
@@ -31,6 +31,7 @@ function ViewMore() {
     const [acceptPopupOpen, setAcceptPopupOpen] = useState(false);
     const [declinePopupOpen, setDeclinePopupOpen] = useState(false);
     const [editPopupOpen, setEditPopupOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const { claimId } = useParams();
     const { user } = useAuth();
@@ -81,6 +82,7 @@ function ViewMore() {
 
     const fetchClaimAndEmployee = async (claimId: string) => {
         try {
+            setIsLoading(true)
             const data = await getClaim(claimId)
             setFormData(data.claims)
 
@@ -88,6 +90,8 @@ function ViewMore() {
             setEmployeeDetails(employee)
         } catch (error: any) {
             setError(error.message || 'Failed to fetch data!')
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -102,7 +106,7 @@ function ViewMore() {
     }, [formData])
 
 
-    return (
+    return !isLoading ? (
         <>
             <Header pageName='View Claim Details' />
             <div className="view-more-container">
@@ -174,7 +178,9 @@ function ViewMore() {
                 />
             </div>
         </>
-    );
+    ) : (
+        <LoadingScreen />
+    )
 };
 
 export default ViewMore;
