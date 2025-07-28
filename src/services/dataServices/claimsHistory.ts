@@ -56,4 +56,17 @@ const getClaim = async (claimId: string) => {
 }
 
 
-export { getClaimsHistory, getEmployeeClaimsHistory, getClaim }
+const updateClaimStatus = async (claimId: string, body: object) => {
+  try {
+    console.log("this is the put api for claims")
+    const response = await apiClient.put('/api/claims', { body }, {
+      params: { id: claimId }
+    })
+    console.log(response)
+  } catch (error: any) {
+    throw error;
+  }
+}
+
+
+export { getClaimsHistory, getEmployeeClaimsHistory, getClaim, updateClaimStatus }
