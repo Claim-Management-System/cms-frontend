@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './Popup.css';
@@ -6,20 +6,13 @@ import './Popup.css';
 interface DeclinePopupProps {
     open: boolean;
     onClose: () => void;
-    employeeName: string;
-    employeeId: string;
-    totalAmount: number;
     onReasonSelect: (reason: string) => void;
+    employee_name: string;
+    employee_number: number;
+    totalAmount: number;
 }
 
-const DeclinePopup: React.FC<DeclinePopupProps> = ({
-    open,
-    onClose,
-    employeeName,
-    employeeId,
-    totalAmount,
-    onReasonSelect
-}) => {
+function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_name, employee_number }: DeclinePopupProps) {
     const [selectedReason, setSelectedReason] = useState('');
 
     const rejectionReasons = [
@@ -68,11 +61,11 @@ const DeclinePopup: React.FC<DeclinePopupProps> = ({
             </IconButton>
             
             <DialogContent className="popup-content">
-                <Typography className="employee-name">{employeeName}</Typography>
+                <Typography className="employee-name">{employee_name}</Typography>
                 
                 <Box className="popup-field">
                     <Typography className="popup-label">Employee ID:</Typography>
-                    <Typography className="popup-value employee-info">{employeeId}</Typography>
+                    <Typography className="popup-value employee-info">{employee_number}</Typography>
                 </Box>
                 
                 <Box className="popup-field">
@@ -82,7 +75,7 @@ const DeclinePopup: React.FC<DeclinePopupProps> = ({
                 
                 <Box className="total-amount-section">
                     <Typography className="total-amount-label">Total Amount Claim Request</Typography>
-                    <Typography className="total-amount-value">${totalAmount.toFixed(2)}</Typography>
+                    <Typography className="total-amount-value">${totalAmount}</Typography>
                 </Box>
                 
                 <Box className="popup-field">

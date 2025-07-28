@@ -1,83 +1,62 @@
-import React from 'react';
-import {
-    FormControl,
-    InputLabel,
-    OutlinedInput,
-} from '@mui/material';
+import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
+import type { Claim } from '../../types';
 import './ReceiptView.css';
-import { type FormType } from '../../types';
-import type { MiscFormData, OpdFormData } from '../../types';
 
 interface ReceiptViewProps {
-    formType: FormType;
-    formData: MiscFormData | OpdFormData;
-    date: string;
-    time: string;
-    status: string;
+    formData: Claim | null;
 }
 
-const InfoField: React.FC<{ label: string; value: string; multiline?: boolean; rows?: number }> = ({ label, value, multiline = false, rows }) => (
-    <FormControl fullWidth margin="normal" className="custom-form-control">
-        <InputLabel shrink required>{label}</InputLabel>
-        <OutlinedInput
-            value={value}
-            readOnly
-            label={label}
-            notched
-            multiline={multiline}
-            rows={rows}
-        />
-    </FormControl>
-);
+interface InfoFieldProps {
+    label: string;
+    value: string;
+    multiline?: boolean;
+    rows?: number;
+}
 
+function ReceiptView({ formData }: ReceiptViewProps) {
+    const localDateTime = new Date(formData?.updated_at!).toLocaleString('en-IN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+    });
 
-const ReceiptView: React.FC<ReceiptViewProps> = ({ formType, formData, date, time, status }) => {
-
-    const renderMiscExpenseFields = () => {
-        const data = formData as MiscFormData;
-        return (
-            <>
-                <InfoField label="Title" value={data.title} />
-                <InfoField label="Item/Purpose" value={data.itemType} />
-                {data.itemType === 'Other' && (
-                    <InfoField label="Specify Other" value={data.otherItemType ?? ''} />
-                )}
-                <InfoField label="Description" value={data.description} multiline rows={4} />
-            </>
-        );
-    }
-
-    const renderOutPatientClaimFields = () => {
-        const data = formData as OpdFormData;
-        return (
-            <>
-                <InfoField label="Title" value={data.title} />
-                <InfoField label="Patient's Name" value={data.patientName} />
-                <InfoField label="Relationship" value={data.relationship} />
-                <InfoField label="Purpose of Visit" value={data.purposeOfVisit} />
-                {data.purposeOfVisit === 'Other' && (
-                    <InfoField label="Specify Other" value={data.otherPurposeOfVisit ?? ''} />
-                )}
-                <InfoField label="Specify the type of expense" value={data.expenseType} />
-            </>
-        )
-    };
+    const InfoField = ({ label, value, multiline = false, rows }: InfoFieldProps) => (
+        <FormControl fullWidth margin="normal" className="custom-form-control">
+            <InputLabel shrink required>{label}</InputLabel>
+            <OutlinedInput
+                value={value}
+                readOnly
+                label={label}
+                notched
+                multiline={multiline}
+                rows={rows}
+            />
+        </FormControl>
+    );
 
     return (
         <div>
             <div className="receipt-details-header">
                 <div className="datetime-container">
-                    <div className="datetime-box">{date}</div>
-                    <div className="datetime-box">{time}</div>
+                    <div className="datetime-box">{localDateTime}</div>
                 </div>
-                <span className={`status-chip ${status.toLowerCase()}`}>
-                    {status}
+                <span className={`status-chip ${formData?.status.toLowerCase()}`}>
+                    {formData?.status}
                 </span>
             </div>
 
             <div className="receipt-form-container">
-                {formType === "MISCELLANEOUS EXPENSE FORM" ? renderMiscExpenseFields() : renderOutPatientClaimFields()}
-                <InfoField label="Total Amount claimed in numbers" value={formData.totalAmount} />
+                <InfoField label="Title" value={formData?.title!} />
+                {formData?.relationship &&
+                    <InfoField label="Relationship" value={formData.relationship} />
+                }
+                <InfoField label="Item/Purpose" value={formData?.claim_type!} />
+                <InfoField label="Description" value={formData?.description!} multiline rows={4} />
+                <InfoField label="Total Amount claimed" value={String(formData?.submitted_amount)} />
             </div>
         </div>
     );
