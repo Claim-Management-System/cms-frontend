@@ -3,7 +3,7 @@ export interface ClaimRecord {
   user_id: string;
   employee_name: string;
   employee_number: string;
-  status: "accepted" | "rejected" | "pending";
+  status: "approved" | "rejected" | "pending";
   description?: string;
   purpose?: string;
   claim_type?: string
