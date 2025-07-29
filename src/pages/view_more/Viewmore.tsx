@@ -14,6 +14,7 @@ import { getClaim, updateClaimStatus } from '../../services/dataServices/claimsH
 import { getEmployee } from '../../services/dataServices/employee';
 import { Button } from '@mui/material';
 import type { Claim, Employee } from '../../types';
+import { USER_ROLES, STATUS } from '../../services/constantServices/constants';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
@@ -115,7 +116,7 @@ function ViewMore() {
                         mainText={employee_name}
                         // subText={employeeDetails?.work_email!}
                     />
-                    {user?.role === 'admin' && formData?.status === 'pending' && (
+                    {user?.role === USER_ROLES.ADMIN && formData?.status === STATUS.PENDING && (
                         <div className="admin-buttons-container">
                             <Button
                                 className="decline-button"

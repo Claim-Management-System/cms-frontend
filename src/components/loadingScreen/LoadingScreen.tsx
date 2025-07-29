@@ -2,7 +2,7 @@ import { Box, CircularProgress } from '@mui/material';
 import logo from '../../assets/logo.svg'
 import './LoadingScreen.css'
 
-export default function ContentLoader() {
+function LoadingScreen() {
   return (
     <Box className='main-container'>
       <Box className='loader-content'>
@@ -28,3 +28,5 @@ export default function ContentLoader() {
     </Box>
   );
 }
+
+export default LoadingScreen;
