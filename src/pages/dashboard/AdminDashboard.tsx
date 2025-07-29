@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './AdminDashboard.css';
-import AdminAlert from '../../components/adminAlert/AdminAlert';
 import UserSearch from '../../components/userSearch/UserSearch';
 import DetailsTable from '../../components/detailsTable/DetailsTable';
+import Header from '../../components/Header';
 
 const AdminDashboard = () => {
   const [isSearched, setIsSearched] = useState(false);
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <AdminAlert />
+      <Header pageName='Admin Dashboard' />
       <UserSearch onSearch={handleSearch} />
       {isSearched && (
         <>

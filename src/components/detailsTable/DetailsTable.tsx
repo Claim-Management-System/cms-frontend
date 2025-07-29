@@ -13,13 +13,19 @@ import {
 
 interface DetailsTableProps {
   title: string;
-  data: {
-    description: string;
-    amount: string;
+  data: Record<string, string>[];
+  columns?: {
+    key: string;
+    header: string;
   }[];
 }
 
-const DetailsTable: React.FC<DetailsTableProps> = ({ title, data }) => {
+const DetailsTable: React.FC<DetailsTableProps> = ({ title, data, columns }) => {
+  const tableColumns =
+    columns || [
+      { key: 'description', header: 'Description' },
+      { key: 'amount', header: 'Amount' },
+    ];
   return (
     <div className="details-table-container">
       <Typography variant="h6" className="details-table-title">
@@ -29,15 +35,17 @@ const DetailsTable: React.FC<DetailsTableProps> = ({ title, data }) => {
         <Table>
           <TableHead className="details-table-head">
             <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell>Amount</TableCell>
+              {tableColumns.map(column => (
+                <TableCell key={column.key}>{column.header}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((row, index) => (
               <TableRow key={index}>
-                <TableCell>{row.description}</TableCell>
-                <TableCell>{row.amount}</TableCell>
+                {tableColumns.map(column => (
+                  <TableCell key={column.key}>{row[column.key]}</TableCell>
+                ))}
               </TableRow>
             ))}
           </TableBody>

@@ -1,5 +1,7 @@
 .details-table-container {
-    margin: 30px auto;
+    /* margin: 30px auto; */
+    margin-left: 20px;
+    margin-top: 20px;
     max-width: 1000px;
 }
 
@@ -18,7 +20,7 @@
 }
 
 .details-table-head .MuiTableCell-root {
-    background-color: #333333;
+    background-color: #1CA8DD;
     color: white;
     font-family: 'ITCAvantG', sans-serif;
     border-bottom: none;
@@ -26,7 +28,7 @@
 }
 
 .details-table-head .MuiTableCell-root:not(:last-child) {
-    border-right: 1px solid #666;
+    border-right: 1px solid #d3d3d3;
 }
 
 .details-table-paper .MuiTableBody-root .MuiTableCell-root:not(:last-child) {
