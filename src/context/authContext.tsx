@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { apiLogin } from '../services/dataServices/auth';
+import { apiLogin, apiLogout } from '../services/dataServices/auth';
 
 interface User {
   id: string;
@@ -14,7 +14,6 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  isAuthenticated: boolean;
   loginUser: (email: string, password: string) => Promise<{ success: boolean; user?: User; error?: string }>;
   logoutUser: () => void;
 }
@@ -23,7 +22,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // On mount, check sessionStorage for user
@@ -31,7 +29,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storedUser = sessionStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
-      setIsAuthenticated(true);
     }
     setLoading(false);
   }, []);
@@ -40,7 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const { User } = await apiLogin(email, password);
       setUser(User);
-      setIsAuthenticated(true);
       sessionStorage.setItem('user', JSON.stringify(User));
       return {
         success: true,
@@ -48,7 +44,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       };
     } catch (error: any) {
       setUser(null);
-      setIsAuthenticated(false);
       sessionStorage.removeItem('user');
       return {
         success: false,
@@ -57,10 +52,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logoutUser = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    sessionStorage.removeItem('user');
+  const logoutUser = async () => {
+    try {
+      await apiLogout(user?.id!)
+      setUser(null);
+      sessionStorage.removeItem('user');
+      return { success: true };
+    } catch (error: any) {
+      setUser(null);
+      sessionStorage.removeItem('user');
+      return { success: false };
+    }
   };
 
   if (loading) {
@@ -68,7 +70,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, loginUser, logoutUser }}>
       {children}
     </AuthContext.Provider>
   );

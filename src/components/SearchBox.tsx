@@ -5,11 +5,11 @@ import { Search } from '@mui/icons-material';
 interface SearchBoxProps {
   onSearchChange: (query: string) => void;
   placeholder?: string;
-  debounceDelay?: number;
 }
 
-function SearchBox({ onSearchChange, placeholder = "Search...", debounceDelay = 500 }: SearchBoxProps) {
+function SearchBox({ onSearchChange, placeholder = "Search..." }: SearchBoxProps) {
   const [searchTerm, setSearchTerm] = useState('');
+  const debounceDelay = 500
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -19,7 +19,7 @@ function SearchBox({ onSearchChange, placeholder = "Search...", debounceDelay = 
     return () => {
       clearTimeout(timerId);
     };
-  }, [searchTerm, debounceDelay]);
+  }, [searchTerm]);
 
   return (
     <TextField

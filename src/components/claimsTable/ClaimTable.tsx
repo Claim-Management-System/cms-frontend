@@ -1,85 +1,24 @@
-import * as React from 'react';
+import { useMemo } from 'react';
+import ActionsCell from './ActionCell';
+import getClaimTableColumns from '../../utils/getClaimTableColumns'; 
 import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
-import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { type ClaimRecord } from '../../types';
+import { Box, Chip } from '@mui/material';
+import type { ClaimRecord, UserRole, ClaimType, ClaimCategory } from '../../types';
 import './ClaimTable.css';
 
 
-interface ActionsCellProps {
-  params: GridRenderCellParams<ClaimRecord>;
-  category: "claim history" | "claim requests"
-}
-
 interface ClaimTableProps {
   data: ClaimRecord[];
-  userRole: "admin" | "user";
-  claimType: "miscellaneous" | "outpatient";
-  category: "claim history" | "claim requests";
+  userRole: UserRole;
+  claimType: ClaimType;
+  category: ClaimCategory;
   onStatusChange?: (id: string, newStatus: ClaimRecord['status']) => void;
   loading?: boolean;
 }
 
-const ActionsCell = ({ params, category }: ActionsCellProps) => {
-  const navigate = useNavigate()
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleAction = (action: string) => {
-    if(action === 'View') {
-      navigate(`/claim-history/${params.row?.id}`);
-    } else if(action === 'Accepted') {
-      console.log("call accept claim api")
-    } else if(action === 'Declined') {
-      console.log("call rejected claim api")
-    }
-    handleClose();
-  };
-
-  return (
-    <Box>
-      <IconButton
-        aria-label="more"
-        id={`actions-button-${params.id}`}
-        aria-controls={open ? `actions-menu-${params.id}` : undefined}
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-        className="actions-icon-button"
-      >
-        <span className="three-dots-icon"></span>
-      </IconButton>
-      <Menu
-        id={`actions-menu-${params.id}`}
-        MenuListProps={{
-          'aria-labelledby': `actions-button-${params.id}`,
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={() => handleAction('View')}>View</MenuItem>
-        {category === 'claim requests' && [
-          <MenuItem key="accept" onClick={() => handleAction('Accepted')}>Accept</MenuItem>,
-          <MenuItem key="decline" onClick={() => handleAction('Declined')}>Decline</MenuItem>
-        ]}
-      </Menu>
-    </Box>
-  );
-};
-
-
 export default function ClaimTable({ data, userRole, claimType, category, loading }: ClaimTableProps) {
 
-  const columns: GridColDef<(typeof data)[number]>[] = React.useMemo(() => {
+  const columns: GridColDef<(typeof data)[number]>[] = useMemo(() => {
     const baseColumns: Record<string, GridColDef<ClaimRecord>> = {
       date: {
         field: 'created_at',
@@ -146,61 +85,8 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       }
     };
 
-    let finalColumns: GridColDef<ClaimRecord>[] = [];
-
-    if (userRole === 'user' && claimType === 'miscellaneous' && category === 'claim history') {
-      finalColumns = [
-        baseColumns.date,
-        baseColumns.purpose,
-        baseColumns.status,
-        baseColumns.amount,
-        baseColumns.actions,
-      ];
-    } else if (userRole === 'user' && claimType === 'outpatient' && category === 'claim history') {
-      finalColumns = [
-        baseColumns.date,
-        baseColumns.purpose,
-        baseColumns.relationship,
-        baseColumns.status,
-        baseColumns.amount,
-        baseColumns.actions,
-      ];
-    } else if (userRole === 'admin' && claimType === 'outpatient' && category === 'claim history') {
-      finalColumns = [
-        baseColumns.date, 
-        baseColumns.name, 
-        baseColumns.relationship, 
-        baseColumns.status, 
-        baseColumns.amount, 
-        baseColumns.actions
-      ];
-    } else if (userRole === 'admin' && claimType === 'miscellaneous' && category === 'claim history') {
-      finalColumns = [
-        baseColumns.date, 
-        baseColumns.name,
-        baseColumns.purpose, 
-        baseColumns.status, 
-        baseColumns.amount, 
-        baseColumns.actions
-      ];
-    } else if (userRole === 'admin' && claimType === 'outpatient' && category === 'claim requests') {
-      finalColumns = [
-        baseColumns.date, 
-        baseColumns.name, 
-        baseColumns.relationship, 
-        baseColumns.amount, 
-        baseColumns.actions
-      ];
-    } else if (userRole === 'admin' && claimType === 'miscellaneous' && category === 'claim requests') {
-      finalColumns = [
-        baseColumns.date, 
-        baseColumns.name, 
-        baseColumns.purpose, 
-        baseColumns.amount, 
-        baseColumns.actions
-      ];
-    }
-
+    const columnNames = getClaimTableColumns(userRole, claimType, category)
+    const finalColumns: GridColDef<ClaimRecord>[] = columnNames?.map(name => baseColumns[name]) ?? [];
     return finalColumns;
   }, [userRole, claimType, category]);
 
