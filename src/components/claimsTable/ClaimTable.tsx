@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { USER_ROLES, CLAIM_TYPES, CLAIM_CATEGORY } from '../../services/constantServices/constants';
 import { type ClaimRecord } from '../../types';
 import './ClaimTable.css';
 
@@ -147,8 +148,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
     };
 
     let finalColumns: GridColDef<ClaimRecord>[] = [];
-
-    if (userRole === 'user' && claimType === 'miscellaneous' && category === 'claim history') {
+    if (userRole === USER_ROLES.USER && claimType === CLAIM_TYPES.MISC && category === CLAIM_CATEGORY.HISTORY) {
       finalColumns = [
         baseColumns.date,
         baseColumns.purpose,
@@ -156,7 +156,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         baseColumns.amount,
         baseColumns.actions,
       ];
-    } else if (userRole === 'user' && claimType === 'outpatient' && category === 'claim history') {
+    } else if (userRole === USER_ROLES.USER && claimType === CLAIM_TYPES.OUTPATIENT && category === CLAIM_CATEGORY.HISTORY) {
       finalColumns = [
         baseColumns.date,
         baseColumns.purpose,
@@ -165,7 +165,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         baseColumns.amount,
         baseColumns.actions,
       ];
-    } else if (userRole === 'admin' && claimType === 'outpatient' && category === 'claim history') {
+    } else if (userRole === USER_ROLES.ADMIN && claimType === CLAIM_TYPES.OUTPATIENT && category === CLAIM_CATEGORY.HISTORY) {
       finalColumns = [
         baseColumns.date, 
         baseColumns.name, 
@@ -174,7 +174,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         baseColumns.amount, 
         baseColumns.actions
       ];
-    } else if (userRole === 'admin' && claimType === 'miscellaneous' && category === 'claim history') {
+    } else if (userRole === USER_ROLES.ADMIN && claimType === CLAIM_TYPES.MISC && category === CLAIM_CATEGORY.HISTORY) {
       finalColumns = [
         baseColumns.date, 
         baseColumns.name,
@@ -183,7 +183,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         baseColumns.amount, 
         baseColumns.actions
       ];
-    } else if (userRole === 'admin' && claimType === 'outpatient' && category === 'claim requests') {
+    } else if (userRole === USER_ROLES.ADMIN && claimType === CLAIM_TYPES.OUTPATIENT && category === CLAIM_CATEGORY.REQUEST) {
       finalColumns = [
         baseColumns.date, 
         baseColumns.name, 
@@ -191,7 +191,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         baseColumns.amount, 
         baseColumns.actions
       ];
-    } else if (userRole === 'admin' && claimType === 'miscellaneous' && category === 'claim requests') {
+    } else if (userRole === USER_ROLES.ADMIN && claimType === CLAIM_TYPES.MISC && category === CLAIM_CATEGORY.REQUEST) {
       finalColumns = [
         baseColumns.date, 
         baseColumns.name, 

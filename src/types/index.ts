@@ -9,3 +9,10 @@ export interface ClaimRecord {
   claim_type?: string
   relationship?: string;
 }
+
+export interface ClaimCounts {
+  total: number;
+  accepted: number;
+  denied: number;
+  pending: number;
+}

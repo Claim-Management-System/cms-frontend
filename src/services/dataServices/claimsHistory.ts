@@ -43,6 +43,16 @@ const getEmployeeClaimsHistory = async ({employeeId, claimType, status, search, 
 }
 
 
+const getClaimsCount = async (module: 'medical' | 'miscellaneous', user_id: string) => {
+  try {
+    const response = await apiClient.get('/api/claims/count', { params: { module, user_id } })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+
 
 const getClaim = async (claimId: string) => {
   try {
@@ -56,4 +66,4 @@ const getClaim = async (claimId: string) => {
 }
 
 
-export { getClaimsHistory, getEmployeeClaimsHistory, getClaim }
+export { getClaimsHistory, getEmployeeClaimsHistory, getClaim, getClaimsCount }

@@ -7,7 +7,8 @@ export const USER_ROLES = Object.freeze({
 
 export const CLAIM_TYPES = Object.freeze({
     MISC: 'miscellaneous',
-    OPD: 'medical'
+    OPD: 'medical',
+    OUTPATIENT: 'outpatient'
 });
 
 export const STATUS = Object.freeze({
@@ -19,4 +20,9 @@ export const STATUS = Object.freeze({
 export const IMAGE_MODE = Object.freeze({
   UPLOAD: 'upload',
   VIEW: 'view'
+})
+
+export const CLAIM_CATEGORY = Object.freeze({
+  REQUEST: 'claim requests',
+  HISTORY: 'claim history'
 })
