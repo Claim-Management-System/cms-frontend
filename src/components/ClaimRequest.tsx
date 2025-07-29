@@ -8,6 +8,7 @@ import formatDate from '../services/constantServices/formatDate';
 import addRelationship from '../services/constantServices/addRelationship';
 import { useError } from '../context/errorContext';
 import { getClaimsRequest } from '../services/dataServices/claimsRequest';
+import { CLAIM_TYPES } from '../services/constantServices/constants';
 import { type ClaimRecord } from '../types';
 import { Box } from '@mui/material';
 
@@ -35,7 +36,7 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
             const data = await getClaimsRequest({ claimType: apiClaimType, search, page });
             let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
 
-            if (apiClaimType === 'medical') {
+            if (apiClaimType === CLAIM_TYPES.OPD) {
                 allClaims = addRelationship(allClaims)
             }
 

@@ -6,7 +6,7 @@ body {
     flex-grow: 1;
     padding: 20px;
     background-color: #f9fafb;
-    min-height: 100vh;
+    overflow-y: auto;
 }
 
 /* Using a media query to apply styles for screens smaller than 'md' (960px) */
@@ -27,6 +27,7 @@ body {
 /* App Container */
 .app-container {
     display: flex;
+    height: 100vh;
 }
 
 /* Mobile App Bar */

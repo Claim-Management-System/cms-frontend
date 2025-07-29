@@ -12,6 +12,7 @@ import { useAuth } from '../context/authContext';
 import { getClaimsHistory, getEmployeeClaimsHistory } from '../services/dataServices/claimsHistory';
 import formatDate from '../services/constantServices/formatDate';
 import addRelationship from '../services/constantServices/addRelationship';
+import { USER_ROLES, CLAIM_TYPES } from '../services/constantServices/constants';
 import { type ClaimRecord } from '../types';
 
 
@@ -47,7 +48,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
     setIsLoading(true);
     try {
       let data;
-      if (user?.role === 'admin') {
+      if (user?.role === USER_ROLES.ADMIN) {
         data = await getClaimsHistory({
           claimType: apiClaimType,
           status: currentStatus,
@@ -68,15 +69,15 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
           page: currentPage,
         });
       }
-      
+
       let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
       
-      if(apiClaimType === 'medical') {
+      if(apiClaimType === CLAIM_TYPES.OPD) {
         allClaims = addRelationship(allClaims)
       }
 
       setClaimData(allClaims);
-      setTotalPages(data.pageCount || 1);
+      setTotalPages(Math.ceil(data.totalCount / 10) || 1);
     } catch (error: any) {
       setError(error?.message || 'Failed to fetch claims');
     } finally {
@@ -106,10 +107,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
         </Box>
 
         <Box 
-          sx={{ 
-              paddingX: 3, 
-              marginY: 4 
-          }}
+          sx={{ paddingX: 3, marginY: 4 }}
         >
           <ClaimsStatus 
               currentStatus={currentStatus} 
