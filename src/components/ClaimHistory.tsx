@@ -85,7 +85,6 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
           page: currentPage,
         });
       }
-      console.log(data.claims)
 
       let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
 
