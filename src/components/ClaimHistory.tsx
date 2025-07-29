@@ -85,15 +85,17 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
           page: currentPage,
         });
       }
+      console.log(data.claims)
 
       let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
 
+      // TODO: This is a temporary function. Replace with actual logic once the backend provides the 'relationship' field.
       if (apiClaimType === CLAIM_TYPES.OPD) {
         allClaims = addRelationship(allClaims)
       }
 
       setClaimData(allClaims);
-      setTotalPages(Math.ceil(data.totalCount / 10) || 1);
+      setTotalPages(Math.ceil(data.totalCount / 10));
     } catch (error: any) {
       setError(error?.message || 'Failed to fetch claims');
     } finally {
