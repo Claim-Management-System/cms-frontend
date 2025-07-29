@@ -43,7 +43,6 @@ const getEmployeeClaimsHistory = async ({employeeId, claimType, status, search, 
 }
 
 
-
 const getClaim = async (claimId: string) => {
   try {
     const response = await apiClient.get('/api/claims', {
@@ -58,11 +57,9 @@ const getClaim = async (claimId: string) => {
 
 const updateClaimStatus = async (claimId: string, body: object) => {
   try {
-    console.log("this is the put api for claims")
-    const response = await apiClient.put('/api/claims', { body }, {
+    await apiClient.put('/api/claims', body, {
       params: { id: claimId }
     })
-    console.log(response)
   } catch (error: any) {
     throw error;
   }

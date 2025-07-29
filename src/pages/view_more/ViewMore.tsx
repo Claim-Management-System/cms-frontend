@@ -14,20 +14,16 @@ import { getClaim, updateClaimStatus } from '../../services/dataServices/claimsH
 import { getEmployee } from '../../services/dataServices/employee';
 import { Button } from '@mui/material';
 import type { Claim, Employee } from '../../types';
-import { USER_ROLES, STATUS } from '../../services/constantServices/constants';
+import { USER_ROLES, STATUS, BASE_URL } from '../../services/constantServices/constants';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
 import './ViewMore.css';
 
-const images = [
-    "https://i.pinimg.com/564x/34/7b/40/347b40a091f421e63e060bd22e6e1b86.jpg",
-    "https://docelf.com/images/templates/word_simple_receipt_template.png"
-
-];
 
 function ViewMore() {
     const [formData, setFormData] = useState<Claim | null>(null)
+    const [images, setImages] = useState([])
     const [employeeDetails, setEmployeeDetails] = useState<Employee | null>(null)
     const [acceptPopupOpen, setAcceptPopupOpen] = useState(false);
     const [declinePopupOpen, setDeclinePopupOpen] = useState(false);
@@ -37,48 +33,43 @@ function ViewMore() {
     const { claimId } = useParams();
     const { user } = useAuth();
     const { setError } = useError();
-
+    
     const employee_name = employeeDetails?.first_name + " " + employeeDetails?.last_name;
 
-    const handleAccept = async () => {
+    const handleUpdate = async (body: object, successAction: () => void) => {
         try {
-            const body = {
-                status: 'approved',
-                approved_amount: formData?.submitted_amount
-            };
             await updateClaimStatus(claimId!, body);
-            setAcceptPopupOpen(false);
+            await fetchClaimAndEmployee(claimId!);
+            successAction();
         } catch (error) {
-            setError('Failed to approve the claim.');
+            setError('Failed to update the claim.');
         }
     };
 
-    const handleDecline = async (reason: string) => {
-        try {
-            const body = {
-                status: 'rejected',
-                reason_for_rejection: reason
-            };
-            await updateClaimStatus(claimId!, body);
-            setDeclinePopupOpen(false);
-        } catch (error) {
-            setError('Failed to decline the claim.');
-        }
+    const handleAccept = () => {
+        const body = {
+            status: STATUS.APPROVED,
+            approved_amount: formData?.submitted_amount
+        };
+        handleUpdate(body, () => setAcceptPopupOpen(false));
     };
 
-    const handleEdit = async (newAmount: number, reason: string) => {
-        try {
-            const body = {
-                status: 'approved',
-                submitted_amount: formData?.submitted_amount,
-                approved_amount: newAmount,
-                reason_for_edit: reason
-            };
-            await updateClaimStatus(claimId!, body);
-            setEditPopupOpen(false);
-        } catch (error) {
-            setError('Failed to edit the claim.');
-        }
+    const handleDecline = (reason: string) => {
+        const body = {
+            status: STATUS.REJECTED,
+            reason_for_rejection: reason
+        };
+        handleUpdate(body, () => setDeclinePopupOpen(false));
+    };
+
+    const handleEdit = (newAmount: number, reason: string) => {
+        const body = {
+            status: STATUS.APPROVED,
+            submitted_amount: formData?.submitted_amount,
+            approved_amount: newAmount,
+            reason_for_edit: reason
+        };
+        handleUpdate(body, () => setEditPopupOpen(false));
     };
 
     const fetchClaimAndEmployee = async (claimId: string) => {
@@ -86,6 +77,8 @@ function ViewMore() {
             setIsLoading(true)
             const data = await getClaim(claimId)
             setFormData(data.claims)
+            const imageUrls = data.claims.images?.map((imagePath: string) => `${BASE_URL}${imagePath}`) ?? []
+            setImages(imageUrls)
 
             const employee = await getEmployee(data.claims.employee_number)
             setEmployeeDetails(employee)
@@ -114,7 +107,7 @@ function ViewMore() {
                 <div className="view-more-header">
                     <UserTitle
                         mainText={employee_name}
-                        // subText={employeeDetails?.work_email!}
+                    // subText={employeeDetails?.work_email!}
                     />
                     {user?.role === USER_ROLES.ADMIN && formData?.status === STATUS.PENDING && (
                         <div className="admin-buttons-container">

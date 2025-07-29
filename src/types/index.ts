@@ -46,11 +46,13 @@ export interface Claim {
   month: string;
   purpose_of_visit: string;
   relationship: string;
-  status: 'pending' | 'approved' | 'denied';
+  status: 'pending' | 'approved' | 'rejected';
   submitted_amount: number;
   title: string;
   updated_at: Date;
   user_id: string;
+  reason_for_edit?: string;
+  reason_for_rejection?: string;
 }
 
 export interface Employee {
