@@ -139,8 +139,41 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({ mode = 'edit', employeeData =
     }
 
     setValidationError('');
-    const submissionData = mode === 'create' ? { ...formData, password } : formData;
-    console.log(submissionData);
+
+    const employeeDetails = {
+      bank_account_number: formData.bankAccountNumber,
+      date_of_birth: formData.dob,
+      employee_number: formData.employeeId,
+      employee_type_id: formData.employeeType === 'permanent' ? 1 : 2,
+      first_name: formData.firstName,
+      job_title: formData.jobTitle,
+      last_name: formData.lastName,
+      marital_status_id: formData.maritalStatus === 'single' ? 1 : formData.maritalStatus === 'married' ? 2 : 3,
+      onboarding_date: formData.joiningDate,
+      position: formData.position,
+      primary_number: formData.phoneNumber,
+      team: formData.team,
+      work_email: formData.email,
+      work_location_id: 0,
+    };
+
+    const userCredentials: {
+      email: string;
+      employee_id: string;
+      role: 'admin' | 'employee';
+      password?: string;
+    } = {
+      email: formData.email,
+      employee_id: formData.employeeId,
+      role: formData.role,
+    };
+
+    if (mode === 'create') {
+      userCredentials.password = password;
+    }
+
+    console.log('First Object:', employeeDetails);
+    console.log('Second Object:', userCredentials);
     // API call will go here
   };
 
