@@ -1,0 +1,19 @@
+.user-profile-container {
+  background-color: #f9f9f9;
+  padding-left: 20px;
+}
+
+.profile-header {
+  text-align: left;
+  margin-bottom: 2rem;
+  padding-top: 0px;
+  font-family: 'ITCAvantG';
+}
+
+.profile-header p {
+  font-size: 2rem;
+  color: #333;
+  margin: 0px !important;
+}
+
+/* Reusing component styles for ProfileTable, no extra styles needed if ProfileTable.css is globally available */

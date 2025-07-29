@@ -1,0 +1,53 @@
+.profile-table-container {
+  margin-bottom: 32px;
+  background-color: #ffffff;
+
+  padding-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'LLCirc';
+  min-width: 900px;
+}
+
+.profile-table-title {
+  font-size: 16px;
+  color: #1CA8DD;
+  /* border-bottom: 2px solid #eee; */
+  padding: 8px 24px;
+  font-weight: 500;
+  background-color: #E8F6FC;
+}
+
+.profile-table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding-left: 24px;
+  /* min-width: 900px; */
+}
+
+@media (max-width: 768px) {
+  .profile-table {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-table-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+}
+
+.profile-table-label {
+  font-weight: bold;
+  color: #555;
+  min-width: 150px;
+  margin-right: 25px;
+}
+
+.profile-table-value {
+  color: #777;
+  white-space: nowrap;
+  min-width: 150px;
+} 

@@ -11,6 +11,7 @@ import ClaimRequests_OutPatient from '../pages/claim_requests/OutPatient'
 import ClaimRequests_Miscellaneous from '../pages/claim_requests/Miscellaneous'
 import ClaimHistory_OutPatient from '../pages/claim_history/OutPatient';
 import ClaimHistory_Miscellaneous from '../pages/claim_history/Miscellaneous';
+import UserProfile from '../pages/user_profile/UserProfile';
 import Drafts from '../pages/draft/Drafts';
 
 export const router = createBrowserRouter([
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
           { path: 'new-request/miscellaneous', element: <AddRequest_Miscellaneous /> },
           { path: 'claim-history/outpatient', element: <ClaimHistory_OutPatient /> },
           { path: 'claim-history/miscellaneous', element: <ClaimHistory_Miscellaneous /> },
+          { path: 'user-profile', element: <UserProfile /> },
         ],
       },
 
