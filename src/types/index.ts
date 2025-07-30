@@ -23,9 +23,6 @@ export type UserRole = 'admin' | 'user';
 export type ClaimCategory = 'claim history' | 'claim requests';
 export type ClaimType = 'miscellaneous' | 'outpatient';
 
-export type Role = 'admin' | 'employee';
-export type EmployeeType = 'permanent' | 'contractual';
-export type MaritalStatus = 'single' | 'married' | 'family';
 
 export interface EmployeeInterface {
     firstName: string;
@@ -33,16 +30,41 @@ export interface EmployeeInterface {
     email: string;
     dob: string;
     joiningDate: string;
-    role: Role | '';
-    employeeType: EmployeeType | '';
+    role: 'admin' | 'employee' | '';
+    employeeType: 'permanent' | 'contractual' | '';
     team: string;
     bankAccountNumber: string;
     employeeId: string;
-    maritalStatus: MaritalStatus | '';
+    maritalStatus: 'single' | 'married' | 'family' | '';
     workLocation: string;
     jobTitle: string;
     position: string;
     phoneNumber: string;
     age?: number;
     password?: string;
+}
+
+export type FieldConfig = {
+    name: keyof EmployeeInterface;
+    label: string;
+    type: 'text' | 'email' | 'date' | 'number' | 'password' | 'select';
+    required?: boolean;
+    disabled?: boolean;
+    options?: Array<{ value: string; label: string }>;
+    specialHandling?: 'age' | 'password';
+};
+
+export interface WorkLocation {
+  id: number;
+  address: string;
+}
+
+export interface MaritalStatus {
+  id: number;
+  status: string;
+}
+
+export interface EmployeeType {
+  id: number;
+  type: string;
 }
