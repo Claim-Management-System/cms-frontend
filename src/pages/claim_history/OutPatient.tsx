@@ -1,7 +1,14 @@
-import React from 'react';
+import ClaimHistory from "../../components/ClaimHistory";
 
-const OutPatient = () => {
-  return <div>Claim History - OutPatient</div>;
+function OutPatient() {
+  return (
+    <ClaimHistory
+      pageTitle="Claim History / OPD. EXPENSES"
+      apiClaimType="medical"
+      tableClaimType="outpatient"
+      newRequestPath="/new-request/outpatient"
+    />
+  );
 };
 
-export default OutPatient; 
+export default OutPatient

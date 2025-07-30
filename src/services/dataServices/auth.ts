@@ -8,3 +8,12 @@ export const apiLogin = async (email: string, password: string) => {
     throw error;
   }
 };
+
+
+export const apiLogout = async (user_id: string) => {
+  try {
+    await apiClient.post('/api/auth/login', { user_id });
+  } catch (error: any) {
+    throw error;
+  }
+}

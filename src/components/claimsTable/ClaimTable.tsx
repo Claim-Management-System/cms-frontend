@@ -1,0 +1,106 @@
+import { useMemo } from 'react';
+import ActionsCell from './ActionCell';
+import getClaimTableColumns from '../../utils/getClaimTableColumns'; 
+import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
+import { Box, Chip } from '@mui/material';
+import type { ClaimRecord, UserRole, ClaimType, ClaimCategory } from '../../types';
+import './ClaimTable.css';
+
+
+interface ClaimTableProps {
+  data: ClaimRecord[];
+  userRole: UserRole;
+  claimType: ClaimType;
+  category: ClaimCategory;
+  onStatusChange?: (id: string, newStatus: ClaimRecord['status']) => void;
+  loading?: boolean;
+}
+
+export default function ClaimTable({ data, userRole, claimType, category, loading }: ClaimTableProps) {
+
+  const columns: GridColDef<(typeof data)[number]>[] = useMemo(() => {
+    const baseColumns: Record<string, GridColDef<ClaimRecord>> = {
+      date: {
+        field: 'created_at',
+        headerName: 'Date',
+        flex: 0.7,
+        align: 'left',
+        headerAlign: 'left',
+        cellClassName: 'date-column-cell',
+        headerClassName: 'date-column-header',
+      },
+      purpose: {
+        field: 'description',
+        headerName: 'Purpose',
+        flex: 1.4,
+        align: 'left',
+        headerAlign: 'left',
+      },
+      status: {
+        field: 'status',
+        headerName: 'Status',
+        flex: 0.8,
+        align: 'center',
+        headerAlign: 'center',
+        headerClassName: 'status-column-header',
+        renderCell: (params: GridRenderCellParams<ClaimRecord>) => {
+          const status = params.row.status;
+          if (!status) return null;
+          const statusClass = status.toLowerCase();
+          return <Chip label={status} size="small" className={`status-chip ${statusClass}`} />;
+        }
+      },
+      amount: {
+        field: 'submitted_amount',
+        headerName: 'Amount',
+        type: 'number',
+        flex: 0.8,
+        align: 'center',
+        headerAlign: 'center',
+        headerClassName: 'amount-column-header',
+      },
+      relationship: {
+        field: 'relationship',
+        headerName: 'Relationship',
+        flex: 1.2,
+        align: 'left',
+        headerAlign: 'left',
+      },
+      name: {
+        field: 'employee_name',
+        headerName: 'Name',
+        flex: 0.9,
+        align: 'left',
+        headerAlign: 'left',
+      },
+      actions: {
+        field: 'actions',
+        headerName: '',
+        flex: 0.3,
+        sortable: false,
+        filterable: false,
+        align: 'left',
+        headerAlign: 'left',
+        renderCell: (params) => <ActionsCell params={params} category={category}/>
+      }
+    };
+
+    const columnNames = getClaimTableColumns(userRole, claimType, category)
+    const finalColumns: GridColDef<ClaimRecord>[] = columnNames?.map(name => baseColumns[name]) ?? [];
+    return finalColumns;
+  }, [userRole, claimType, category]);
+
+  return (
+    <Box className="scrollable-x" sx={{ overflowX: 'auto' }}>
+      <Box className="claim-table-container">
+        <DataGrid
+          rows={data}
+          columns={columns}
+          loading={loading}
+          rowHeight={50}
+          disableSelectionOnClick
+        />
+      </Box>
+    </Box>
+  );
+}
