@@ -1,7 +1,7 @@
-import React from 'react';
+import NewRequest from '../../components/addNewRequest/NewRequest';
 
-const Miscellaneous = () => {
-  return <div>Add Request - Miscellaneous</div>;
-};
+function NewRequestMisc() {
+  return <NewRequest formType="misc" />;
+}
 
-export default Miscellaneous; 
+export default NewRequestMisc
