@@ -1,4 +1,4 @@
-import type { EmployeeInterface } from '../types';
+import type { EmployeeInterface, WorkLocation, MaritalStatus, EmployeeType, FieldConfig } from '../types';
 
 
 export const generateRandomPassword = (length = 12): string => {
@@ -11,66 +11,92 @@ export const generateRandomPassword = (length = 12): string => {
 };
 
 
-export const calculateAge = (birthDate: Date): number => {
+export const calculateAge = (dateString: string): number | undefined => {
+    if (!dateString) return undefined;
+
+    const birthDate = new Date(dateString);
+
+    if (isNaN(birthDate.getTime())) return undefined;
+
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
+
     return age;
 };
 
 
-export const calculateAgeFromString = (dateString: string): number | undefined => {
-    if (!dateString) return undefined;
-    
-    try {
-        const birthDate = new Date(dateString);
-        if (isNaN(birthDate.getTime())) return undefined;
-        return calculateAge(birthDate);
-    } catch {
-        return undefined;
-    }
+export const generateFieldConfigs = (
+    workLocation: WorkLocation[],
+    maritalStatus: MaritalStatus[],
+    employeeType: EmployeeType[]
+): FieldConfig[] => {
+    return [
+        // Text fields
+        { name: 'firstName', label: 'First Name', type: 'text', required: true },
+        { name: 'lastName', label: 'Last Name', type: 'text', required: true },
+        { name: 'email', label: 'Email', type: 'email', required: true },
+        { name: 'jobTitle', label: 'Job Title', type: 'text', required: true },
+        { name: 'position', label: 'Position', type: 'text', required: true },
+        { name: 'phoneNumber', label: 'Phone Number', type: 'text', required: true },
+        { name: 'team', label: 'Team', type: 'text', required: true },
+        { name: 'bankAccountNumber', label: 'Bank Account Number', type: 'text', required: true },
+        { name: 'employeeId', label: 'Employee ID', type: 'text', required: true },
+
+        // Date fields
+        { name: 'dob', label: 'Date of Birth', type: 'date', required: true },
+        { name: 'joiningDate', label: 'Joining Date', type: 'date', required: true },
+
+        // Special fields
+        { name: 'age', label: 'Age', type: 'number', disabled: true, specialHandling: 'age' },
+        { name: 'password', label: 'Password', type: 'password', required: true, specialHandling: 'password' },
+
+        // Select fields
+        {
+            name: 'role', label: 'Role', type: 'select', required: true,
+            options: [
+                { value: 'employee', label: 'Employee' },
+                { value: 'admin', label: 'Admin' },
+            ]
+        },
+        {
+            name: 'employeeType', label: 'Employee Type', type: 'select', required: true,
+            options: employeeType.map(empType => ({ value: String(empType.id), label: empType.type }))
+        },
+        {
+            name: 'maritalStatus', label: 'Marital Status', type: 'select', required: true,
+            options: maritalStatus.map(status => ({ value: String(status.id), label: status.status }))
+        },
+        {
+            name: 'workLocation', label: 'Work Location', type: 'select', required: true,
+            options: workLocation.map(location => ({ value: String(location.id), label: location.address }))
+        },
+    ];
 };
 
 
 export const REQUIRED_FIELDS: (keyof EmployeeInterface)[] = [
-    'firstName', 
-    'lastName', 
-    'email', 
-    'dob', 
-    'joiningDate', 
+    'firstName',
+    'lastName',
+    'email',
+    'age',
+    'dob',
+    'joiningDate',
     'role',
-    'employeeType', 
-    'team', 
+    'employeeType',
+    'team',
     'bankAccountNumber',
     'employeeId',
-    'maritalStatus', 
-    'workLocation', 
-    'jobTitle', 
-    'position', 
+    'maritalStatus',
+    'workLocation',
+    'jobTitle',
+    'position',
     'phoneNumber'
 ];
-
-
-export const DEFAULT_EMPLOYEE_DATA: EmployeeInterface = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    dob: '1990-01-01',
-    joiningDate: '2020-01-15',
-    role: 'employee',
-    employeeType: 'permanent',
-    team: 'Development',
-    bankAccountNumber: '1234567890',
-    employeeId: 'EMP123',
-    maritalStatus: 'single',
-    workLocation: 'New York',
-    jobTitle: 'Software Engineer',
-    position: 'Senior',
-    phoneNumber: '123-456-7890',
-};
 
 
 export const getInitialFormData = (): EmployeeInterface => ({
@@ -79,13 +105,13 @@ export const getInitialFormData = (): EmployeeInterface => ({
     email: '',
     dob: '',
     joiningDate: '',
-    role: '', // Empty instead of 'employee'
-    employeeType: '', // Empty instead of 'permanent'
+    role: '',
+    employeeType: '',
     team: '',
     bankAccountNumber: '',
     employeeId: '',
-    maritalStatus: '', // Empty instead of 'single'
-    workLocation: '', // Empty instead of default location
+    maritalStatus: '',
+    workLocation: '',
     age: undefined,
     jobTitle: '',
     position: '',
@@ -94,68 +120,43 @@ export const getInitialFormData = (): EmployeeInterface => ({
 });
 
 
-/**
- * Validates if all required fields are filled
- * @param formData - Current form data
- * @param mode - Form mode ('create' or 'edit')
- * @returns Boolean indicating if form is valid
- */
-export const isFormValid = (
-    formData: Omit<EmployeeInterface, 'age'> & { age?: number },
-    mode: 'create' | 'edit'
-): boolean => {
+export const isFormValid = ( formData: EmployeeInterface, mode: 'create' | 'edit' ): boolean => {
     const isFormInvalid = REQUIRED_FIELDS.some(field => {
         const value = formData[field as keyof typeof formData];
         return !value || value === '';
     });
-    const isPasswordInvalid = mode === 'create' && !formData.password;
-    return !isFormInvalid && !isPasswordInvalid;
+
+    const passwordExists = mode === 'create' && !formData.password;
+    return !isFormInvalid && !passwordExists;
 };
 
 
-/**
- * Transforms form data to API format for employee details
- * @param formData - Current form data
- * @returns Transformed data for API
- */
-export const transformToEmployeeDetails = (formData: Omit<EmployeeInterface, 'age'> & { age?: number }) => ({
-    bank_account_number: formData.bankAccountNumber,
+export const transformToEmployeeDetails = (formData: EmployeeInterface) => ({
+    first_name: formData.firstName,
+    last_name: formData.lastName,
+    work_email: formData.email,
+    primary_number: formData.phoneNumber,
     date_of_birth: formData.dob,
     age: formData.age,
-    employee_number: formData.employeeId,
-    employee_type_id: formData.employeeType === 'permanent' ? 1 : formData.employeeType === 'contractual' ? 2 : 0,
-    first_name: formData.firstName,
-    job_title: formData.jobTitle,
-    last_name: formData.lastName,
-    marital_status_id: formData.maritalStatus === 'single' ? 1 : formData.maritalStatus === 'married' ? 2 : formData.maritalStatus === 'family' ? 3 : 0,
+    bank_account_number: formData.bankAccountNumber,
+    employee_number: Number(formData.employeeId),
+    employee_type_id: Number(formData.employeeType),
     onboarding_date: formData.joiningDate,
+    job_title: formData.jobTitle,
     position: formData.position,
-    primary_number: formData.phoneNumber,
     team: formData.team,
-    work_email: formData.email,
-    work_location_id: 0, // This should be mapped from workLocation
+    marital_status_id: Number(formData.maritalStatus),
+    work_location_id: Number(formData.workLocation),
+    cell_number: '123456789', 
+    department: 'product development', 
+    primary_email: 'primary@gmail.com',
+    home_number: '0987654321'
 });
 
-/**
- * Transforms form data to API format for user credentials
- * @param formData - Current form data
- * @returns Transformed data for API
- */
-export const transformToUserCredentials = ( formData: EmployeeInterface ) => {
-    const credentials: {
-        email: string;
-        employee_id: string;
-        role: 'admin' | 'employee';
-        password?: string;
-    } = {
-        email: formData.email,
-        employee_id: formData.employeeId,
-        role: (formData.role as 'admin' | 'employee') || 'employee', // Default to employee if empty
-    };
 
-    if (formData.password) {
-        credentials.password = formData.password;
-    }
-
-    return credentials;
-};
+export const transformToUserCredentials = (formData: EmployeeInterface) => ({
+    email: formData.email,
+    employee_id: formData.employeeId,
+    role: formData.role  || 'employee',
+    ...(formData.password && { password: formData.password })
+});
