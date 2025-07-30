@@ -17,3 +17,28 @@
 }
 
 /* Reusing component styles for ProfileTable, no extra styles needed if ProfileTable.css is globally available */
+
+.change-password-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+  }
+  
+.change-password-button {
+  background-color: #1CA8DD !important;
+  color: white;
+  border: none;
+  padding: 8px 16px !important;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px !important;
+  font-family: 'LLCirc' !important;
+  box-shadow: none !important;
+  font-weight: 450 !important;
+  text-transform: none !important;
+  
+}
+  
+  .change-password-button:hover {
+    background-color: #178db8;
+  }
