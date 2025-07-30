@@ -143,6 +143,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({ mode = 'edit', employeeData =
     const employeeDetails = {
       bank_account_number: formData.bankAccountNumber,
       date_of_birth: formData.dob,
+      age: formData.age,
       employee_number: formData.employeeId,
       employee_type_id: formData.employeeType === 'permanent' ? 1 : 2,
       first_name: formData.firstName,
