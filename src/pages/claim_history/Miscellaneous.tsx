@@ -1,7 +1,14 @@
-import React from 'react';
+import ClaimHistory from "../../components/ClaimHistory";
 
-const Miscellaneous = () => {
-  return <div>Claim History - Miscellaneous</div>;
+function Miscellaneous() {
+  return (
+    <ClaimHistory
+      pageTitle="Claim History / MISC. EXPENSES"
+      apiClaimType="miscellaneous"
+      tableClaimType="miscellaneous"
+      newRequestPath="/new-request/miscellaneous"
+    />
+  );
 };
 
-export default Miscellaneous; 
+export default Miscellaneous
