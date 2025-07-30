@@ -1,39 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import EmployeeInfo from '../../components/employeeInfo/EmployeeInfo';
 import Header from '../../components/Header';
-import DoneIcon from '@mui/icons-material/Done';
-import BlockIcon from '@mui/icons-material/Block';
-import './AddEmployee.css';
-import type { SelectChangeEvent } from '@mui/material';
 import {
     getInitialFormData,
     isFormValid,
-    calculateAgeFromString,
+    calculateAge,
     transformToEmployeeDetails,
     transformToUserCredentials,
 } from '../../utils/AddEmployeeUtils';
+import { useError } from '../../context/errorContext';
+import { createEmployee, createUser } from '../../services/dataServices/employee';
 import type { EmployeeInterface } from '../../types';
+import type { SelectChangeEvent } from '@mui/material';
+import { Block as BlockIcon, Done as DoneIcon} from '@mui/icons-material';
+import './AddEmployee.css';
 
 
-const AddEmployee: React.FC = () => {
+export default function AddEmployee() {
     const [formData, setFormData] = useState<EmployeeInterface>(getInitialFormData());
     const [submitted, setSubmitted] = useState(false);
-    const [validationError, setValidationError] = useState('');
-   
     const [isLoading, setIsLoading] = useState(false);
-
-    
-
-    // Validate form when submitted state changes
-    useEffect(() => {
-        if (submitted) {
-            if (!isFormValid(formData, 'create')) {
-                setValidationError('Please fill out all required fields');
-            } else {
-                setValidationError('');
-            }
-        }
-    }, [submitted, formData]);
+    const { setError } = useError();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -41,20 +28,19 @@ const AddEmployee: React.FC = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
         
         if (name === 'dob' && value) {
-            const age = calculateAgeFromString(value);
-            setFormData(prev => ({ ...prev, age }));
+            const age = calculateAge(value);
+            setFormData(prev => ({ ...prev, age })); // check!
         }
     };
 
     const handleSelectChange = (e: SelectChangeEvent<string>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value as any }));
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleCancel = () => {
         setFormData(getInitialFormData());
         setSubmitted(false);
-        setValidationError('');
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -62,37 +48,29 @@ const AddEmployee: React.FC = () => {
         setSubmitted(true);
 
         if (!isFormValid(formData, 'create')) {
-            setValidationError('Please fill out all required fields');
+            setError('Please fill out all required fields');
             return;
         }
 
         setIsLoading(true);
-        setValidationError('');
 
         try {
-            // Transform data for API
             const employeeDetails = transformToEmployeeDetails(formData);
             const userCredentials = transformToUserCredentials(formData);
 
-            console.log('Employee Details:', employeeDetails);
-            console.log('User Credentials:', userCredentials);
-
-            // TODO: Make API calls here
-            // const employeeResponse = await createEmployee(employeeDetails);
-            // const userResponse = await createUser(userCredentials);
-
-            // Simulate API call delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Success handling
-            console.log('Employee created successfully');
-            handleCancel(); // Reset form after successful submission
+            const employeeResponse = await createEmployee(employeeDetails);
+            const userResponse = await createUser(userCredentials);
             
+            console.log('Employee Details:', employeeResponse);
+            console.log('User Credentials:', userResponse);
+
+            handleCancel();
         } catch (error) {
-            console.error('Failed to create employee:', error);
-            setValidationError('Failed to create employee. Please try again.');
+            console.log(error)
+            setError('Failed to create employee. Please try again.');
         } finally {
             setIsLoading(false);
+            setSubmitted(false);
         }
     };
 
@@ -109,7 +87,6 @@ const AddEmployee: React.FC = () => {
                         submitted={submitted}
                     />
                     <div className="form-actions">
-                        {validationError && <p className="validation-error">{validationError}</p>}
                         <div className="buttons-wrapper">
                             <button 
                                 type="button" 
@@ -118,7 +95,7 @@ const AddEmployee: React.FC = () => {
                                 disabled={isLoading}
                             >
                                 Cancel
-                                <BlockIcon sx={{ fontSize: 16, marginLeft: '8px' }} />
+                                <BlockIcon className='icon'/>
                             </button>
                             <button 
                                 type="submit" 
@@ -126,7 +103,7 @@ const AddEmployee: React.FC = () => {
                                 disabled={isLoading}
                             >
                                 {isLoading ? 'Creating...' : 'Submit'}
-                                <DoneIcon sx={{ fontSize: 16, marginLeft: '8px' }} />
+                                <DoneIcon className='icon'/>
                             </button>
                         </div>
                     </div>
@@ -135,5 +112,3 @@ const AddEmployee: React.FC = () => {
         </>
     );
 };
-
-export default AddEmployee;
