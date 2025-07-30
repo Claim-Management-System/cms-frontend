@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useError } from '../../context/errorContext';
 import { generateRandomPassword } from '../../utils/AddEmployeeUtils';
-import type { SelectChangeEvent } from '@mui/material';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import type { EmployeeInterface } from '../../types';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import { fetchFormDependencies } from '../../services/constantServices/employeeService';
+import { generateFieldConfigs } from '../../utils/AddEmployeeUtils';
+import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';
+import { Visibility, VisibilityOff, Refresh } from '@mui/icons-material'
 import { TextField, Select, MenuItem, FormControl, InputLabel, Grid, InputAdornment, IconButton } from '@mui/material';
+import type { EmployeeInterface, WorkLocation, MaritalStatus, EmployeeType, FieldConfig } from '../../types';
+import type { SelectChangeEvent } from '@mui/material';
 import './EmployeeInfo.css';
 
 
@@ -18,47 +19,32 @@ type EmployeeInfoProps = {
     submitted: boolean;
 };
 
-type FieldConfig = {
-    name: keyof EmployeeInterface;
-    label: string;
-    type: 'text' | 'email' | 'date' | 'number' | 'password' | 'select';
-    required?: boolean;
-    disabled?: boolean;
-    options?: Array<{ value: string; label: string }>;
-    specialHandling?: 'age' | 'password';
-};
-
-const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
-    mode,
-    formData,
-    onFormChange,
-    onSelectChange,
-    submitted,
-}) => {
-    const [showPassword, setShowPassword] = useState(false);
-    const [locations, setLocations] = useState<string[]>([]);
+export default function EmployeeInfo({ mode, formData, onFormChange, onSelectChange, submitted }: EmployeeInfoProps) {
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [workLocation, setWorkLocation] = useState<WorkLocation[]>([]);
+    const [maritalStatus, setMaritalStatus] = useState<MaritalStatus[]>([]);
+    const [employeeType, setEmployeeType] = useState<EmployeeType[]>([]);
 
     const { setError } = useError();
 
-    // Fetch locations on component mount
     useEffect(() => {
-        const fetchLocations = async () => {
+        const fetchDependencies = async () => {
             try {
-                const locationData = await getLocations();
-                setLocations(locationData);
+                const {
+                    formattedWorkLocations,
+                    formattedMaritalStatuses,
+                    formattedEmployeeTypes
+                } = await fetchFormDependencies();
+
+                setWorkLocation(formattedWorkLocations);
+                setMaritalStatus(formattedMaritalStatuses);
+                setEmployeeType(formattedEmployeeTypes);
             } catch (error) {
-                console.error('Failed to fetch locations:', error);
-                setError('Failed to load locations. Please refresh the page.');
+                setError('Failed to load Form Dependencies. Please refresh the page.');
             }
         };
-        fetchLocations();
+        fetchDependencies();
     }, []);
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
 
     const handleGeneratePassword = () => {
         const newPassword = generateRandomPassword();
@@ -77,74 +63,13 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
         return String(value);
     };
 
-    const fieldConfigs: FieldConfig[] = [
-        // Text fields
-        { name: 'firstName', label: 'First Name', type: 'text', required: true },
-        { name: 'lastName', label: 'Last Name', type: 'text', required: true },
-        { name: 'email', label: 'Email', type: 'email', required: true },
-        { name: 'jobTitle', label: 'Job Title', type: 'text', required: true },
-        { name: 'position', label: 'Position', type: 'text', required: true },
-        { name: 'phoneNumber', label: 'Phone Number', type: 'text', required: true },
-        { name: 'team', label: 'Team', type: 'text', required: true },
-        { name: 'bankAccountNumber', label: 'Bank Account Number', type: 'text', required: true },
-        { name: 'employeeId', label: 'Employee ID', type: 'text', required: true },
-
-        // Date fields
-        { name: 'dob', label: 'Date of Birth', type: 'date', required: true },
-        { name: 'joiningDate', label: 'Joining Date', type: 'date', required: true },
-
-        // Special fields
-        { name: 'age', label: 'Age', type: 'number', disabled: true, specialHandling: 'age' },
-        { name: 'password', label: 'Password', type: 'password', required: true, specialHandling: 'password' },
-
-        // Select fields
-        {
-            name: 'role',
-            label: 'Role',
-            type: 'select',
-            required: true,
-            options: [
-                { value: 'employee', label: 'Employee' },
-                { value: 'admin', label: 'Admin' },
-            ]
-        },
-        {
-            name: 'employeeType',
-            label: 'Employee Type',
-            type: 'select',
-            required: true,
-            options: [
-                { value: 'permanent', label: 'Permanent' },
-                { value: 'contractual', label: 'Contractual' },
-            ]
-        },
-        {
-            name: 'maritalStatus',
-            label: 'Marital Status',
-            type: 'select',
-            required: true,
-            options: [
-                { value: 'single', label: 'Single' },
-                { value: 'married', label: 'Married' },
-                { value: 'family', label: 'Family' },
-            ]
-        },
-        {
-            name: 'workLocation',
-            label: 'Work Location',
-            type: 'select',
-            required: true,
-            options: locations.map((location) => ({ value: location, label: location }))
-        },
-    ];
+    const fieldConfigs = generateFieldConfigs(workLocation, maritalStatus, employeeType)
 
     const renderField = (field: FieldConfig) => {
-        // Skip password field if not in create mode
-        if (field.name === 'password' && mode !== 'create') {
+        if (field.name === 'password' && mode !== EMPLOYEE_INFO_MODE.CREATE) {
             return null;
         }
 
-        // Handle special cases
         if (field.specialHandling === 'age') {
             return (
                 <Grid item xs={12} sm={6} md={4} className="custom-form-control" key={field.name}>
@@ -180,15 +105,15 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton aria-label="generate password" onClick={handleGeneratePassword}>
-                                        <RefreshIcon />
+                                        <Refresh />
                                     </IconButton>
                                     <IconButton
                                         aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
+                                        onClick={() => setShowPassword(prev => !prev)}
+                                        onMouseDown={(event: any) => event.preventDefault()}
                                         edge="end"
                                     >
-                                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -198,7 +123,6 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
             );
         }
 
-        // Handle select fields
         if (field.type === 'select') {
             return (
                 <Grid item xs={12} sm={6} md={4} key={field.name}>
@@ -234,7 +158,6 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
             );
         }
 
-        // Handle text fields (including email, date, number)
         return (
             <Grid item xs={12} sm={6} md={4} className="custom-form-control" key={field.name}>
                 <TextField
@@ -262,5 +185,3 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
         </div>
     );
 };
-
-export default EmployeeInfo;
