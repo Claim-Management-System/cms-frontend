@@ -144,8 +144,7 @@ function ReceiptPreview({ onImageUpload, submitted, reset, mode = IMAGE_MODE.UPL
                                 onClick={handleNext}
                                 disabled={
                                     (mode === IMAGE_MODE.VIEW && activeIndex >= previews.length - 1 && previews.length > 0) ||
-                                    (mode === IMAGE_MODE.UPLOAD && activeIndex === previews.length) ||
-                                    (mode === IMAGE_MODE.UPLOAD)
+                                    (mode === IMAGE_MODE.UPLOAD && activeIndex === previews.length)
                                 }
                                 className="nav-button"
                             >
