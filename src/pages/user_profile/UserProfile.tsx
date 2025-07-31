@@ -1,81 +1,50 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileTable from '../../components/profile/ProfileTable';
-import './UserProfile.css';
+import UserTitle from '../../components/userTitle/UserTitle';
 import Header from '../../components/Header';
 import ChangePasswordPopup from '../../components/profile/ChangePasswordPopup';
+import { fetchProfile } from '../../utils/userProfileUtils';
+import { useAuth } from '../../context/authContext';
+import { useError } from '../../context/errorContext';
 import { Button } from '@mui/material';
-import UserTitle from '../../components/userTitle/UserTitle';
+import './UserProfile.css';
 
 const UserProfile = () => {
   const [showPopup, setShowPopup] = useState(false);
-  // Mock data for user profile
-  const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    dob: '1990-01-01',
-    joiningDate: '2020-01-15',
-    role: 'employee',
-    employeeType: 'permanent',
-    team: 'Development',
-    bankAccountNumber: '1234567890',
-    employeeId: 'EMP123',
-    maritalStatus: 'single',
-    workLocation: 'New York',
-    jobTitle: 'Software Engineer',
-    position: 'Senior',
-    phoneNumber: '123-456-7890',
-    password: '********',
-    age: '34',
-  };
+  const [userDetails, setUserDetails] = useState([]);
 
-  const personalDetails = [
-    { label: 'First Name', value: user.firstName },
-    { label: 'Last Name', value: user.lastName },
-    { label: 'Date of Birth', value: user.dob },
-    { label: 'Onboarding Date', value: user.joiningDate },
-    { label: 'Age', value: user.age },
-    { label: 'Role', value: user.role },
-    { label: 'Marital Status', value: user.maritalStatus },
-  ];
+  const { user } = useAuth();
+  const { setError } = useError();
 
-  const jobDetails = {
-    title: 'Job Details',
-    details: [
-      { label: 'Employee Type', value: user.employeeType },
-      { label: 'Team', value: user.team },
-      { label: 'Employee ID', value: user.employeeId },
-      { label: 'Job Title', value: user.jobTitle },
-      { label: 'Position', value: user.position },
-    ],
-  };
+  useEffect(() => {
+    const fetchUserProfileDetails = async () => {
+      try {
+        const data = await fetchProfile(user?.employee_number!)
+        setUserDetails(data)
+      } catch (error: any) {
+        setError(error.message);
+      }
+    }
 
-  const contactDetails = {
-    title: 'Address and Contact Details',
-    details: [
-      { label: 'Work Location', value: user.workLocation },
-      { label: 'Email', value: user.email },
-      { label: 'Phone Number', value: user.phoneNumber },
-      { label: 'Account Number', value: user.bankAccountNumber },
-      { label: 'Password', value: user.password },
-    ],
-  };
+    fetchUserProfileDetails()
+  }, [])
+
 
   return (
     <>
-    <Header pageName='User Profile' />
-    <div className="user-profile-container">
-      <UserTitle mainText={`${user.firstName} ${user.lastName}`} subText={`Employee ID: ${user.employeeId}`} />
-      <ProfileTable title="Personal Details" details={personalDetails} />
-      <ProfileTable title={jobDetails.title} details={jobDetails.details} />
-      <ProfileTable title={contactDetails.title} details={contactDetails.details} />
-      <div className="change-password-container">
+      <Header pageName='User Profile' />
+      <div className="user-profile-container">
+        <UserTitle mainText={user?.name!} subText={`Employee ID: ${user?.employee_number!}`} />
+        {userDetails.map(userDetail => (
+           <ProfileTable key={userDetail.title} title={userDetail.title} details={userDetail.details} />
+        ))}
+        <div className="change-password-container">
           <Button variant="contained" className="change-password-button" onClick={() => setShowPopup(true)}>
-          Change Password
-        </Button>
+            Change Password
+          </Button>
+        </div>
+        <ChangePasswordPopup open={showPopup} onClose={() => setShowPopup(false)} />
       </div>
-      <ChangePasswordPopup open={showPopup} onClose={() => setShowPopup(false)} />
-    </div>
     </>
   );
 };
