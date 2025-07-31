@@ -158,5 +158,6 @@ export const transformToUserCredentials = (formData: EmployeeInterface) => ({
     email: formData.email,
     employee_id: formData.employeeId,
     role: formData.role  || 'employee',
+    status: formData.status,
     ...(formData.password && { password: formData.password })
 });
