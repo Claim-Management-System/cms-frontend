@@ -6,7 +6,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'LLCirc';
-  min-width: 900px;
+  min-width: 800px;
+  margin-right: 24px;
 }
 
 .profile-table-title {

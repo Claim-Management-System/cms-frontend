@@ -21,6 +21,7 @@
 .change-password-container {
     display: flex;
     justify-content: flex-end;
+    margin-right: 24px;
   }
   
 .change-password-button {
