@@ -3,6 +3,10 @@
 }
 
 .close-button {
+    position: absolute !important;
+    right: 15px !important;
+    top: 8px !important;
+    color: #797A7F !important;
     z-index: 1;
 }
 
@@ -105,18 +109,19 @@
 
 .reason-dropdown .MuiOutlinedInput-root {
     border-radius: 4px;
-    height: 40px;
+    height: 50px;
+    min-width: 300px;
 }
 
 .reason-dropdown .MuiInputLabel-root {
     color: #4C4E54;
     font-size: 12px;
-    transform: translate(14px, 10px) scale(1);
+    transform: translate(14px,15px) scale(1);
     font-family: 'LLCirc' !important;
 }
 
 .reason-dropdown .MuiInputLabel-root.MuiInputLabel-shrink {
-    transform: translate(14px, -6px) scale(0.75);
+    transform: translate(14px, -6px) scale(0.8);
 }
 
 .reason-dropdown .MuiOutlinedInput-notchedOutline {
