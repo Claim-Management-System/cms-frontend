@@ -3,8 +3,7 @@ import apiClient from "./axiosConfig";
 
 export const createEmployee = async (body: any) => {
     try {
-        const response = await apiClient.post('api/employees', body)
-        return response
+        await apiClient.post('api/employees', body)
     } catch (error: any) {
         throw error
     }
@@ -13,8 +12,7 @@ export const createEmployee = async (body: any) => {
 
 export const createUser = async (body: any) => {
     try {
-        const response = await apiClient.post('api/users', body)
-        return response
+        await apiClient.post('api/users', body)
     } catch (error: any) {
         throw error
     }

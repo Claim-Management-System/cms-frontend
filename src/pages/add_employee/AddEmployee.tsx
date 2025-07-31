@@ -58,15 +58,11 @@ export default function AddEmployee() {
             const employeeDetails = transformToEmployeeDetails(formData);
             const userCredentials = transformToUserCredentials(formData);
 
-            const employeeResponse = await createEmployee(employeeDetails);
-            const userResponse = await createUser(userCredentials);
-
-            console.log('Employee Details:', employeeResponse);
-            console.log('User Credentials:', userResponse);
+            await createEmployee(employeeDetails);
+            await createUser(userCredentials);
 
             handleCancel();
         } catch (error) {
-            console.log(error)
             setError('Failed to create employee. Please try again.');
         } finally {
             setIsLoading(false);
