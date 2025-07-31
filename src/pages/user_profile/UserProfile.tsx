@@ -4,6 +4,7 @@ import './UserProfile.css';
 import Header from '../../components/Header';
 import ChangePasswordPopup from '../../components/profile/ChangePasswordPopup';
 import { Button } from '@mui/material';
+import UserTitle from '../../components/userTitle/UserTitle';
 
 const UserProfile = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -64,9 +65,7 @@ const UserProfile = () => {
     <>
     <Header pageName='User Profile' />
     <div className="user-profile-container">
-      <div className="profile-header">
-        <p>{`${user.firstName} ${user.lastName}`}</p>
-      </div>
+      <UserTitle mainText={`${user.firstName} ${user.lastName}`} subText={`Employee ID: ${user.employeeId}`} />
       <ProfileTable title="Personal Details" details={personalDetails} />
       <ProfileTable title={jobDetails.title} details={jobDetails.details} />
       <ProfileTable title={contactDetails.title} details={contactDetails.details} />
