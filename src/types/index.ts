@@ -42,6 +42,8 @@ export interface EmployeeInterface {
     phoneNumber: string;
     age?: number;
     password?: string;
+    status: string;
+    department?: string;
 }
 
 export type FieldConfig = {

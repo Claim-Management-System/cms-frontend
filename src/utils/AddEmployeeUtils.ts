@@ -42,6 +42,7 @@ export const generateFieldConfigs = (
         { name: 'email', label: 'Email', type: 'email', required: true },
         { name: 'jobTitle', label: 'Job Title', type: 'text', required: true },
         { name: 'position', label: 'Position', type: 'text', required: true },
+        { name: 'department', label: 'Department', type: 'text', required: false },
         { name: 'phoneNumber', label: 'Phone Number', type: 'text', required: true },
         { name: 'team', label: 'Team', type: 'text', required: true },
         { name: 'bankAccountNumber', label: 'Bank Account Number', type: 'text', required: true },
@@ -75,6 +76,14 @@ export const generateFieldConfigs = (
             name: 'workLocation', label: 'Work Location', type: 'select', required: true,
             options: workLocation.map(location => ({ value: String(location.id), label: location.address }))
         },
+        {
+            name: 'status', label: 'Status', type: 'select', required: true,
+            options: [
+                { value: 'active', label: 'Active' },
+                { value: 'inactive', label: 'Inactive' },
+                { value: 'deactivated', label: 'Deactivated' },
+            ]
+        },
     ];
 };
 
@@ -95,7 +104,8 @@ export const REQUIRED_FIELDS: (keyof EmployeeInterface)[] = [
     'workLocation',
     'jobTitle',
     'position',
-    'phoneNumber'
+    'phoneNumber',
+    'status'
 ];
 
 
@@ -117,6 +127,7 @@ export const getInitialFormData = (): EmployeeInterface => ({
     position: '',
     phoneNumber: '',
     password: '',
+    status: ''
 });
 
 
@@ -147,10 +158,7 @@ export const transformToEmployeeDetails = (formData: EmployeeInterface) => ({
     team: formData.team,
     marital_status_id: Number(formData.maritalStatus),
     work_location_id: Number(formData.workLocation),
-    cell_number: '123456789', 
-    department: 'product development', 
-    primary_email: 'primary@gmail.com',
-    home_number: '0987654321'
+    department: formData.department, 
 });
 
 

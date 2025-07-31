@@ -11,8 +11,8 @@ import {
 import { useError } from '../../context/errorContext';
 import { createEmployee, createUser } from '../../services/dataServices/employee';
 import type { EmployeeInterface } from '../../types';
-import type { SelectChangeEvent } from '@mui/material';
-import { Block as BlockIcon, Done as DoneIcon} from '@mui/icons-material';
+import { type SelectChangeEvent, CircularProgress } from '@mui/material';
+import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
 import './AddEmployee.css';
 
 
@@ -24,12 +24,12 @@ export default function AddEmployee() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        
+
         setFormData(prev => ({ ...prev, [name]: value }));
-        
+
         if (name === 'dob' && value) {
             const age = calculateAge(value);
-            setFormData(prev => ({ ...prev, age })); // check!
+            setFormData(prev => ({ ...prev, age }));
         }
     };
 
@@ -60,7 +60,7 @@ export default function AddEmployee() {
 
             const employeeResponse = await createEmployee(employeeDetails);
             const userResponse = await createUser(userCredentials);
-            
+
             console.log('Employee Details:', employeeResponse);
             console.log('User Credentials:', userResponse);
 
@@ -88,22 +88,28 @@ export default function AddEmployee() {
                     />
                     <div className="form-actions">
                         <div className="buttons-wrapper">
-                            <button 
-                                type="button" 
-                                className="cancel-btn" 
+                            <button
+                                type="button"
+                                className="cancel-btn"
                                 onClick={handleCancel}
                                 disabled={isLoading}
                             >
                                 Cancel
-                                <BlockIcon className='icon'/>
+                                <BlockIcon className='icon' />
                             </button>
-                            <button 
-                                type="submit" 
+                            <button
+                                type="submit"
                                 className="submit-btn"
                                 disabled={isLoading}
                             >
-                                {isLoading ? 'Creating...' : 'Submit'}
-                                <DoneIcon className='icon'/>
+                                {isLoading ? (
+                                    <CircularProgress size={24} color="inherit" />
+                                ) : (
+                                    <>
+                                        Submit
+                                        <DoneIcon className='icon' />
+                                    </>
+                                )}
                             </button>
                         </div>
                     </div>
