@@ -18,7 +18,7 @@ import { USER_ROLES, STATUS, BASE_URL } from '../../services/constantServices/co
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
-import './ViewMore.css';
+import './ClaimDetails.css';
 
 
 function ViewMore() {
