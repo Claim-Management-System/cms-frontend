@@ -248,11 +248,11 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
         <List>
           <ListItem key="Settings" disablePadding className="menu-item-box">
             <ListItemButton
-              onClick={() => handleMenuItemClick('/settings')}
-              className={`list-item-button${checkIsActive('/settings') ? ' active' : ''}`}
+              onClick={() => handleMenuItemClick('/user-profile')}
+              className={`list-item-button${checkIsActive('/user-profile') ? ' active' : ''}`}
             >
-              <ListItemIcon className={`list-item-icon${checkIsActive('/settings') ? ' active' : ''}`}><SettingsIcon /></ListItemIcon>
-              <ListItemText primary="Settings" className={`list-item-text${checkIsActive('/settings') ? ' active' : ''}`} />
+              <ListItemIcon className={`list-item-icon${checkIsActive('/user-profile') ? ' active' : ''}`}><SettingsIcon /></ListItemIcon>
+              <ListItemText primary="Profile" className={`list-item-text${checkIsActive('/user-profile') ? ' active' : ''}`} />
             </ListItemButton>
           </ListItem>
           <ListItem key="Log Out" disablePadding className="menu-item-box">
