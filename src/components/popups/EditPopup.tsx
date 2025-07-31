@@ -59,12 +59,6 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
             <IconButton
                 className="close-button"
                 onClick={onClose}
-                sx={{
-                    position: 'absolute',
-                    right: 8,
-                    top: 8,
-                    color: '#797A7F'
-                }}
             >
                 <CloseIcon />
             </IconButton>
