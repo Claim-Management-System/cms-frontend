@@ -1,0 +1,206 @@
+.popup-dialog .MuiDialog-paper {
+    border-radius: 8px;
+}
+
+.close-button {
+    z-index: 1;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    gap: 5px;
+    font-family: 'LLCirc' !important;
+}
+
+.employee-name {
+    font-size: 24px !important;
+    color: #35383E !important;
+    font-weight: 450 !important;
+    font-family: 'LLCirc' !important;
+}
+
+.popup-field {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.popup-label {
+    font-size: 16px !important;
+    font-weight: 450 !important;
+    color: #797A7F !important;
+    font-family: 'LLCirc' !important;
+}
+
+.popup-value {
+    font-size: 16px !important;
+    color: #1A1A1A !important;
+    font-family: 'LLCirc' !important;
+}
+
+.employee-info {
+    color: #35383E !important;
+}
+
+.status-accepted {
+    color: #86B62C !important;
+    font-weight: 450 !important;
+}
+
+.status-denied {
+    color: #F6772C !important;
+    font-weight: 450 !important;
+}
+
+.total-amount-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.total-amount-label {
+    font-size: 12px !important;
+    color: #8F9094 !important;
+    font-weight: 450 !important;
+    font-family: 'LLCirc' !important;
+}
+
+.total-amount-value {
+    font-size: 16px !important;
+    color: #1CA8DD !important;
+    font-weight: 450 !important;
+    font-family: 'LLCirc' !important;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.submit-button-accept {
+    height: 35px !important;
+    padding: 8px 16px !important;
+    background-color: #1CA8DD !important;
+    color: white !important;
+    font-size: 15px !important;
+    text-transform: none !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    width: 100%;
+    font-family: 'LLCirc' !important;
+}
+
+.submit-button-accept:hover {
+    background-color: #1991c4 !important;
+}
+
+.reason-dropdown {
+    margin-top: 10px !important;
+}
+
+.reason-dropdown .MuiOutlinedInput-root {
+    border-radius: 4px;
+    height: 40px;
+}
+
+.reason-dropdown .MuiInputLabel-root {
+    color: #4C4E54;
+    font-size: 12px;
+    transform: translate(14px, 10px) scale(1);
+    font-family: 'LLCirc' !important;
+}
+
+.reason-dropdown .MuiInputLabel-root.MuiInputLabel-shrink {
+    transform: translate(14px, -6px) scale(0.75);
+}
+
+.reason-dropdown .MuiOutlinedInput-notchedOutline {
+    border-color: #D2EEF8;
+}
+
+.reason-dropdown .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #1CA8DD;
+}
+
+.reason-dropdown .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #1CA8DD;
+    border-width: 1px;
+}
+
+.reason-dropdown-select .MuiSelect-select {
+    font-family: 'LLCirc' !important;
+    font-size: 14px !important;
+}
+
+.submit-button-edit {
+    height: 35px !important;
+    padding: 8px 16px !important;
+    background-color: #E59300 !important;
+    color: white !important;
+    font-size: 15px !important;
+    text-transform: none !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    width: 100%;
+    font-family: 'LLCirc' !important;
+}
+
+.submit-button-edit:hover {
+    background-color: #d48700 !important;
+}
+
+.popup-input {
+    margin-top: 8px !important;
+}
+
+.popup-input .MuiInputBase-input,
+.popup-input .MuiInputLabel-root {
+    font-family: 'LLCirc' !important;
+}
+
+.popup-input .MuiOutlinedInput-root {
+    border-radius: 8px !important;
+}
+
+.popup-input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60) !important;
+}
+
+.popup-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60) !important;
+}
+
+.popup-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60) !important;
+    border-width: 1px !important;
+}
+
+.popup-input .MuiInputLabel-root {
+    color: var(--s80) !important;
+}
+
+.popup-input .MuiInputLabel-root.Mui-focused {
+    color: var(--s80) !important;
+}
+
+.confirm-button {
+    background-color: #f44336 !important;
+    color: white !important;
+    text-transform: none !important;
+    font-size: 15px !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    width: 100%;
+    margin-top: 8px !important;
+    font-family: 'LLCirc' !important;
+    height: 35px !important;
+}
+
+.confirm-button:hover {
+    background-color: #d32f2f !important;
+    font-family: 'LLCirc' !important;
+}
