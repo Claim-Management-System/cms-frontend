@@ -7,7 +7,6 @@ interface HeaderProps {
 }
 
 function Header({ pageName }: HeaderProps) {
-
   return (
     <AppBar
       position="static"
