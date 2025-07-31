@@ -1,4 +1,5 @@
-import { getWorkLocations, getMaritalStatuses, getEmployeeTypes } from '../../services/dataServices/employee';
+import { getWorkLocation, getMaritalStatus, getEmployeeType } from '../../services/dataServices/employee';
+import type { WorkLocation, MaritalStatus, EmployeeType } from '../../types';
 
 interface LocationApi {
     city: string;
@@ -21,12 +22,24 @@ interface EmployeeTypeApi {
     type: string;
 }
 
+interface CachedDependency {
+    formattedWorkLocations: WorkLocation,
+    formattedMaritalStatuses: MaritalStatus,
+    formattedEmployeeTypes: EmployeeType
+}
+
+let cachedDependencies: CachedDependency | null = null;
+
 export const fetchFormDependencies = async () => {
+    if (cachedDependencies) {
+        return cachedDependencies;
+    }
+
     try {
         const [workLocations, maritalStatuses, employeeTypes] = await Promise.all([
-            getWorkLocations(),
-            getMaritalStatuses(),
-            getEmployeeTypes()
+            getWorkLocation(),
+            getMaritalStatus(),
+            getEmployeeType()
         ]);
 
         const formattedWorkLocations = workLocations.map((location: LocationApi) => ({
@@ -44,7 +57,9 @@ export const fetchFormDependencies = async () => {
             type: empType.type
         }));
 
-        return { formattedWorkLocations, formattedMaritalStatuses, formattedEmployeeTypes };
+        const result = { formattedWorkLocations, formattedMaritalStatuses, formattedEmployeeTypes };
+        cachedDependencies = result;
+        return result;
 
     } catch (error: any) {
         throw error;
