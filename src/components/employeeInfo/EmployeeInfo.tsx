@@ -72,7 +72,7 @@ export default function EmployeeInfo({ mode, formData, onFormChange, onSelectCha
 
         if (field.specialHandling === 'age') {
             return (
-                <Grid item xs={12} sm={6} md={4} className="custom-form-control" key={field.name}>
+                <Grid item xs={12} sm={6} md={6} className="custom-form-control" key={field.name}>
                     <TextField
                         name="age"
                         label="Age"
@@ -89,7 +89,7 @@ export default function EmployeeInfo({ mode, formData, onFormChange, onSelectCha
 
         if (field.specialHandling === 'password') {
             return (
-                <Grid item xs={12} sm={6} md={4} className="custom-form-control" key={field.name}>
+                <Grid item xs={12} sm={6} md={6} className="custom-form-control" key={field.name}>
                     <TextField
                         name="password"
                         label="Password"
@@ -125,7 +125,7 @@ export default function EmployeeInfo({ mode, formData, onFormChange, onSelectCha
 
         if (field.type === 'select') {
             return (
-                <Grid item xs={12} sm={6} md={4} key={field.name}>
+                <Grid item xs={12} sm={6} md={6} key={field.name}>
                     <FormControl
                         fullWidth
                         variant="outlined"
@@ -159,7 +159,7 @@ export default function EmployeeInfo({ mode, formData, onFormChange, onSelectCha
         }
 
         return (
-            <Grid item xs={12} sm={6} md={4} className="custom-form-control" key={field.name}>
+            <Grid item xs={12} sm={6} md={6} className="custom-form-control" key={field.name}>
                 <TextField
                     name={field.name}
                     label={field.label}
@@ -179,7 +179,7 @@ export default function EmployeeInfo({ mode, formData, onFormChange, onSelectCha
 
     return (
         <div className="employee-info-form">
-            <Grid container spacing={4} className="form-grid">
+            <Grid container spacing={4}>
                 {fieldConfigs.map(renderField)}
             </Grid>
         </div>
