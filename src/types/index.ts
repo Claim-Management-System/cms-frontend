@@ -23,6 +23,30 @@ export type UserRole = 'admin' | 'user';
 export type ClaimCategory = 'claim history' | 'claim requests';
 export type ClaimType = 'miscellaneous' | 'outpatient';
 
+export type FormType =
+    | "MISCELLANEOUS EXPENSE FORM"
+    | "OUT PATIENT EXPENSE FORM";
+
+export interface FormData {
+  title: string;
+  itemTypeId: string;
+  description: string;
+  relationship: string;
+  totalAmount: number;
+}
+
+export type newAddRequest = {
+  user_id: string,
+  employee_number: number,
+  claim_type_id: string,
+  title: string,
+  description: string,
+  relationship: string,
+  submitted_amount: number,
+  month: string,
+  images: File[]
+}
+
 
 export interface EmployeeInterface {
     firstName: string;

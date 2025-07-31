@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    background: #ffffff;
+    padding-top: 80px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
+    border-radius: 8px;
+    width: 435px;
+    height: 590px;
+    font-family: 'LLCirc';
+    font-weight: 450 !important;
+}
+
+.popup-content.submitted, .popup-content.not-accepted {
+    justify-content: space-between;
+}
+
+.popup-icon {
+    margin-bottom: 24px;
+}
+
+.popup-icon .MuiSvgIcon-root {
+    width: 100px;
+    height: 100px;
+}
+
+.popup-main-text {
+    font-size: 18px;
+    font-weight: 450 !important;
+    margin-bottom: 8px;
+    color: #4C4E54;
+    font-family: 'LLCirc';
+}
+
+.popup-secondary-text {
+    font-size: 14px;
+    margin-bottom: 24px;
+    color: #626469;
+    font-family: 'LLCirc';
+    font-weight: 450 !important;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.popup-button {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 450 !important;
+    width: 330px;
+    font-family: 'LLCirc';
+} 
