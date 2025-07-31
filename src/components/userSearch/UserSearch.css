@@ -3,9 +3,9 @@
   flex-direction: column;
   /* margin: 20px auto; */
   margin-left: 20px;
+  margin-right: 24px;
   margin-top: 20px;
   gap: 20px;
-  max-width: 1000px;
 }
 
 .employee-id-field .MuiInputBase-root {
