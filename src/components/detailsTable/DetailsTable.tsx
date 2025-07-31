@@ -13,7 +13,7 @@ import {
 
 interface DetailsTableProps {
   title: string;
-  data: Record<string, string>[];
+  data: Record<string, string | number>[];
   columns?: {
     key: string;
     header: string;
