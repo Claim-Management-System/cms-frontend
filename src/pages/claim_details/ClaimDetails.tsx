@@ -107,7 +107,7 @@ function ViewMore() {
                 <div className="view-more-header">
                     <UserTitle
                         mainText={employee_name}
-                    // subText={employeeDetails?.work_email!}
+                        subText={employeeDetails?.work_email!}
                     />
                     {user?.role === USER_ROLES.ADMIN && formData?.status === STATUS.PENDING && (
                         <div className="admin-buttons-container">
