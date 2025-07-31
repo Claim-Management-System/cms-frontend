@@ -47,14 +47,9 @@ function AcceptPopup ({ open, onClose, onAccept, totalAmount, employee_name, emp
                     <Typography className="popup-value employee-info">{employee_number}</Typography>
                 </Box>
                 
-                <Box className="popup-field">
-                    <Typography className="popup-label">Status:</Typography>
-                    <Typography className="popup-value status-accepted">Accepted</Typography>
-                </Box>
-                
                 <Box className="total-amount-section">
                     <Typography className="total-amount-label">Total Amount Claim Request</Typography>
-                    <Typography className="total-amount-value">${totalAmount}</Typography>
+                    <Typography className="total-amount-value">PKR {totalAmount}</Typography>
                 </Box>
                 
                 <Box className="popup-actions">
