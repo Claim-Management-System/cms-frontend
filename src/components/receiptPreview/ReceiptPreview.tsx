@@ -1,13 +1,8 @@
-import type React from "react"
 import { useState, type ChangeEvent, useEffect } from "react"
 import { Button, Box, Typography, IconButton } from "@mui/material"
-import {
-    ArrowBackIosNew,
-    ArrowForwardIos,
-    PlayArrow as PlayArrowIcon,
-    ZoomIn as ZoomInIcon, // <-- Import ZoomInIcon
-} from "@mui/icons-material"
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch" // <-- Import library
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material"
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch"
+import { IMAGE_MODE } from "../../services/constantServices/constants"
 import "./ReceiptPreview.css"
 
 interface ReceiptPreviewProps {
@@ -18,21 +13,13 @@ interface ReceiptPreviewProps {
     images?: string[];
 }
 
-const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
-    onImageUpload,
-    submitted,
-    reset,
-    mode = "upload",
-    images = [],
-}) => {
+function ReceiptPreview({ onImageUpload, submitted, reset, mode = IMAGE_MODE.UPLOAD, images = [] }: ReceiptPreviewProps) {
     const [files, setFiles] = useState<File[]>([])
     const [previews, setPreviews] = useState<string[]>([])
     const [activeIndex, setActiveIndex] = useState(0)
-    const [showDuplicateError, setShowDuplicateError] = useState(false)
-    const [isHovered, setIsHovered] = useState(false) // <-- Add hover state
 
     useEffect(() => {
-        if (mode === "view") {
+        if (mode === IMAGE_MODE.VIEW) {
             setPreviews(images)
         }
     }, [mode, images])
@@ -42,17 +29,11 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
             setFiles([]);
             setPreviews([]);
             setActiveIndex(0);
-            setShowDuplicateError(false);
         }
     }, [reset]);
 
-    const isDuplicateFile = (_file: File) => {
-        // Dummy function: will be replaced with actual duplicate detection logic
-        return false;
-    };
-
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (mode === "view") return;
+        if (mode === IMAGE_MODE.VIEW) return;
 
         if (event.target.files) {
             const newFiles = Array.from(event.target.files)
@@ -69,8 +50,6 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
     const handleRemovePreview = (index: number) => {
         if (previews.length === 0) return
 
-        setShowDuplicateError(false)
-
         const newFiles = [...files]
         newFiles.splice(index, 1)
         setFiles(newFiles);
@@ -84,48 +63,18 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
         setActiveIndex((prev) => Math.min(prev, newPreviews.length))
     }
 
-    const handleReplaceImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if (mode === "view") return;
-
-        if (event.target.files) {
-            const newFile = Array.from(event.target.files)[0];
-            if (!newFile) return;
-
-            const updatedFiles = [...files];
-            updatedFiles[activeIndex] = newFile;
-
-            const updatedPreviews = [...previews];
-            URL.revokeObjectURL(updatedPreviews[activeIndex]);
-            updatedPreviews[activeIndex] = URL.createObjectURL(newFile);
-
-            setFiles(updatedFiles);
-            setPreviews(updatedPreviews);
-            onImageUpload?.(updatedFiles);
-
-            if (isDuplicateFile(newFile)) {
-                setShowDuplicateError(true);
-            } else {
-                setShowDuplicateError(false);
-            }
-
-            event.target.value = "";
-        }
-    };
-
     const handleNext = () => {
         setActiveIndex((prev) => Math.min(prev + 1, previews.length))
-        setShowDuplicateError(false);
     }
 
     const handlePrev = () => {
         setActiveIndex((prev) => Math.max(prev - 1, 0))
-        setShowDuplicateError(false);
     }
 
     const UploadPlaceholder = () => (
         <Box className={`upload-placeholder ${submitted && files.length === 0 ? "error" : ""}`}>
             <Typography>+ Upload Attachments</Typography>
-            <Button component="label" variant="contained" disabled={mode === "view"}>
+            <Button component="label" variant="contained" disabled={mode === IMAGE_MODE.VIEW}>
                 Upload
                 <input
                     type="file"
@@ -133,7 +82,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                     multiple
                     onChange={handleFileChange}
                     accept="image/png, image/jpeg, application/pdf"
-                    disabled={mode === "view"}
+                    disabled={mode === IMAGE_MODE.VIEW}
                 />
             </Button>
         </Box>
@@ -155,7 +104,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
 
                 <Box className="preview-content">
                     {previews.length === 0 ? (
-                        mode === "upload" ? (
+                        mode === IMAGE_MODE.UPLOAD ? (
                             <UploadPlaceholder />
                         ) : (
                             <Box className="upload-placeholder">
@@ -173,59 +122,29 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                             </IconButton>
 
                             {activeIndex < previews.length ? (
-                                <div
-                                    className="image-preview-wrapper"
-                                    onMouseEnter={() => setIsHovered(true)} // <-- Add mouse enter handler
-                                    onMouseLeave={() => setIsHovered(false)} // <-- Add mouse leave handler
-                                >
-                                    {showDuplicateError && mode === "upload" && (
-                                        <Box className="duplicate-error-box">
-                                            <Box className="duplicate-error-content">
-                                                <Typography className="duplicate-error-heading">The document looks like a duplicate</Typography>
-                                                <Typography className="duplicate-error-body">The document uploaded appears to be a duplicate of a previously uploaded document. Please upload a new document.</Typography>
-                                                <Button className="duplicate-error-button" component="label">
-                                                    Re-Upload the Document
-                                                    <input
-                                                        type="file"
-                                                        hidden
-                                                        onChange={handleReplaceImage}
-                                                        accept="image/png, image/jpeg, application/pdf"
-                                                    />
-                                                </Button>
-                                            </Box>
-                                            <PlayArrowIcon className="duplicate-error-arrow" />
-                                        </Box>
-                                    )}
-                                    {/* --- START: Zoom implementation --- */}
+                                <div className="image-preview-wrapper" >
                                     <TransformWrapper wheel={{ step: 20 }}>
                                         <TransformComponent
                                             wrapperStyle={{ width: "100%", height: "100%" }}
                                             contentStyle={{ width: "100%", height: "100%" }}
                                         >
                                             <img
-                                                src={previews[activeIndex] || "/placeholder.svg"}
+                                                src={previews[activeIndex]}
                                                 alt={`Receipt preview ${activeIndex + 1}`}
                                                 className="receipt-image"
                                             />
                                         </TransformComponent>
                                     </TransformWrapper>
-                                    {/* {isHovered && !showDuplicateError && (
-                                        <div className="zoom-icon-overlay">
-                                            <ZoomInIcon fontSize="small" />
-                                        </div>
-                                    )} */}
-                                    {/* --- END: Zoom implementation --- */}
                                 </div>
                             ) : (
-                                mode === "upload" && <UploadPlaceholder />
+                                mode === IMAGE_MODE.UPLOAD && <UploadPlaceholder />
                             )}
 
                             <IconButton
                                 onClick={handleNext}
                                 disabled={
-                                    (mode === "view" && activeIndex >= previews.length - 1 && previews.length > 0) ||
-                                    (mode === "upload" && activeIndex === previews.length) ||
-                                    (showDuplicateError && mode === "upload")
+                                    (mode === IMAGE_MODE.VIEW && activeIndex >= previews.length - 1 && previews.length > 0) ||
+                                    (mode === IMAGE_MODE.UPLOAD && activeIndex === previews.length)
                                 }
                                 className="nav-button"
                             >
@@ -234,7 +153,7 @@ const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
                         </Box>
                     )}
                 </Box>
-                {mode === "upload" && activeIndex < previews.length && (
+                {mode === IMAGE_MODE.UPLOAD && activeIndex < previews.length && (
                     <Box className="remove-button-section">
                         <Button
                             className="remove-image-button"

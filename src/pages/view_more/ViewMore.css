@@ -1,8 +1,7 @@
 .view-more-container {
     display: flex;
-    padding: 24px;
+    padding-top: 20px;
     background-color: #F8F9FA;
-    height: 100vh;
     box-sizing: border-box;
     flex-wrap: wrap;
     position: relative;
@@ -19,7 +18,6 @@
 .view-more-header {
     display: flex;
     justify-content: space-between;
-    align-items:end;
     flex-basis: 100%;
     margin-left: 24px;
     margin-right: 24px;
@@ -40,3 +38,64 @@
         height: auto;
     }
 }
+
+
+/* Buttons Styling */
+
+.admin-buttons-container {
+    display: flex;
+    gap: 16px;
+}
+
+.decline-button {
+    width: 120px !important;
+    height: 40px !important;
+    border-radius: 4px !important;
+    padding: 8px 24px !important;
+    background-color: #ff3535 !important;
+    color: white !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+    font-family: 'LLCirc' !important;
+}
+
+.decline-button .MuiSvgIcon-root {
+    color: white !important;
+}
+
+.accept-button {
+    width: 120px !important;
+    height: 40px !important;
+    border-radius: 4px !important;
+    padding: 8px 24px !important;
+    border: 1px solid #1CA8DD !important;
+    background-color: #1CA8DD !important;
+    color: white !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+    font-family: 'LLCirc' !important;
+}
+
+.accept-button .MuiSvgIcon-root {
+    color: white !important;
+} 
+
+.editing-button {
+    width: 200px !important;
+    height: 40px !important;
+    border-radius: 4px !important;
+    padding: 8px 24px !important;
+    border: 1px solid #E59300 !important;
+    background-color: #E59300 !important;
+    color: white !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+    font-family: 'LLCirc' !important;
+}
+
+.edit-button .MuiSvgIcon-root {
+    color: white !important;
+} 

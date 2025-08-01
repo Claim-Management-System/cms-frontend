@@ -6,22 +6,14 @@ import './Popup.css';
 interface EditPopupProps {
     open: boolean;
     onClose: () => void;
-    employeeName: string;
-    employeeId: string;
-    totalAmount: number;
     onEdit: (newAmount: number, reason: string) => void;
     formData: any;
+    employee_name: string;
+    employee_number: number;
+    totalAmount: number;
 }
 
-const EditPopup: React.FC<EditPopupProps> = ({
-    open,
-    onClose,
-    employeeName,
-    employeeId,
-    totalAmount,
-    onEdit,
-    formData,
-}) => {
+function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_number, totalAmount }: EditPopupProps) {
     const [amount, setAmount] = useState(String(totalAmount));
     const [reason, setReason] = useState('');
 
@@ -78,11 +70,11 @@ const EditPopup: React.FC<EditPopupProps> = ({
             </IconButton>
             
             <DialogContent className="popup-content">
-                <Typography className="employee-name">{employeeName}</Typography>
+                <Typography className="employee-name">{employee_name}</Typography>
                 
                 <Box className="popup-field">
                     <Typography className="popup-label">Employee ID:</Typography>
-                    <Typography className="popup-value employee-info">{employeeId}</Typography>
+                    <Typography className="popup-value employee-info">{employee_number}</Typography>
                 </Box>
 
                 <TextField

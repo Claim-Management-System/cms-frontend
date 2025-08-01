@@ -66,4 +66,15 @@ const getClaim = async (claimId: string) => {
 }
 
 
-export { getClaimsHistory, getEmployeeClaimsHistory, getClaim, getClaimsCount }
+const updateClaimStatus = async (claimId: string, body: object) => {
+  try {
+    await apiClient.put('/api/claims', body, {
+      params: { id: claimId }
+    })
+  } catch (error: any) {
+    throw error;
+  }
+}
+
+
+export { getClaimsHistory, getEmployeeClaimsHistory, getClaim, updateClaimStatus, getClaimsCount }

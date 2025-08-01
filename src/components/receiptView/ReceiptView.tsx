@@ -1,86 +1,113 @@
-import React from 'react';
-import {
-    FormControl,
-    InputLabel,
-    OutlinedInput,
-} from '@mui/material';
+import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
+import type { Claim } from '../../types';
 import './ReceiptView.css';
-import { type FormType } from '../../types';
-import type { MiscFormData, OpdFormData } from '../../types';
+import { STATUS } from '../../services/constantServices/constants';
 
 interface ReceiptViewProps {
-    formType: FormType;
-    formData: MiscFormData | OpdFormData;
-    date: string;
-    time: string;
-    status: string;
+    formData: Claim | null;
 }
 
-const InfoField: React.FC<{ label: string; value: string; multiline?: boolean; rows?: number }> = ({ label, value, multiline = false, rows }) => (
-    <FormControl fullWidth margin="normal" className="custom-form-control">
-        <InputLabel shrink required>{label}</InputLabel>
-        <OutlinedInput
-            value={value}
-            readOnly
-            label={label}
-            notched
-            multiline={multiline}
-            rows={rows}
-        />
-    </FormControl>
-);
+interface InfoFieldProps {
+    label: string;
+    value: string;
+    multiline?: boolean;
+    rows?: number;
+}
 
+function ReceiptView({ formData }: ReceiptViewProps) {
+    const localDateTime = new Date(formData?.updated_at!).toLocaleString('en-IN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+    });
 
-const ReceiptView: React.FC<ReceiptViewProps> = ({ formType, formData, date, time, status }) => {
+    const fieldsToRender = [
+        {
+            label: "Title",
+            value: formData?.title || '',
+            condition: true
+        },
+        {
+            label: "Relationship",
+            value: formData?.relationship || '',
+            condition: !!formData?.relationship
+        },
+        {
+            label: "Item/Purpose",
+            value: formData?.claim_type || '',
+            condition: true
+        },
+        {
+            label: "Description",
+            value: formData?.description || '',
+            condition: true,
+            props: { multiline: true, rows: 4 }
+        },
+        {
+            label: "Submitted Amount",
+            value: String(formData?.submitted_amount || 0),
+            condition: true
+        },
+        {
+            label: "Approved Amount",
+            value: String(formData?.approved_amount || 0),
+            condition: formData?.status === STATUS.APPROVED
+        },
+        {
+            label: "Reason for Edit",
+            value: formData?.reason_for_edit || '',
+            condition: formData?.status === STATUS.APPROVED && !!formData?.reason_for_edit
+        },
+        {
+            label: "Reason for Rejection",
+            value: formData?.reason_for_rejection || '',
+            condition: formData?.status === STATUS.REJECTED
+        }
+    ];
 
-    const renderMiscExpenseFields = () => {
-        const data = formData as MiscFormData;
-        return (
-            <>
-                <InfoField label="Title" value={data.title} />
-                <InfoField label="Item/Purpose" value={data.itemType} />
-                {data.itemType === 'Other' && (
-                    <InfoField label="Specify Other" value={data.otherItemType ?? ''} />
-                )}
-                <InfoField label="Description" value={data.description} multiline rows={4} />
-            </>
-        );
-    }
-
-    const renderOutPatientClaimFields = () => {
-        const data = formData as OpdFormData;
-        return (
-            <>
-                <InfoField label="Title" value={data.title} />
-                <InfoField label="Patient's Name" value={data.patientName} />
-                <InfoField label="Relationship" value={data.relationship} />
-                <InfoField label="Purpose of Visit" value={data.purposeOfVisit} />
-                {data.purposeOfVisit === 'Other' && (
-                    <InfoField label="Specify Other" value={data.otherPurposeOfVisit ?? ''} />
-                )}
-                <InfoField label="Specify the type of expense" value={data.expenseType} />
-            </>
-        )
-    };
+    const InfoField = ({ label, value, multiline = false, rows }: InfoFieldProps) => (
+        <FormControl fullWidth margin="normal" className="custom-form-control">
+            <InputLabel shrink required>{label}</InputLabel>
+            <OutlinedInput
+                value={value}
+                readOnly
+                label={label}
+                notched
+                multiline={multiline}
+                rows={rows}
+            />
+        </FormControl>
+    );
 
     return (
         <div>
             <div className="receipt-details-header">
                 <div className="datetime-container">
-                    <div className="datetime-box">{date}</div>
-                    <div className="datetime-box">{time}</div>
+                    <div className="datetime-box">{localDateTime}</div>
                 </div>
-                <span className={`status-chip ${status.toLowerCase()}`}>
-                    {status}
+                <span className={`status-chip ${formData?.status.toLowerCase()}`}>
+                    {formData?.status}
                 </span>
             </div>
 
             <div className="receipt-form-container">
-                {formType === "MISCELLANEOUS EXPENSE FORM" ? renderMiscExpenseFields() : renderOutPatientClaimFields()}
-                <InfoField label="Total Amount claimed in numbers" value={formData.totalAmount} />
+                {fieldsToRender
+                    .filter(field => field.condition)
+                    .map(field => (
+                        <InfoField
+                            key={field.label}
+                            label={field.label}
+                            value={field.value}
+                            {...field.props}
+                        />
+                    ))}
             </div>
         </div>
     );
 };
 
-export default ReceiptView; 
+export default ReceiptView;
