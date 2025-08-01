@@ -7,7 +7,7 @@ interface User {
   email: string;
   employee_name: string;
   employee_number: number,
-  role: 'admin' | 'user';
+  role: 'admin' | 'employee';
   profile_picture?: string;
 }
 
