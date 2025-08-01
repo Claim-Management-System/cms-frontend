@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
           { path: 'claim-history/outpatient', element: <ClaimHistory_OutPatient /> },
           { path: 'claim-history/miscellaneous', element: <ClaimHistory_Miscellaneous /> },
           { path: 'claim-details/:claimId', element: <ClaimDetails /> },
-          { path: 'user-profile', element: <UserProfile /> },
+          { path: 'profile', element: <UserProfile /> },
         ],
       },
 
