@@ -20,6 +20,8 @@
 .buttons-wrapper {
     margin-left: auto;
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -31,6 +33,7 @@ h1 {
 
 .submit-btn,
 .cancel-btn {
+    width: 200px;
     padding: 10px 20px;
     border: 1px solid transparent;
     border-radius: 4px;

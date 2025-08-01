@@ -58,23 +58,12 @@ export const generateFieldConfigs = (
 
         // Select fields
         {
-            name: 'role', label: 'Role', type: 'select', required: true,
-            options: [
-                { value: 'employee', label: 'Employee' },
-                { value: 'admin', label: 'Admin' },
-            ]
-        },
-        {
-            name: 'employeeType', label: 'Employee Type', type: 'select', required: true,
-            options: employeeType.map(empType => ({ value: String(empType.id), label: empType.type }))
+            name: 'workLocation', label: 'Work Location', type: 'select', required: true,
+            options: workLocation.map(location => ({ value: String(location.id), label: location.address }))
         },
         {
             name: 'maritalStatus', label: 'Marital Status', type: 'select', required: true,
             options: maritalStatus.map(status => ({ value: String(status.id), label: status.status }))
-        },
-        {
-            name: 'workLocation', label: 'Work Location', type: 'select', required: true,
-            options: workLocation.map(location => ({ value: String(location.id), label: location.address }))
         },
         {
             name: 'status', label: 'Status', type: 'select', required: true,
@@ -82,6 +71,17 @@ export const generateFieldConfigs = (
                 { value: 'active', label: 'Active' },
                 { value: 'inactive', label: 'Inactive' },
                 { value: 'deactivated', label: 'Deactivated' },
+            ]
+        },
+        {
+            name: 'employeeType', label: 'Employee Type', type: 'select', required: true,
+            options: employeeType.map(empType => ({ value: String(empType.id), label: empType.type }))
+        },
+        {
+            name: 'role', label: 'Role', type: 'select', required: true,
+            options: [
+                { value: 'employee', label: 'Employee' },
+                { value: 'admin', label: 'Admin' },
             ]
         },
     ];
@@ -164,8 +164,8 @@ export const transformToEmployeeDetails = (formData: EmployeeInterface) => ({
 
 export const transformToUserCredentials = (formData: EmployeeInterface) => ({
     email: formData.email,
-    employee_id: formData.employeeId,
-    role: formData.role  || 'employee',
+    employee_id: Number(formData.employeeId),
+    role: formData.role,
     status: formData.status,
     ...(formData.password && { password: formData.password })
 });
