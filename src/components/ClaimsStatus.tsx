@@ -1,15 +1,16 @@
 import React from 'react';
 import { Box, Tabs, Tab, Chip } from '@mui/material';
+import type { ClaimCounts } from '../types';
 
 interface ClaimsStatusProps {
   currentStatus: string;
   onStatusChange: (newStatus: string) => void;
+  counts: ClaimCounts
 }
 
 const STATUS_MAP = ['total', 'approved', 'rejected', 'pending'];
 
-function ClaimsStatus({ currentStatus, onStatusChange }: ClaimsStatusProps) {
-    const counts: { [key: string]: number } = { total: 10, accepted: 40, denied: 20, pending: 30 };
+function ClaimsStatus({ currentStatus, onStatusChange, counts }: ClaimsStatusProps) {
 
   const renderTabLabel = (label: string, count: number) => (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -21,6 +22,13 @@ function ClaimsStatus({ currentStatus, onStatusChange }: ClaimsStatusProps) {
       {label}
     </Box>
   );
+
+  const tabConfig = [
+    { label: 'Total requests', count: counts.total },
+    { label: 'Accepted requests', count: counts.accepted },
+    { label: 'Denied requests', count: counts.denied },
+    { label: 'Pending requests', count: counts.pending },
+  ];
 
   const handleTabChange = (_event: React.ChangeEvent<unknown>, newIndex: number) => {
     onStatusChange(STATUS_MAP[newIndex]);
@@ -34,10 +42,12 @@ function ClaimsStatus({ currentStatus, onStatusChange }: ClaimsStatusProps) {
       TabIndicatorProps={{ style: { backgroundColor: '#1CA8DD' } }}
       sx={{ '& .Mui-selected': { color: '#1CA8DD' } }}
     >
-      <Tab label={renderTabLabel('Total requests', counts.total)} />
-      <Tab label={renderTabLabel('Accepted requests', counts.accepted)} />
-      <Tab label={renderTabLabel('Denied requests', counts.denied)} />
-      <Tab label={renderTabLabel('Pending requests', counts.pending)} />
+      {tabConfig.map((tab) => (
+        <Tab
+          key={tab.label}
+          label={renderTabLabel(tab.label, tab.count)}
+        />
+      ))}
     </Tabs>
   );
 }

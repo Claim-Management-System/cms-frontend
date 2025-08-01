@@ -45,19 +45,9 @@
   color: #85B52C;
 }
 
-.status-chip.completed {
-  background-color: #EFFCE8;
-  color: #86B62C;
-}
-
 .status-chip.rejected {
   background-color: #FDF1F1;
   color: #F6772C;
-}
-
-.status-chip.forwarded {
-  background-color: #F1FAFD;
-  color: #1CA8DD;
 }
 
 

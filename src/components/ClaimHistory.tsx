@@ -9,10 +9,11 @@ import Pagination from './Pagination';
 import ClaimTable from './claimsTable/ClaimTable';
 import { useError } from '../context/errorContext';
 import { useAuth } from '../context/authContext';
-import { getClaimsHistory, getEmployeeClaimsHistory } from '../services/dataServices/claimsHistory';
+import { getClaimsHistory, getEmployeeClaimsHistory, getClaimsCount } from '../services/dataServices/claimsHistory';
 import formatDate from '../services/constantServices/formatDate';
 import addRelationship from '../services/constantServices/addRelationship';
-import { type ClaimRecord } from '../types';
+import { USER_ROLES, CLAIM_TYPES } from '../services/constantServices/constants';
+import type { ClaimRecord, ClaimCounts } from '../types';
 
 
 interface ClaimHistoryProps {
@@ -23,10 +24,16 @@ interface ClaimHistoryProps {
 }
 
 function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath }: ClaimHistoryProps) {
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [totalPages, setTotalPages] = useState(1);
   const [claimData, setClaimData] = useState<ClaimRecord[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [claimsCounts, setClaimsCounts] = useState<ClaimCounts>({
+    total: 0,
+    accepted: 0,
+    denied: 0,
+    pending: 0,
+  });
 
   const { setError } = useError();
   const { user } = useAuth();
@@ -45,9 +52,19 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
 
   const fetchAllClaims = async () => {
     setIsLoading(true);
+
     try {
+      const countsData = await getClaimsCount(apiClaimType, user?.id!);
+      const counts = {
+        total: countsData.approved_count + countsData.rejected_count + countsData.pending_count,
+        accepted: countsData.approved_count,
+        denied: countsData.rejected_count,
+        pending: countsData.pending_count,
+      };
+      setClaimsCounts(counts);
+
       let data;
-      if (user?.role === 'admin') {
+      if (user?.role === USER_ROLES.ADMIN) {
         data = await getClaimsHistory({
           claimType: apiClaimType,
           status: currentStatus,
@@ -57,7 +74,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
       }
       else {
         const employeeId = user?.employeeId;
-        if(!employeeId) {
+        if (!employeeId) {
           throw Error("Employee ID not found!");
         }
         data = await getEmployeeClaimsHistory({
@@ -68,15 +85,16 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
           page: currentPage,
         });
       }
-      
+
       let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
-      
-      if(apiClaimType === 'medical') {
+
+      // TODO: This is a temporary function. Replace with actual logic once the backend provides the 'relationship' field.
+      if (apiClaimType === CLAIM_TYPES.OPD) {
         allClaims = addRelationship(allClaims)
       }
 
       setClaimData(allClaims);
-      setTotalPages(data.pageCount || 1);
+      setTotalPages(Math.ceil(data.totalCount / 10));
     } catch (error: any) {
       setError(error?.message || 'Failed to fetch claims');
     } finally {
@@ -90,46 +108,44 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
 
   return (
     <Box sx={{ marginX: 3 }}>
-        <Header pageName={pageTitle} />
+      <Header pageName={pageTitle} />
 
-        <Box 
-          sx={{
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              paddingX: 3, 
-              marginTop: 2, 
-              alignItems: 'center' 
-          }}
-        >
-          <SearchBox onSearchChange={setSearchTerm} />
-          <AddRequestButton path={newRequestPath} />
-        </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          paddingX: 3,
+          marginTop: 2,
+          alignItems: 'center'
+        }}
+      >
+        <SearchBox onSearchChange={setSearchTerm} />
+        <AddRequestButton path={newRequestPath} />
+      </Box>
 
-        <Box 
-          sx={{ 
-              paddingX: 3, 
-              marginY: 4 
-          }}
-        >
-          <ClaimsStatus 
-              currentStatus={currentStatus} 
-              onStatusChange={handleStatusChange} 
-          />
-        </Box>
-
-        <ClaimTable
-          data={claimData}
-          userRole={user?.role || 'user'}
-          claimType={tableClaimType}
-          category="claim history"
-          loading={isLoading}
+      <Box
+        sx={{ paddingX: 3, marginY: 4 }}
+      >
+        <ClaimsStatus
+          currentStatus={currentStatus}
+          onStatusChange={handleStatusChange}
+          counts={claimsCounts}
         />
+      </Box>
 
-        <Pagination 
-          currentPage={currentPage} 
-          totalPages={totalPages} 
-          onPageChange={handlePageChange} 
-        />
+      <ClaimTable
+        data={claimData}
+        userRole={user?.role || 'user'}
+        claimType={tableClaimType}
+        category="claim history"
+        loading={isLoading}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </Box>
   );
 };
