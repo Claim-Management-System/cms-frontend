@@ -37,6 +37,14 @@
         flex: 1 1 100%;
         height: auto;
     }
+    .view-more-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .admin-buttons-container {
+        flex-wrap: wrap;
+    }
 }
 
 
@@ -48,7 +56,8 @@
 }
 
 .decline-button {
-    width: 120px !important;
+    width: 100% !important;
+    max-width: 120px !important;
     height: 40px !important;
     border-radius: 4px !important;
     padding: 8px 24px !important;
@@ -65,7 +74,8 @@
 }
 
 .accept-button {
-    width: 120px !important;
+    width: 100% !important;
+    max-width: 120px !important;
     height: 40px !important;
     border-radius: 4px !important;
     padding: 8px 24px !important;
@@ -83,7 +93,8 @@
 } 
 
 .editing-button {
-    width: 200px !important;
+    width: 100% !important;
+    max-width: 200px !important;
     height: 40px !important;
     border-radius: 4px !important;
     padding: 8px 24px !important;
@@ -96,6 +107,6 @@
     font-family: 'LLCirc' !important;
 }
 
-.edit-button .MuiSvgIcon-root {
+.editing-button .MuiSvgIcon-root {
     color: white !important;
 } 

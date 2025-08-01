@@ -50,12 +50,6 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
             <IconButton
                 className="close-button"
                 onClick={onClose}
-                sx={{
-                    position: 'absolute',
-                    right: 8,
-                    top: 8,
-                    color: '#797A7F'
-                }}
             >
                 <CloseIcon />
             </IconButton>
@@ -68,18 +62,13 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
                     <Typography className="popup-value employee-info">{employee_number}</Typography>
                 </Box>
                 
-                <Box className="popup-field">
-                    <Typography className="popup-label">Status:</Typography>
-                    <Typography className="popup-value status-denied">Denied</Typography>
-                </Box>
-                
                 <Box className="total-amount-section">
                     <Typography className="total-amount-label">Total Amount Claim Request</Typography>
-                    <Typography className="total-amount-value">${totalAmount}</Typography>
+                    <Typography className="total-amount-value">PKR {totalAmount}</Typography>
                 </Box>
                 
-                <Box className="popup-field">
-                    <FormControl fullWidth className="reason-dropdown">
+                <Box>
+                    <FormControl className="reason-dropdown">
                         <InputLabel>Reason why this request was rejected</InputLabel>
                         <Select
                             value={selectedReason}
