@@ -1,37 +1,7 @@
 import { getEmployee, getWorkLocation, getEmployeeType, getMaritalStatus } from '../services/dataServices/employee';
+import type { ProfileSection } from '../types';
 
-const profileCache: any = {};
-
-const getUserProfileDetails = async (employeeNumber: number) => {
-    try {
-        const employee = await getEmployee(employeeNumber);
-        console.log(employee)
-
-        const [
-            workLocation,
-            employeeType,
-            // maritalStatus
-        ] = await Promise.all([
-            getWorkLocation(employee.work_location_id),
-            getEmployeeType(employee.employee_type_id),
-            // getMaritalStatus(employee.marital_status_id)
-        ]);
-
-        const fullProfile = {
-            ...employee,
-            office_address: `${workLocation.office_address}, ${workLocation.primary_address}`,
-            city: workLocation.city,
-            country: workLocation.country,
-            employee_type: employeeType.type,
-            // marital_status: maritalStatus.status_name,
-            marital_status: 'single',
-        };
-
-        return fullProfile;
-    } catch (error) {
-        throw error;
-    }
-};
+const profileCache: { [key: number]: ProfileSection[] } = {};
 
 export const fetchProfile = async (employeeNumber: number) => {
     if (profileCache[employeeNumber]) {
@@ -39,9 +9,29 @@ export const fetchProfile = async (employeeNumber: number) => {
     }
 
     try {
-        const user = await getUserProfileDetails(employeeNumber);
+        const employee = await getEmployee(employeeNumber);
+        console.log(employee.work_location_id)
+        const [
+            workLocation,
+            employeeType,
+            maritalStatus
+        ] = await Promise.all([
+            getWorkLocation(employee.work_location_id),
+            getEmployeeType(employee.employee_type_id),
+            getMaritalStatus(employee.marital_status_id)
+        ]);
+        console.log(workLocation)
 
-        const personalDetails = {
+        const user = {
+            ...employee,
+            office_address: `${workLocation.office_address}, ${workLocation.primary_address}`,
+            city: workLocation.city,
+            country: workLocation.country,
+            employee_type: employeeType.type,
+            marital_status: maritalStatus.status_name,
+        };
+
+        const personalDetails: ProfileSection = {
             title: 'Personal Details',
             details: [
                 { label: 'First Name', value: user.first_name },
@@ -53,7 +43,7 @@ export const fetchProfile = async (employeeNumber: number) => {
             ]
         };
 
-        const jobDetails = {
+        const jobDetails: ProfileSection = {
             title: 'Job Details',
             details: [
                 { label: 'Employee ID', value: user.employee_number },
@@ -65,7 +55,7 @@ export const fetchProfile = async (employeeNumber: number) => {
             ],
         };
 
-        const contactDetails = {
+        const contactDetails: ProfileSection = {
             title: 'Address and Contact Details',
             details: [
                 { label: 'Office Address', value: user.office_address },
