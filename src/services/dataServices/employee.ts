@@ -18,11 +18,10 @@ export const createUser = async (body: any) => {
 }
 
 export const getWorkLocation = async (id?: number) => {
-    let url = '/api/work-locations';
-    if (id) url += `?id:${id}`;
-
     try {
-        const response = await apiClient.get(url);
+        const response = await apiClient.get('/api/work-locations', {
+            params: { id }
+        });
         return response.data;
     } catch (error) {
         throw error;
@@ -30,11 +29,10 @@ export const getWorkLocation = async (id?: number) => {
 };
 
 export const getEmployeeType = async (id?: number) => {
-    let url = '/api/employee-types';
-    if (id) url += `?id:${id}`;
-
     try {
-        const response = await apiClient.get(url);
+        const response = await apiClient.get('/api/employee-types', {
+            params: { id }
+        });
         return response.data;
     } catch (error) {
         throw error;
@@ -42,11 +40,10 @@ export const getEmployeeType = async (id?: number) => {
 };
 
 export const getMaritalStatus = async (id?: number) => {
-    let url = '/api/marital-statuses';
-    if (id) url += `?id:${id}`;
-
     try {
-        const response = await apiClient.get(url);
+        const response = await apiClient.get( '/api/marital-statuses', {
+            params: { id }
+        });
         return response.data;
     } catch (error) {
         throw error;

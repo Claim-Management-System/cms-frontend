@@ -70,3 +70,13 @@ export interface EmployeeType {
   id: number;
   type: string;
 }
+
+export interface ProfileDetail {
+  label: string;
+  value: string | number;
+}
+
+export interface ProfileSection {
+  title: string;
+  details: ProfileDetail[];
+}

@@ -1,17 +1,8 @@
-import React from 'react';
+import type { ProfileSection } from '../../types';
 import './ProfileTable.css';
 
-interface ProfileDetail {
-  label: string;
-  value: string;
-}
 
-interface ProfileTableProps {
-  title: string;
-  details: ProfileDetail[];
-}
-
-const ProfileTable: React.FC<ProfileTableProps> = ({ title, details }) => {
+function ProfileTable({ title, details }: ProfileSection) {
   return (
     <div className="profile-table-container">
       <h2 className="profile-table-title">{title}</h2>
