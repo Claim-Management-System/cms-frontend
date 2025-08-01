@@ -4,12 +4,11 @@ import { apiLogin, apiLogout } from '../services/dataServices/auth';
 
 interface User {
   id: string;
-  name: string;
   email: string;
+  employee_name: string;
+  employee_number: number,
   role: 'admin' | 'user';
-  employeeId: string;
-  profile_picture: string;
-  department?: string;
+  profile_picture?: string;
 }
 
 interface AuthContextType {
