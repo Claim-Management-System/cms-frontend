@@ -20,6 +20,7 @@ const UserProfile = () => {
     const fetchUserProfileDetails = async () => {
       try {
         const data = await fetchProfile(user?.employee_number!)
+        console.log(data)
         setUserDetails(data)
       } catch (error: any) {
         setError(error.message);

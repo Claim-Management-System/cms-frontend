@@ -1,5 +1,13 @@
 import apiClient from "./axiosConfig";
 
+export const getEmployee = async () => {
+    try {
+        const response = await apiClient.get('api/employees')
+        return response.data
+    } catch (error: any) {
+        throw error
+    }
+};
 
 export const createEmployee = async (body: any) => {
     try {
