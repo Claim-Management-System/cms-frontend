@@ -5,10 +5,8 @@ import SearchBox from './SearchBox';
 import ClaimTable from './claimsTable/ClaimTable';
 import Pagination from './Pagination';
 import formatDate from '../services/constantServices/formatDate';
-import addRelationship from '../services/constantServices/addRelationship';
 import { useError } from '../context/errorContext';
 import { getClaimsRequest } from '../services/dataServices/claimsRequest';
-import { CLAIM_TYPES } from '../services/constantServices/constants';
 import { type ClaimRecord } from '../types';
 import { Box } from '@mui/material';
 
@@ -35,11 +33,6 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
         try {
             const data = await getClaimsRequest({ claimType: apiClaimType, search, page });
             let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
-
-            // TODO: This is a temporary function. Replace with actual logic once the backend provides the 'relationship' field.
-            if (apiClaimType === CLAIM_TYPES.OPD) {
-                allClaims = addRelationship(allClaims)
-            }
 
             setClaimData(allClaims);
             setTotalPages(Math.ceil(data.totalCount / 10));
