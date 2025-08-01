@@ -1,8 +1,7 @@
-import React from 'react';
 import DetailsTable from '../../components/detailsTable/DetailsTable';
 import Header from '../../components/Header';
 import UserTitle from '../../components/userTitle/UserTitle';
-import './UserDashboard.css';
+// import './UserDashboard.css';
 
 const UserDashboard = () => {
   const apiData = {
