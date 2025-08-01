@@ -1,16 +1,20 @@
+@import '../../index.css';
+
 .user-title-container {
-    font-family: 'ITCAvantG', sans-serif;
-    margin: 10px 0px
+    font-family: 'ITCAvantG', sans-serif !important;
+    margin-bottom: 40px !important;
 }
 
 .main-text {
-    font-size: 24px;
+    font-size: 20px;
     color: #1F2229;
-    font-weight: 500;
+    margin: 0 0 4px 0;
+    font-weight: 300;
 }
 
 .sub-text {
-    font-size: 18px;
+    font-size: 15px;
     color: #35383E;
-    font-weight: 300;
+    margin: 0;
+    font-weight: 100;
 }

@@ -53,7 +53,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
     setIsLoading(true);
 
     try {
-      const countsData = await getClaimsCount(apiClaimType, user?.id!);
+      const countsData = await getClaimsCount(apiClaimType, user?.employee_number!);
       const counts = {
         total: countsData.approved_count + countsData.rejected_count + countsData.pending_count,
         accepted: countsData.approved_count,
@@ -72,12 +72,12 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
         });
       }
       else {
-        const employeeId = user?.employeeId;
-        if (!employeeId) {
+        const employeeNumber = user?.employee_number;
+        if (!employeeNumber) {
           throw Error("Employee ID not found!");
         }
         data = await getEmployeeClaimsHistory({
-          employeeId: employeeId,
+          employeeNumber: employeeNumber,
           claimType: apiClaimType,
           status: currentStatus,
           search: searchTerm,
