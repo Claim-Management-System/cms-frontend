@@ -8,7 +8,7 @@ type getClaimsHistoryProps = {
   page: number;
 }
 
-export const getClaimsHistory = async ({ claimType, status, search, page }: getClaimsHistoryProps) => {
+const getClaimsHistory = async ({ claimType, status, search, page }: getClaimsHistoryProps) => {
   try {
     const params: any = { claimType, page, search };
     if (status !== 'total') {
@@ -31,7 +31,7 @@ type getEmployeeClaimsHistoryProps = {
   page: number
 }
 
-export const getEmployeeClaimsHistory = async ({employeeId, claimType, status, search, page}: getEmployeeClaimsHistoryProps) => {
+const getEmployeeClaimsHistory = async ({employeeId, claimType, status, search, page}: getEmployeeClaimsHistoryProps) => {
   try {
      const response = await apiClient.get('/api/claims/employee', {
       params: { employeeId, claimType, status, page, search },
@@ -43,7 +43,18 @@ export const getEmployeeClaimsHistory = async ({employeeId, claimType, status, s
 }
 
 
-export const getClaim = async (claimId: string) => {
+const getClaimsCount = async (module: 'medical' | 'miscellaneous', user_id: string) => {
+  try {
+    const response = await apiClient.get('/api/claims/count', { params: { module, user_id } })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+
+
+const getClaim = async (claimId: string) => {
   try {
     const response = await apiClient.get('/api/claims', {
       params: { id: claimId }
@@ -76,3 +87,4 @@ export const getClaimImages = async (claimId: number) => {
     throw error
   }
 }
+export { getClaimsHistory, getEmployeeClaimsHistory, getClaim, getClaimsCount }

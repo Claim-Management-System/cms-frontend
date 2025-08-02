@@ -21,3 +21,8 @@ export const IMAGE_MODE = Object.freeze({
   UPLOAD: 'upload',
   VIEW: 'view'
 })
+
+export const CLAIM_CATEGORY = Object.freeze({
+  REQUEST: 'claim requests',
+  HISTORY: 'claim history'
+})
