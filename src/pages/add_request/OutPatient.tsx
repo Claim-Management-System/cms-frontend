@@ -1,7 +1,7 @@
-import React from 'react';
+import NewRequest from "../../components/addNewRequest/NewRequest";
 
-const AddRquest_OutPatient = () => {
-  return <div>Add Request - OutPatient</div>;
-};
+function NewRequestOpd() {
+  return <NewRequest formType="opd" />;
+}
 
-export default AddRquest_OutPatient; 
+export default NewRequestOpd;

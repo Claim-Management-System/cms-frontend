@@ -11,7 +11,9 @@ import ClaimRequests_OutPatient from '../pages/claim_requests/OutPatient'
 import ClaimRequests_Miscellaneous from '../pages/claim_requests/Miscellaneous'
 import ClaimHistory_OutPatient from '../pages/claim_history/OutPatient';
 import ClaimHistory_Miscellaneous from '../pages/claim_history/Miscellaneous';
+import UserProfile from '../pages/user_profile/UserProfile';
 import Drafts from '../pages/draft/Drafts';
+import AddEmployee from '../pages/add_employee/AddEmployee';
 import ClaimDetails from '../pages/claim-details/ClaimDetails';
 
 export const router = createBrowserRouter([
@@ -22,7 +24,7 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        element: <ProtectedRoute allowedRoles={['user']} />,
+        element: <ProtectedRoute allowedRoles={['employee']} />,
         children: [
           { path: '/', element: <UserDashboard />},
           { path: 'drafts', element: <Drafts /> },
@@ -30,13 +32,14 @@ export const router = createBrowserRouter([
       },
 
       {
-        element: <ProtectedRoute allowedRoles={['admin', 'user']} />,
+        element: <ProtectedRoute allowedRoles={['admin', 'employee']} />,
         children: [
           { path: 'new-request/outpatient', element: <AddRquest_OutPatient /> },
           { path: 'new-request/miscellaneous', element: <AddRequest_Miscellaneous /> },
           { path: 'claim-history/outpatient', element: <ClaimHistory_OutPatient /> },
           { path: 'claim-history/miscellaneous', element: <ClaimHistory_Miscellaneous /> },
           { path: 'claim-details/:claimId', element: <ClaimDetails /> },
+          { path: 'profile', element: <UserProfile /> },
         ],
       },
 
@@ -46,6 +49,7 @@ export const router = createBrowserRouter([
           { path: 'admin-dashboard', element: <AdminDashboard />},
           { path: 'claim-requests/outpatient', element: <ClaimRequests_OutPatient /> },
           { path: 'claim-requests/miscellaneous', element: <ClaimRequests_Miscellaneous /> },
+          { path: 'add-employee', element: <AddEmployee /> },
         ],
       },
     ],

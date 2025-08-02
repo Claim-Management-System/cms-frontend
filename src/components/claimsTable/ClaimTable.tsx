@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import ActionsCell from './ActionCell';
-import getClaimTableColumns from '../../utils/getClaimTableColumns'; 
+import getClaimTableColumns from '../../utils/ClaimTableUtils'; 
 import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Chip } from '@mui/material';
 import type { ClaimRecord, UserRole, ClaimType, ClaimCategory } from '../../types';
