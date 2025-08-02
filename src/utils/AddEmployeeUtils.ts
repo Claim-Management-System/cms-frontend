@@ -131,7 +131,7 @@ export const getInitialFormData = (): EmployeeInterface => ({
 });
 
 
-export const isFormValid = ( formData: EmployeeInterface, mode: 'create' | 'edit' ): boolean => {
+export const isFormValid = (formData: EmployeeInterface, mode: 'create' | 'edit'): boolean => {
     const isFormInvalid = REQUIRED_FIELDS.some(field => {
         const value = formData[field as keyof typeof formData];
         return !value || value === '';
@@ -158,7 +158,7 @@ export const transformToEmployeeDetails = (formData: EmployeeInterface) => ({
     team: formData.team,
     marital_status_id: Number(formData.maritalStatus),
     work_location_id: Number(formData.workLocation),
-    department: formData.department, 
+    department: formData.department,
 });
 
 
@@ -169,3 +169,23 @@ export const transformToUserCredentials = (formData: EmployeeInterface) => ({
     status: formData.status,
     ...(formData.password && { password: formData.password })
 });
+
+
+export const transformIntoFormField = (apiData) => ({
+    firstName: apiData.first_name,
+    lastName: apiData.last_name,
+    email: apiData.work_email,
+    phoneNumber: apiData.primary_number,
+    dob: apiData.date_of_birth,
+    age: apiData.age,
+    bankAccountNumber: apiData.bank_account_number,
+    employeeId: apiData.employee_number,
+    employeeType: apiData.employee_type_id,
+    joiningDate: apiData.onboarding_date,
+    jobTitle: apiData.job_title,
+    position: apiData.position,
+    team: apiData.team,
+    maritalStatus: apiData.marital_status_id,
+    workLocation: apiData.work_location_id,
+    department: apiData.department
+})

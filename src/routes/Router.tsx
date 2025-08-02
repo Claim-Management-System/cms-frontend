@@ -17,6 +17,7 @@ import AddEmployee from '../pages/add_employee/AddEmployee';
 import ClaimDetails from '../pages/claim-details/ClaimDetails';
 import EmployeeList from '../pages/employee_list/EmployeeList';
 import EmployeeProfile from '../pages/employee_profile/EmployeeProfile';
+import EditProfile from '../pages/edit_employee_profile/EditProfile';
 
 export const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
@@ -54,6 +55,7 @@ export const router = createBrowserRouter([
           { path: 'add-employee', element: <AddEmployee /> },
           { path: 'employee-list', element: <EmployeeList /> },
           { path: 'employee-profile/:employeeId', element: <EmployeeProfile /> },
+          { path: 'employee-profile/edit/:employeeId', element: <EditProfile /> },
         ],
       },
     ],

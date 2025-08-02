@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProfileTable from '../../components/profile/ProfileTable';
 import UserTitle from '../../components/userTitle/UserTitle';
 import Header from '../../components/Header';
@@ -7,6 +7,7 @@ import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { fetchProfile } from '../../utils/userProfileUtils';
 import { useError } from '../../context/errorContext';
 import type { ProfileSection } from '../../types';
+import { Button } from '@mui/material';
 import './EmployeeProfile.css';
 
 
@@ -15,6 +16,7 @@ const EmployeeProfile = () => {
     const [employeeName, setEmployeeName] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true)
 
+    const navigate = useNavigate();
     const { employeeId } = useParams();
     const { setError } = useError();
 
@@ -33,7 +35,7 @@ const EmployeeProfile = () => {
     }
 
     useEffect(() => {
-        if(employeeId) {
+        if (employeeId) {
             fetchEmployeeProfileDetails(Number(employeeId))
         } else {
             setError('Employee ID not exists!')
@@ -54,6 +56,13 @@ const EmployeeProfile = () => {
                     />
                 ))}
             </div>
+            <Button 
+                variant="contained" 
+                className="edit-button" 
+                onClick={() => navigate(`/employee-profile/edit/${employeeId}`)}
+            >
+                Edit Details
+            </Button>
         </>
     ) : (
         <LoadingScreen />
