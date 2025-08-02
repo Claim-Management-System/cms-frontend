@@ -25,7 +25,7 @@ function EmployeeList() {
         setIsLoading(true);
         try {
             const responseData = await getAllEmployees(page, search);
-            const formattedData = Array.isArray(responseData) ? responseData : [responseData];
+            const formattedData = Array.isArray(responseData.employees) ? responseData.employees : [responseData];
             setEmployeesData(formattedData);
             setTotalPages(Math.ceil(responseData.totalCount / 10));
         } catch (error: any) {

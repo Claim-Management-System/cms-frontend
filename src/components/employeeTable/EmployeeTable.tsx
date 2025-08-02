@@ -111,7 +111,7 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
                     loading={loading}
                     rowHeight={50}
                     disableSelectionOnClick
-                    getRowId={(row) => row.id}
+                    getRowId={(row) => row.id} 
                 />
             </Box>
         </Box>
