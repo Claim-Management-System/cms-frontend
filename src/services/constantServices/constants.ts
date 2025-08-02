@@ -1,4 +1,5 @@
 export const BASE_URL = "https://claim-management-336ef680a3ee.herokuapp.com/static/";
+export const BOUNDARY = 'MULTIPART-IMAGES-BOUNDARY';
 
 export const USER_ROLES = Object.freeze({
     ADMIN: 'admin',

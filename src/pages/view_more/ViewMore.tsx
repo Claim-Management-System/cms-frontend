@@ -10,21 +10,19 @@ import DeclinePopup from '../../components/popups/DeclinePopup';
 import EditPopup from '../../components/popups/EditPopup';
 import UserTitle from '../../components/userTitle/UserTitle';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
-import { getClaim, updateClaimStatus } from '../../services/dataServices/claimsHistory';
-import { getEmployee } from '../../services/dataServices/employee';
+import { updateClaimStatus } from '../../services/dataServices/claimsHistory';
+import { getClaimDetails } from '../../utils/ClaimDetailsUtils';
+import { USER_ROLES, STATUS } from '../../services/constantServices/constants';
+import {Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon} from '@mui/icons-material';
 import { Button } from '@mui/material';
 import type { Claim, Employee } from '../../types';
-import { USER_ROLES, STATUS, BASE_URL } from '../../services/constantServices/constants';
-import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
-import DoneIcon from '@mui/icons-material/Done';
-import EditIcon from '@mui/icons-material/Edit';
 import './ViewMore.css';
 
 
 function ViewMore() {
-    const [formData, setFormData] = useState<Claim | null>(null)
-    const [images, setImages] = useState([])
-    const [employeeDetails, setEmployeeDetails] = useState<Employee | null>(null)
+    const [formData, setFormData] = useState<Claim | null>(null);
+    const [images, setImages] = useState<string[]>([]);
+    const [employeeDetails, setEmployeeDetails] = useState<Employee | undefined>(undefined);
     const [acceptPopupOpen, setAcceptPopupOpen] = useState(false);
     const [declinePopupOpen, setDeclinePopupOpen] = useState(false);
     const [editPopupOpen, setEditPopupOpen] = useState(false);
@@ -33,7 +31,7 @@ function ViewMore() {
     const { claimId } = useParams();
     const { user } = useAuth();
     const { setError } = useError();
-    
+
     const employee_name = employeeDetails?.first_name + " " + employeeDetails?.last_name;
 
     const handleUpdate = async (body: object, successAction: () => void) => {
@@ -73,15 +71,14 @@ function ViewMore() {
     };
 
     const fetchClaimAndEmployee = async (claimId: string) => {
-        try {
-            setIsLoading(true)
-            const data = await getClaim(claimId)
-            setFormData(data.claims)
-            const imageUrls = data.claims.images?.map((imagePath: string) => `${BASE_URL}${imagePath}`) ?? []
-            setImages(imageUrls)
+        setIsLoading(true)
 
-            const employee = await getEmployee(data.claims.employee_number)
-            setEmployeeDetails(employee)
+        try {
+            const claimDetails = await getClaimDetails(claimId)
+
+            setFormData(claimDetails.claimData)
+            setImages(claimDetails.claimImages)
+            setEmployeeDetails(claimDetails.employeeData)
         } catch (error: any) {
             setError(error.message || 'Failed to fetch data!')
         } finally {
@@ -94,11 +91,6 @@ function ViewMore() {
             fetchClaimAndEmployee(claimId)
         }
     }, [claimId])
-
-    useEffect(() => {
-        console.log(formData)
-    }, [formData])
-
 
     return !isLoading ? (
         <>
