@@ -1,0 +1,106 @@
+@import '../../index.css';
+
+.employee-info-form {
+    padding: 20px;
+    background-color: #f9fafb;
+}
+
+.custom-form-control .MuiOutlinedInput-input {
+    padding: 10px 16px;
+    font-size: 16px;
+    font-family: 'LLCirc';
+    height: 45px !important;
+    box-sizing: border-box;
+}
+
+.custom-form-control .MuiOutlinedInput-root {
+    border-radius: 8px;
+}
+
+.custom-form-control .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+}
+
+.custom-form-control .MuiOutlinedInput-root:not(.Mui-disabled):hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+}
+
+.custom-form-control .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+    border-width: 1px;
+}
+
+.custom-form-control .Mui-error .MuiOutlinedInput-notchedOutline {
+    border-color: #F6772C !important;
+}
+
+.custom-form-control .MuiInputLabel-root {
+    color: var(--s80);
+    font-weight: 450;
+    font-size: 14px;
+    font-family: 'LLCirc';
+}
+
+.custom-form-control .MuiInputLabel-root.Mui-error {
+    color: var(--s80) !important;
+}
+
+.custom-form-control .MuiInputLabel-root .MuiFormLabel-asterisk {
+    color: #D96758;
+}
+
+.custom-form-control .MuiInputLabel-shrink {
+    background: #f9fafb;
+    padding: 0 4px;
+    transform: translate(14px, -13px) scale(1);
+}
+
+.submitted .custom-form-control:has(:invalid) .MuiOutlinedInput-notchedOutline {
+    border-color: #F6772C;
+}
+
+.submitted .custom-form-control:has(:invalid) .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #F6772C;
+}
+
+.custom-form-control .MuiInputLabel-root.Mui-focused {
+    color: var(--s80);
+}
+
+.MuiMenuItem-root {
+    height: 45px;
+    box-sizing: border-box;
+    padding: 10px 16px !important;
+    font-family: 'LLCirc' !important;
+    font-size: 14px !important;
+}
+
+/* Style for the calendar picker icon */
+.custom-form-control input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+    /* margin-right: 5px; */
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.custom-form-control input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    /* A light grey circle */
+}
+
+.custom-form-control input[type="date"]::-webkit-calendar-picker-indicator:active {
+    opacity: 0.6;
+}
+
+.custom-form-control .MuiInputAdornment-root .MuiIconButton-root {
+    margin-right: 1px;
+}
+
+.custom-form-control .MuiInputAdornment-root .MuiIconButton-root .MuiSvgIcon-root {
+    font-size: 20px;
+}
+
+.custom-form-control .MuiSelect-icon {
+    margin-right: 15px;
+}
