@@ -9,21 +9,27 @@ import { useError } from '../../context/errorContext';
 import { Button } from '@mui/material';
 import type { ProfileSection } from '../../types';
 import './UserProfile.css';
+import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 
 const UserProfile = () => {
-  const [showPopup, setShowPopup] = useState(false);
   const [userDetails, setUserDetails] = useState<ProfileSection[]>([]);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true)
 
   const { user } = useAuth();
   const { setError } = useError();
 
   useEffect(() => {
     const fetchUserProfileDetails = async () => {
+      setLoading(true);
+
       try {
         const data: ProfileSection[] = await fetchProfile(user?.employee_number!)
         setUserDetails(data)
       } catch (error: any) {
         setError(error.message);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -31,7 +37,7 @@ const UserProfile = () => {
   }, [])
 
 
-  return (
+  return !loading ? (
     <>
       <Header pageName='User Profile' />
       <div className="user-profile-container">
@@ -51,7 +57,9 @@ const UserProfile = () => {
         <ChangePasswordPopup open={showPopup} onClose={() => setShowPopup(false)} />
       </div>
     </>
-  );
+  ) : (
+    <LoadingScreen />
+  )
 };
 
 export default UserProfile;

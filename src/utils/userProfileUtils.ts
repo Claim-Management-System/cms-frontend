@@ -10,7 +10,6 @@ export const fetchProfile = async (employeeNumber: number) => {
 
     try {
         const employee = await getEmployee(employeeNumber);
-        console.log(employee.work_location_id)
         const [
             workLocation,
             employeeType,
