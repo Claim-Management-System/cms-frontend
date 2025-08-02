@@ -1,72 +1,71 @@
 import { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
+import { useError } from '../../context/errorContext';
 import Header from '../../components/Header';
 import SearchBox from '../../components/SearchBox';
+import Pagination from '../../components/Pagination';
 import EmployeeTable from '../../components/employeeTable/EmployeeTable';
-import type { NewEmployeeInterface } from '../../components/employeeTable/EmployeeTable';
-import DownloadCSVButton from '../../components/employeeTable/DownloadCSVButton';
+import { getAllEmployees } from '../../services/dataServices/employee';
+import { Box } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList() {
 
-    const dummyData: NewEmployeeInterface[] = [
-        {
-            "id": 15,
-            "employee_number": 1015,
-            "employee_type_id": 1,
-            "work_location_id": 15,
-            "marital_status_id": 1,
-            "first_name": "Liam",
-            "last_name": "Gupta",
-            "job_title": "Software Engineer",
-            "position": "Mid-level Developer",
-            "age": 28,
-            "onboarding_date": "2021-11-15",
-            "date_of_birth": "1996-09-08",
-            "team": "Gamma",
-            "department": "Engineering",
-            "work_email": "liam.gupta@example.com",
-            "primary_email": "liam.g@personal.com",
-            "primary_number": "+917778889990",
-            "bank_account_number": "6060707080",
-            "created_at": "2025-07-12T12:18:17Z",
-            "updated_at": "2025-07-12T12:18:17Z"
-        },
-        {
-            "id": 70,
-            "employee_number": 9999,
-            "employee_type_id": 2,
-            "work_location_id": 1,
-            "marital_status_id": 1,
-            "first_name": "Muhaib",
-            "last_name": "Shamsher",
-            "job_title": "Software Engineer",
-            "position": "Intern",
-            "age": 21,
-            "onboarding_date": "2025-06-12",
-            "date_of_birth": "2004-01-03",
-            "team": "Frontend",
-            "department": "Product Development",
-            "work_email": "muhaib.shamsher@gmail.com",
-            "primary_number": "03448976342",
-            "bank_account_number": "999-99999999999-999",
-            "created_at": "2025-07-31T21:11:50Z",
-            "updated_at": "2025-07-31T21:11:50Z"
-        }
-    ]
+function EmployeeList() {
+    const [employeesData, setEmployeesData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [totalPages, setTotalPages] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const currentPage = parseInt(searchParams.get('page') || '1', 10);
+
+    const { setError } = useError();
+
+    const fetchEmployeesData = async (page: number, search: string) => {
+        setIsLoading(true);
+        try {
+            const responseData = await getAllEmployees(page, search);
+            const formattedData = Array.isArray(responseData) ? responseData : [responseData];
+            setEmployeesData(formattedData);
+            setTotalPages(Math.ceil(responseData.totalCount / 10));
+        } catch (error: any) {
+            setError(error?.message || 'Failed to fetch claims');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchEmployeesData(currentPage, searchTerm);
+    }, [currentPage, searchTerm]);
+
+    const handlePageChange = (newPage: number) => {
+        setSearchParams({ page: String(newPage) });
+    };
+
 
     return (
         <>
             <Box sx={{ marginX: 3 }}>
                 <Header pageName="Employee List" />
             </Box>
+
             <Box className='search-box-container'>
-                <SearchBox onSearchChange={setSearchTerm} />
-                <DownloadCSVButton path="" />
+                <SearchBox onSearchChange={setSearchTerm} placeholder="Enter 4-digit Employee ID" />
             </Box>
-            <EmployeeTable data={dummyData} loading={false} />
+
+            <EmployeeTable
+                data={employeesData}
+                loading={isLoading}
+            />
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+            </Box>
         </>
     );
 }
