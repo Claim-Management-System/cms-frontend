@@ -60,3 +60,14 @@ export const getEmployee = async (employeeNumber: number) => {
     throw error
   }
 }
+
+export const getDashboardDetails = async (employeeNumber: number) => {
+  try {
+    const response = await apiClient.get('/api/dashboard', {
+        params: { employeeNumber }
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -14,13 +14,24 @@ import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
 import './AddEmployee.css';
+import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
+import { useNavigate } from 'react-router-dom';
 
+interface NewEmployeeData {
+    employeeId: string;
+    name: string;
+    email: string;
+    password?: string;
+}
 
 export default function AddEmployee() {
     const [formData, setFormData] = useState<EmployeeInterface>(getInitialFormData());
     const [submitted, setSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [newEmployeeData, setNewEmployeeData] = useState<NewEmployeeData | null>(null);
     const { setError } = useError();
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -43,6 +54,15 @@ export default function AddEmployee() {
         setSubmitted(false);
     };
 
+    const handlePopupClose = () => {
+        setIsPopupOpen(false);
+        handleCancel();
+    };
+
+    const handleNavigateToDashboard = () => {
+        navigate('/admin-dashboard');
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitted(true);
@@ -61,7 +81,13 @@ export default function AddEmployee() {
             await createEmployee(employeeDetails);
             await createUser(userCredentials);
 
-            handleCancel();
+            setNewEmployeeData({
+                employeeId: formData.employeeId,
+                name: `${formData.firstName} ${formData.lastName}`,
+                email: formData.email,
+                password: userCredentials.password,
+            });
+            setIsPopupOpen(true);
         } catch (error) {
             setError('Failed to create employee. Please try again.');
         } finally {
@@ -111,6 +137,14 @@ export default function AddEmployee() {
                     </div>
                 </form>
             </div>
+            {newEmployeeData && (
+                <AddEmployeePopup
+                    open={isPopupOpen}
+                    onClose={handlePopupClose}
+                    onNavigate={handleNavigateToDashboard}
+                    employeeData={newEmployeeData}
+                />
+            )}
         </>
     );
 };
