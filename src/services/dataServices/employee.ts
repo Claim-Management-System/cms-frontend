@@ -61,6 +61,17 @@ export const getEmployee = async (employeeNumber: number) => {
   }
 }
 
+export const getAllEmployees = async (page: number, search: string) => {
+  try {
+    const response = await apiClient.get('/api/employees', {
+      params: { page, employeeNumber: Number(search) },
+    })
+    return response.data
+  } catch (error: any) {
+    throw error
+  }
+}
+
 export const getDashboardDetails = async (employeeNumber: number) => {
   try {
     const response = await apiClient.get('/api/dashboard', {
