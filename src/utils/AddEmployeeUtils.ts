@@ -171,21 +171,24 @@ export const transformToUserCredentials = (formData: EmployeeInterface) => ({
 });
 
 
-export const transformIntoFormField = (apiData) => ({
-    firstName: apiData.first_name,
-    lastName: apiData.last_name,
-    email: apiData.work_email,
-    phoneNumber: apiData.primary_number,
-    dob: apiData.date_of_birth,
-    age: apiData.age,
-    bankAccountNumber: apiData.bank_account_number,
-    employeeId: apiData.employee_number,
-    employeeType: apiData.employee_type_id,
-    joiningDate: apiData.onboarding_date,
-    jobTitle: apiData.job_title,
-    position: apiData.position,
-    team: apiData.team,
-    maritalStatus: apiData.marital_status_id,
-    workLocation: apiData.work_location_id,
-    department: apiData.department
+export const transformIntoFormField = (employeeData: any, userData: any) => ({
+    firstName: employeeData.first_name,
+    lastName: employeeData.last_name,
+    email: employeeData.work_email,
+    phoneNumber: employeeData.primary_number,
+    dob: employeeData.date_of_birth,
+    age: employeeData.age,
+    bankAccountNumber: employeeData.bank_account_number,
+    employeeId: employeeData.employee_number,
+    employeeType: employeeData.employee_type_id,
+    joiningDate: employeeData.onboarding_date,
+    jobTitle: employeeData.job_title,
+    position: employeeData.position,
+    team: employeeData.team,
+    maritalStatus: employeeData.marital_status_id,
+    workLocation: employeeData.work_location_id,
+    department: employeeData.department,
+    status: userData.status,
+    role: userData.role,
+    userId: userData.id
 })

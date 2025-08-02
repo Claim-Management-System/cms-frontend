@@ -1,17 +1,11 @@
-import {
-    Box,
-    Button,
-    Modal,
-    Typography,
-    IconButton,
-} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Modal, Typography, IconButton } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import './AddEmployeePopup.css';
 
 interface AddEmployeePopupProps {
     open: boolean;
     onClose: () => void;
-    onNavigate: () => void;
     employeeData: {
         employeeId: string;
         name: string;
@@ -20,13 +14,22 @@ interface AddEmployeePopupProps {
     };
 }
 
-const AddEmployeePopup = ({ open, onClose, onNavigate, employeeData }: AddEmployeePopupProps) => {
+const AddEmployeePopup = ({ open, onClose, employeeData }: AddEmployeePopupProps) => {
+    const navigate = useNavigate();
+
+    const displayContent = [
+        { label: "Employee ID", value: employeeData.employeeId },
+        { label: "Employee Name", value: employeeData.name },
+        { label: "Email", value: employeeData.email },
+        { label: "Password", value: employeeData.password },
+    ]
+
     return (
         <Modal open={open} onClose={onClose}>
             <Box className="add-employee-popup">
                 <IconButton
                     aria-label="close"
-                    onClick={onNavigate}
+                    onClick={() => navigate('/admin-dashboard')}
                     className="close-button"
                 >
                     <CloseIcon />
@@ -35,10 +38,11 @@ const AddEmployeePopup = ({ open, onClose, onNavigate, employeeData }: AddEmploy
                     Employee Created Successfully
                 </Typography>
                 <Box className="employee-details">
-                    <Typography className="employee-details-text"><span className="employee-details-label">Employee ID: </span>{employeeData.employeeId}</Typography>
-                    <Typography className="employee-details-text"><span className="employee-details-label">Employee Name: </span>{employeeData.name}</Typography>
-                    <Typography className="employee-details-text"><span className="employee-details-label">Email: </span>{employeeData.email}</Typography>
-                    {employeeData.password && <Typography className="employee-details-text"><span className="employee-details-label">Password: </span>{employeeData.password}</Typography>}
+                    {displayContent.map(item => (
+                        <Typography className="employee-details-text">
+                            <span className="employee-details-label">{`${item.label} : `}</span>{item.value}
+                        </Typography>
+                    ))}
                 </Box>
                 <Button
                     variant="contained"
