@@ -29,7 +29,7 @@ export interface NewEmployeeInterface {
 
 interface EmployeeTableProps {
     data: NewEmployeeInterface[];
-    loading?: boolean;
+    loading: boolean;
 }
 
 export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
@@ -46,8 +46,8 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
             },
             {
                 field: 'employee_number',
-                headerName: 'ID',
-                flex: 0.5,
+                headerName: 'Employee ID',
+                flex: 0.7,
                 align: 'left',
                 headerAlign: 'left',
             },
@@ -67,13 +67,6 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
                 headerAlign: 'left',
             },
             {
-                field: 'employee_type_id',
-                headerName: 'Type',
-                flex: 0.9,
-                align: 'left',
-                headerAlign: 'left',
-            },
-            {
                 field: 'team',
                 headerName: 'Team',
                 flex: 0.8,
@@ -81,9 +74,9 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
                 headerAlign: 'left',
             },
             {
-                field: 'marital_status_id',
-                headerName: 'Marital Status',
-                flex: 1,
+                field: 'work_email',
+                headerName: 'Email',
+                flex: 1.4,
                 align: 'left',
                 headerAlign: 'left',
             },
@@ -97,13 +90,13 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
             {
                 field: 'actions',
                 headerName: '',
-                flex: 1,
+                flex: 0.7,
                 sortable: false,
                 filterable: false,
                 align: 'center',
                 headerAlign: 'center',
                 className: 'actions-column',
-                renderCell: (params) => <ActionsCell row={params.row} />,
+                renderCell: (params) => <ActionsCell employeeId={params.row.employee_number} />,
             },
         ],
         []
@@ -124,4 +117,3 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
         </Box>
     );
 }
-
