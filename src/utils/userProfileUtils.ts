@@ -19,7 +19,6 @@ export const fetchProfile = async (employeeNumber: number) => {
             getEmployeeType(employee.employee_type_id),
             getMaritalStatus(employee.marital_status_id)
         ]);
-        console.log(workLocation)
 
         const user = {
             ...employee,
