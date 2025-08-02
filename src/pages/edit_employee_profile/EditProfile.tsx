@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import EmployeeInfo from '../../components/employeeInfo/EmployeeInfo';
-import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
 import Header from '../../components/Header';
+import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import {
     getInitialFormData,
     isFormValid,
@@ -12,10 +12,10 @@ import {
     transformIntoFormField,
 } from '../../utils/AddEmployeeUtils';
 import { useError } from '../../context/errorContext';
-import { createEmployee, createUser, getEmployee } from '../../services/dataServices/employee';
+import { updateEmployee, updateUser, getEmployee, getUser } from '../../services/dataServices/employee';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
-import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
+import { Done as DoneIcon } from '@mui/icons-material';
 import './EditEmployee.css';
 
 
@@ -23,6 +23,7 @@ function EditProfile() {
     const [formData, setFormData] = useState<EmployeeInterface>(getInitialFormData());
     const [submitted, setSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [pageLoading, setPageLoading] = useState(true);
 
     const { setError } = useError();
     const { employeeId } = useParams();
@@ -58,11 +59,11 @@ function EditProfile() {
             const employeeDetails = transformToEmployeeDetails(formData);
             const userCredentials = transformToUserCredentials(formData);
 
-            await createEmployee(employeeDetails);
-            await createUser(userCredentials);
+            await updateEmployee(employeeDetails, Number(formData.employeeId));
+            await updateUser(userCredentials, formData.userId!);
 
         } catch (error) {
-            setError('Failed to create employee. Please try again.');
+            setError('Failed to Update an employee. Please try again.');
         } finally {
             setIsLoading(false);
             setSubmitted(false);
@@ -70,14 +71,17 @@ function EditProfile() {
     };
 
     const fetchEmployeeProfileDetails = async (employeeId: number) => {
+        setPageLoading(true);
+
         try {
-            const data = await getEmployee(employeeId)
-            const formattedData = transformIntoFormField(data)
+            const employeeData = await getEmployee(employeeId)
+            const userData = await getUser(employeeData.work_email);
+            const formattedData = transformIntoFormField(employeeData, userData)
             setFormData(formattedData)
         } catch (error: any) {
             setError(error.message);
         } finally {
-            
+            setPageLoading(false);
         }
     }
 
@@ -89,7 +93,7 @@ function EditProfile() {
         }
     }, [employeeId])
 
-    return (
+    return !pageLoading ? (
         <div>
             <Header pageName="Edit Employee" />
             <div className="add-employee-container">
@@ -122,6 +126,8 @@ function EditProfile() {
                 </form>
             </div>
         </div>
+    ) : (
+        <LoadingScreen />
     )
 }
 

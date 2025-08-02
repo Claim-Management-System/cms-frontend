@@ -8,14 +8,13 @@ import {
     transformToEmployeeDetails,
     transformToUserCredentials,
 } from '../../utils/AddEmployeeUtils';
+import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
 import { useError } from '../../context/errorContext';
 import { createEmployee, createUser } from '../../services/dataServices/employee';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
 import './AddEmployee.css';
-import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
-import { useNavigate } from 'react-router-dom';
 
 interface NewEmployeeData {
     employeeId: string;
@@ -31,7 +30,6 @@ export default function AddEmployee() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [newEmployeeData, setNewEmployeeData] = useState<NewEmployeeData | null>(null);
     const { setError } = useError();
-    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -57,10 +55,6 @@ export default function AddEmployee() {
     const handlePopupClose = () => {
         setIsPopupOpen(false);
         handleCancel();
-    };
-
-    const handleNavigateToDashboard = () => {
-        navigate('/admin-dashboard');
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -141,7 +135,6 @@ export default function AddEmployee() {
                 <AddEmployeePopup
                     open={isPopupOpen}
                     onClose={handlePopupClose}
-                    onNavigate={handleNavigateToDashboard}
                     employeeData={newEmployeeData}
                 />
             )}
