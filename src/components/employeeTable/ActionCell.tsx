@@ -1,20 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { type NewEmployeeInterface } from './EmployeeTable';
 import './EmployeeTable.css';
 
 interface ActionsCellProps {
-  row: NewEmployeeInterface;
+  employeeId: number | string;
 }
 
-export default function ActionsCell({ row }: ActionsCellProps) {
-  const handleView = () => {
-    // TODO: Implement navigation to employee details page
-    console.log('View employee:', row.id);
-  };
+export default function ActionsCell({ employeeId }: ActionsCellProps) {
+  const navigate = useNavigate();
 
   return (
-    <Button variant="contained" size="small" onClick={handleView} className='view-button'>
+    <Button
+      variant="contained"
+      size="small"
+      onClick={() => navigate(`/employee-profile/${employeeId}`)}
+      className='view-button'
+    >
       View
     </Button>
   );
-} 
+}
