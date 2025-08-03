@@ -50,7 +50,7 @@
     padding-bottom: 0.625rem;
     font-size: 0.75rem;
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 .styled-textfield .MuiOutlinedInput-notchedOutline {
@@ -73,7 +73,7 @@
     padding-right: 0.3125rem;
     color: var(--s80);
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 .styled-textfield .MuiInputLabel-root.Mui-focused {
@@ -124,11 +124,11 @@
 
 .MuiTypography-root.remember-me-label {
     color: var(--s50);
-    font-weight: 450;
+    font-weight: 100;
     font-size: 0.75rem; 
     user-select: none;
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 /* Remember Me Checkbox - END */
@@ -141,7 +141,7 @@
     color: #ffffff;
     box-shadow: none;
     text-transform: none;
-    font-weight: 450;
+    font-weight: 100;
     font-size: 0.875rem;
     margin-bottom: 2.1875rem;
     max-width: 14.0625rem;
@@ -149,7 +149,7 @@
     display: block;
     user-select: none;
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 .MuiButton-root.login-button:hover {
@@ -169,10 +169,10 @@
 .MuiTypography-root.divider-text {
     color: #000000;
     font-size: 1rem;
-    font-weight: 450;
+    font-weight: 100;
     user-select: none;
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 
@@ -180,7 +180,7 @@
     padding: 0.5rem 1.5rem;
     color: #000000; 
     text-transform: none;
-    font-weight: 450;
+    font-weight: 100;
     font-size: 0.875rem;
     margin-top: 1.25rem;
     margin-bottom: -0.9375rem;
@@ -190,7 +190,7 @@
     border: solid 1px var(--s80);
     user-select: none;
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 .MuiButton-root.google-login-button:hover {
