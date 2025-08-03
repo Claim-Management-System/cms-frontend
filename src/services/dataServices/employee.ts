@@ -42,7 +42,7 @@ export const getEmployeeType = async (id?: number) => {
 export const getMaritalStatus = async (id?: number) => {
     try {
         const response = await apiClient.get( '/api/marital-statuses', {
-            params: { id }
+            params: { marital_status_id: id }
         });
         return response.data;
     } catch (error) {

@@ -4,13 +4,12 @@ import apiClient from './axiosConfig';
 type getClaimsHistoryProps = {
   claimType: 'miscellaneous' | 'medical';
   status: string;
-  search: string;
   page: number;
 }
 
-const getClaimsHistory = async ({ claimType, status, search, page }: getClaimsHistoryProps) => {
+const getClaimsHistory = async ({ claimType, status, page }: getClaimsHistoryProps) => {
   try {
-    const params: any = { claimType, page, search };
+    const params: any = { claimType, page };
     if (status !== 'total') {
       params.status = status;
     }
@@ -27,15 +26,17 @@ type getEmployeeClaimsHistoryProps = {
   employeeNumber: number;
   claimType: 'miscellaneous' | 'medical';
   status: string;
-  search: string;
   page: number
 }
 
-const getEmployeeClaimsHistory = async ({employeeNumber, claimType, status, search, page}: getEmployeeClaimsHistoryProps) => {
+const getEmployeeClaimsHistory = async ({employeeNumber, claimType, status, page}: getEmployeeClaimsHistoryProps) => {
   try {
-     const response = await apiClient.get('/api/claims/employee', {
-      params: { employeeNumber, claimType, status, page, search },
-    });
+    const params: any = { employeeNumber, claimType, page };
+    if (status !== 'total') {
+      params.status = status;
+    }
+
+    const response = await apiClient.get('/api/claims/employee', { params });
     return response.data;
   } catch (error: any) {
     throw error
@@ -43,7 +44,7 @@ const getEmployeeClaimsHistory = async ({employeeNumber, claimType, status, sear
 }
 
 
-const getClaimsCount = async (module: 'medical' | 'miscellaneous', employee_number: number) => {
+const getClaimsCount = async (module: 'medical' | 'miscellaneous', employee_number?: number) => {
   try {
     const response = await apiClient.get('/api/claims/count', { params: { module, employee_number } })
     return response.data

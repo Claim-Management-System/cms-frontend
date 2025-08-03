@@ -50,24 +50,34 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
   };
 
   const fetchAllClaims = async () => {
+    if(searchTerm.length > 0 && !/^\d{4}$/.test(searchTerm)) {
+      setError('Enter 4-Digit Employee ID');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const countsData = await getClaimsCount(apiClaimType, user?.employee_number!);
-      const counts = {
-        total: countsData.approved_count + countsData.rejected_count + countsData.pending_count,
-        accepted: countsData.approved_count,
-        denied: countsData.rejected_count,
-        pending: countsData.pending_count,
-      };
-      setClaimsCounts(counts);
-
       let data;
-      if (user?.role === USER_ROLES.ADMIN) {
+      let countsData;
+
+      if(user?.role === USER_ROLES.ADMIN && /^\d{4}$/.test(searchTerm)) {
+        const employeeNumber = Number(searchTerm);
+        console.log(employeeNumber)
+
+        countsData = await getClaimsCount(apiClaimType, employeeNumber);
+        data = await getEmployeeClaimsHistory({
+          employeeNumber: employeeNumber,
+          claimType: apiClaimType,
+          status: currentStatus,
+          page: currentPage,
+        });
+      }
+      else if (user?.role === USER_ROLES.ADMIN) {
+        countsData = await getClaimsCount(apiClaimType);
         data = await getClaimsHistory({
           claimType: apiClaimType,
           status: currentStatus,
-          search: searchTerm,
           page: currentPage,
         });
       }
@@ -76,19 +86,29 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
         if (!employeeNumber) {
           throw Error("Employee ID not found!");
         }
+
+        countsData = await getClaimsCount(apiClaimType, user?.employee_number);
         data = await getEmployeeClaimsHistory({
-          employeeNumber: employeeNumber,
+          employeeNumber: user?.employee_number,
           claimType: apiClaimType,
           status: currentStatus,
-          search: searchTerm,
           page: currentPage,
         });
       }
 
       let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
 
+      const counts = {
+        total: countsData.approved_count + countsData.rejected_count + countsData.pending_count,
+        accepted: countsData.approved_count,
+        denied: countsData.rejected_count,
+        pending: countsData.pending_count,
+      };
+
+      setClaimsCounts(counts);
       setClaimData(allClaims);
       setTotalPages(Math.ceil(data.totalCount / 10));
+
     } catch (error: any) {
       setError(error?.message || 'Failed to fetch claims');
     } finally {

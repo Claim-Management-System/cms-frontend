@@ -29,7 +29,7 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
     const { setError } = useError();
 
     const fetchAllClaims = async (page: number, search: string) => {
-        if(search.length > 0 && search.length !== 4) {
+        if (searchTerm.length > 0 && !/^\d{4}$/.test(searchTerm)) {
             setError("The employee ID should be of 4-Digits");
             return;
         }
@@ -38,7 +38,7 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
         try {
             let data;
 
-            if(search.length) {
+            if (search.length) {
                 data = await getEmployeeClaimsRequest(apiClaimType, search, page)
             } else {
                 data = await getClaimsRequest({ claimType: apiClaimType, page });
