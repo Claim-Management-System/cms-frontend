@@ -33,6 +33,7 @@ import {
   Groups as GroupsIcon,
   People as PeopleIcon
 } from "@mui/icons-material"
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import "./styles.css"
 
 
@@ -108,7 +109,7 @@ const adminMenuItems: MenuItem[] = [
   },
   {
     text: 'Claim Requests',
-    icon: <HistoryIcon />,
+    icon: <FormatListBulletedIcon />,
     subItems: [
       { text: 'Outpatient', path: '/claim-requests/outpatient', icon: <PersonOutlineIcon /> },
       { text: 'Miscellaneous', path: '/claim-requests/miscellaneous', icon: <CategoryIcon /> },

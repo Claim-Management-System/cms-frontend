@@ -128,9 +128,10 @@ body {
 }
 
 .list-item-text .MuiListItemText-primary {
-    color: #6b7280;
-    font-weight: 500;
+    color: #626469;
+    font-weight: 400;
     font-size: 15px;
+    font-family: 'LLCirc';
 }
 
 /* Sub Menu Items */
@@ -149,12 +150,12 @@ body {
 .sub-list-item-icon {
     color: #6b7280;
     min-width: 2.5rem !important;
-    opacity: 0.6;
 }
 
 .sub-list-item-text .MuiListItemText-primary {
-    color: #9ca3af;
+    color: #626469;
     font-weight: 400;
+    font-family: 'LLCirc';
     font-size: 14px;
 }
 
