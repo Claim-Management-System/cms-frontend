@@ -22,6 +22,20 @@ export interface ClaimCounts {
 export type UserRole = 'admin' | 'user';
 export type ClaimCategory = 'claim history' | 'claim requests';
 export type ClaimType = 'miscellaneous' | 'outpatient';
+  submitted_amount: number;
+  created_at: string;
+}
+
+export interface ClaimCounts {
+  total: number;
+  accepted: number;
+  denied: number;
+  pending: number;
+}
+
+export type UserRole = 'admin' | 'user';
+export type ClaimCategory = 'claim history' | 'claim requests';
+export type ClaimType = 'miscellaneous' | 'outpatient';
 
 export type FormType =
     | "MISCELLANEOUS EXPENSE FORM"

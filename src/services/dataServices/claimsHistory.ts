@@ -24,17 +24,17 @@ const getClaimsHistory = async ({ claimType, status, search, page }: getClaimsHi
 
 
 type getEmployeeClaimsHistoryProps = {
-  employeeId: string;
+  employeeNumber: number;
   claimType: 'miscellaneous' | 'medical';
   status: string;
   search: string;
   page: number
 }
 
-const getEmployeeClaimsHistory = async ({employeeId, claimType, status, search, page}: getEmployeeClaimsHistoryProps) => {
+const getEmployeeClaimsHistory = async ({employeeNumber, claimType, status, search, page}: getEmployeeClaimsHistoryProps) => {
   try {
      const response = await apiClient.get('/api/claims/employee', {
-      params: { employeeId, claimType, status, page, search },
+      params: { employeeNumber, claimType, status, page, search },
     });
     return response.data;
   } catch (error: any) {
@@ -43,9 +43,9 @@ const getEmployeeClaimsHistory = async ({employeeId, claimType, status, search, 
 }
 
 
-const getClaimsCount = async (module: 'medical' | 'miscellaneous', user_id: string) => {
+const getClaimsCount = async (module: 'medical' | 'miscellaneous', employee_number: number) => {
   try {
-    const response = await apiClient.get('/api/claims/count', { params: { module, user_id } })
+    const response = await apiClient.get('/api/claims/count', { params: { module, employee_number } })
     return response.data
   } catch (error) {
     throw error

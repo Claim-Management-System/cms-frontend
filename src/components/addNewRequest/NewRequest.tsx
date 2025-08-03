@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import Header from '../Header';
-import UserTitle from '../userTitle/UserTitle';
 import ReceiptInfoForm from '../receiptInfoForm/ReceiptInfoForm';
 import ReceiptPreview from '../receiptPreview/ReceiptPreview';
 import FormScanningPopup from '../addRequestPopups/FormScanningPopup';
@@ -22,14 +21,14 @@ type GenericFormData = FormData & { attachments: File[] };
 
 const pageConfig = {
     misc: {
-        headerText: 'New Request / Misc',
+        headerText: 'New Request / Misc Expense Form',
         formTitle: "MISCELLANEOUS EXPENSE FORM" as FormType,
         initialFormData: { title: '', itemTypeId: '', description: '', relationship: 'Self', totalAmount: 0, attachments: [] },
         requiredFields: ['title', 'itemTypeId', 'description', 'totalAmount'],
         successNavPath: '/claim-history/miscellaneous',
     },
     opd: {
-        headerText: 'New Request / Outpatient',
+        headerText: 'New Request / OPD Expense Form',
         formTitle: "OUT PATIENT EXPENSE FORM" as FormType,
         initialFormData: { title: '', itemTypeId: '', description: '', relationship: '', totalAmount: 0, attachments: [] },
         requiredFields: ['title', 'relationship', 'description', 'itemTypeId', 'totalAmount'],
@@ -122,7 +121,6 @@ export default function NewRequest({ formType }: NewRequestProps) {
         <>
             <Header pageName={config.headerText} />
             <form className="new-request-container" onSubmit={handleSubmit} noValidate>
-                <UserTitle mainText={config.formTitle} />
                 <main className="main-body">
                     <div className="form-section">
                         <ReceiptInfoForm
