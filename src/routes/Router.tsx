@@ -13,7 +13,7 @@ import ClaimHistory_OutPatient from '../pages/claim_history/OutPatient';
 import ClaimHistory_Miscellaneous from '../pages/claim_history/Miscellaneous';
 import Drafts from '../pages/draft/Drafts';
 import AddEmployee from '../pages/add_employee/AddEmployee';
-import ClaimDetails from '../pages/claim-details/ClaimDetails';
+import ClaimDetails from '../pages/claim_details/ClaimDetails';
 
 export const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
