@@ -46,9 +46,7 @@ function EmployeeList() {
 
     return (
         <>
-            <Box sx={{ marginX: 3 }}>
-                <Header pageName="Employee List" />
-            </Box>
+            <Header pageName="Employee List" />
 
             <Box className='search-box-container'>
                 <SearchBox onSearchChange={setSearchTerm} placeholder="Enter 4-digit Employee ID" />
