@@ -57,7 +57,7 @@ const UserDashboard = () => {
         subText={dashboardData.employeeEmail}
       />
       <DetailsTable data={dashboardData.claimDetails} />
-      <h2>Total Medical Limit: {dashboardData.totalLimit}</h2>
+      <h2 className='total-medical-limit'>Total Medical Limit: {dashboardData.totalLimit}</h2>
     </Box>
   );
 };
