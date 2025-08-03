@@ -23,7 +23,7 @@
 .employee-name {
     font-size: 24px !important;
     color: #35383E !important;
-    font-weight: 450 !important;
+    font-weight: 100 !important;
     font-family: 'LLCirc' !important;
 }
 
@@ -35,7 +35,7 @@
 
 .popup-label {
     font-size: 16px !important;
-    font-weight: 450 !important;
+    font-weight: 100 !important;
     color: #797A7F !important;
     font-family: 'LLCirc' !important;
 }
@@ -52,12 +52,12 @@
 
 .status-accepted {
     color: #86B62C !important;
-    font-weight: 450 !important;
+    font-weight: 100 !important;
 }
 
 .status-denied {
     color: #F6772C !important;
-    font-weight: 450 !important;
+    font-weight: 100 !important;
 }
 
 .total-amount-section {
@@ -69,14 +69,14 @@
 .total-amount-label {
     font-size: 16px !important;
     color: #8F9094 !important;
-    font-weight: 450 !important;
+    font-weight: 100 !important;
     font-family: 'LLCirc' !important;
 }
 
 .total-amount-value {
     font-size: 16px !important;
     color: #1CA8DD !important;
-    font-weight: 450 !important;
+    font-weight: 100 !important;
     font-family: 'LLCirc' !important;
 }
 
