@@ -7,15 +7,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'LLCirc';
   min-width: 800px;
-  margin-right: 24px;
 }
 
 .profile-table-title {
+  font-family: 'LLCirc';
+  font-weight: 400;
   font-size: 16px;
   color: #1CA8DD;
   /* border-bottom: 2px solid #eee; */
   padding: 8px 24px;
-  font-weight: 500;
   background-color: #E8F6FC;
 }
 
@@ -38,10 +38,13 @@
   flex-direction: row;
   align-items: center;
   font-size: 16px;
+  font-family: 'LLCirc';
+  font-weight: 100;
 }
 
 .profile-table-label {
-  font-weight: bold;
+  font-family: 'LLCirc';
+  font-weight: 400;
   color: #555;
   min-width: 150px;
   margin-right: 25px;

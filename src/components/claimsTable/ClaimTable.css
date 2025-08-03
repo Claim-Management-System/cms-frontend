@@ -13,7 +13,7 @@
 }
 
 .claim-table-container .MuiDataGrid-root {
-  margin: 2 !important;
+  /* margin: 2 !important; */
   font-family: 'Circular Pro', sans-serif;
   font-size: 16px;
   border: none;
