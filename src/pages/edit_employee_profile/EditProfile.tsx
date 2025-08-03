@@ -13,6 +13,7 @@ import {
 } from '../../utils/AddEmployeeUtils';
 import { useError } from '../../context/errorContext';
 import { updateEmployee, updateUser, getEmployee, getUser } from '../../services/dataServices/employee';
+import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Done as DoneIcon } from '@mui/icons-material';
@@ -48,7 +49,7 @@ function EditProfile() {
         e.preventDefault();
         setSubmitted(true);
 
-        if (!isFormValid(formData, 'edit')) {
+        if (!isFormValid(formData, EMPLOYEE_INFO_MODE.EDIT)) {
             setError('Please fill out all required fields');
             return;
         }
