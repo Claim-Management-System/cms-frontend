@@ -10,13 +10,10 @@ import {
     TextField,
     Button,
     Box,
-    FormControlLabel,
-    Checkbox,
     InputAdornment,
     IconButton,
     CircularProgress
 } from '@mui/material';
-import googleIcon from '../../assets/logos/google-gsuite.svg';
 import './LoginCard.css';
 
 
@@ -114,21 +111,6 @@ const LoginCard: React.FC = () => {
                                 ),
                             }}
                         />
-
-                        <FormControlLabel
-                            className="remember-me-control"
-                            control={
-                                <Checkbox
-                                    name="remember"
-                                    className="remember-me-checkbox"
-                                />
-                            }
-                            label={
-                                <Typography className="remember-me-label">
-                                    Remember me
-                                </Typography>
-                            }
-                        />
                     </Box>
 
                     <Button
@@ -141,24 +123,6 @@ const LoginCard: React.FC = () => {
                         {loading ? <CircularProgress size={24} color="inherit" /> : 'LOG IN'}
                     </Button>
 
-                    <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        className="divider-text"
-                    >
-                        OR
-                    </Typography>
-
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        startIcon={
-                            <img src={googleIcon} alt="Google G" /> 
-                        }
-                        className="google-login-button"
-                    >
-                        LOG IN WITH GOOGLE
-                    </Button>
                 </Box>
             </CardContent>
         </Card>

@@ -8,6 +8,7 @@ body {
 
 .container {
     display: flex;
+    background-color: #ffffff;
 }
 
 .innerBox {
