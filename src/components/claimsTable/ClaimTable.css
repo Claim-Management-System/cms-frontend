@@ -1,20 +1,14 @@
-@import '../../index.css';
-
-* {
-  font-family: 'LLCirc', sans-serif;
-}
-
 .claim-table-container {
-  height: 685px;
+  height: 650px;
   width: 100%;
   background-color: #f9fafb;
   min-width: 1000px;
-
 }
 
 .claim-table-container .MuiDataGrid-root {
   /* margin: 2 !important; */
-  font-family: 'Circular Pro', sans-serif;
+  font-family: 'LLCirc' !important;
+  font-weight: 100 !important;
   font-size: 16px;
   border: none;
   color: #595959;
@@ -29,6 +23,11 @@
   border-radius: 8px !important;
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
+}
+
+.claim-table-container .MuiDataGrid-columnHeaderTitle {
+  font-family: 'LLCirc' !important;
+  font-weight: 100 !important;
 }
 
 .claim-table-container .MuiDataGrid-cell[data-field="status"] .status-chip:hover {
