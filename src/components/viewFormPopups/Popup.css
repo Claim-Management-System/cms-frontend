@@ -80,10 +80,9 @@
     font-family: 'LLCirc' !important;
 }
 
-.popup-actions {
+.popup-actions-view-form .MuiBox-root {
     display: flex;
     justify-content: center;
-    padding-top: 8px;
 }
 
 .submit-button-accept {
@@ -97,6 +96,7 @@
     box-shadow: none !important;
     width: 100% !important;
     font-family: 'LLCirc' !important;
+    margin-top: 25px !important;
 }
 
 .submit-button-accept:hover {
@@ -105,11 +105,12 @@
 
 .reason-dropdown {
     margin-top: 10px !important;
+    margin-bottom: 10px !important;
 }
 
 .reason-dropdown .MuiOutlinedInput-root {
-    border-radius: 4px;
-    height: 50px;
+    border-radius: 8px;
+    height: 45px;
     min-width: 300px;
 }
 
@@ -124,20 +125,31 @@
     transform: translate(14px, -6px) scale(0.8);
 }
 
+.reason-dropdown .MuiInputLabel-root.Mui-focused {
+    color: #4C4E54 !important;
+}
+
 .reason-dropdown .MuiOutlinedInput-notchedOutline {
-    border-color: #D2EEF8;
+    border-color: #77CBEB !important;
 }
 
 .reason-dropdown .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: #1CA8DD;
+    border-color: #77CBEB !important;
 }
 
 .reason-dropdown .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #1CA8DD;
+    border-color: #77CBEB !important;
     border-width: 1px;
 }
 
 .reason-dropdown-select .MuiSelect-select {
+    font-family: 'LLCirc' !important;
+    font-size: 14px !important;
+    color: #4C4E54 !important;
+}
+
+.reason-dropdown-menu .MuiMenuItem-root {
+    color: #4C4E54 !important;
     font-family: 'LLCirc' !important;
     font-size: 14px !important;
 }
@@ -145,7 +157,7 @@
 .submit-button-edit {
     height: 35px !important;
     padding: 8px 16px !important;
-    background-color: #E59300 !important;
+    background-color: #e79d19 !important;
     color: white !important;
     font-size: 15px !important;
     text-transform: none !important;
@@ -161,6 +173,7 @@
 
 .popup-input {
     margin-top: 8px !important;
+    margin-bottom: 10px !important;
 }
 
 .popup-input .MuiInputBase-input,
@@ -194,7 +207,7 @@
 }
 
 .confirm-button {
-    background-color: #f44336 !important;
+    background-color: #ff4949 !important;
     color: white !important;
     text-transform: none !important;
     font-size: 15px !important;
@@ -202,7 +215,6 @@
     border-radius: 4px !important;
     box-shadow: none !important;
     width: 100%;
-    margin-top: 8px !important;
     font-family: 'LLCirc' !important;
     height: 35px !important;
 }
@@ -211,3 +223,4 @@
     background-color: #d32f2f !important;
     font-family: 'LLCirc' !important;
 }
+

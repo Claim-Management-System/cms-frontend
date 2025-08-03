@@ -13,7 +13,8 @@ import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { downloadClaimImages, updateClaimStatus } from '../../services/dataServices/claimsHistory';
 import { getClaimDetails } from '../../utils/ClaimDetailsUtils';
 import { USER_ROLES, STATUS } from '../../services/constantServices/constants';
-import { Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
+import { Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon, Download as DownloadIcon } from '@mui/icons-material';
+
 import { Button, CircularProgress } from '@mui/material';
 import type { Claim, Employee } from '../../types';
 import './ClaimDetails.css';
@@ -117,6 +118,14 @@ function ClaimDetails() {
                     {user?.role === USER_ROLES.ADMIN && formData?.status === STATUS.PENDING && (
                         <div className="admin-buttons-container">
                             <Button
+                                className="download-button"
+                                onClick={() => downloadClaim()}
+                                disabled={download}
+                                endIcon={download ? null : <DownloadIcon />}
+                            >
+                                {download ? <CircularProgress size={24} color="inherit" /> : 'Download Images'}
+                            </Button>
+                            <Button
                                 className="decline-button"
                                 onClick={() => setDeclinePopupOpen(true)}
                                 endIcon={<DoNotDisturbIcon />}
@@ -139,13 +148,6 @@ function ClaimDetails() {
                             </Button>
                         </div>
                     )}
-                    <Button
-                        className="accept-button"
-                        onClick={() => downloadClaim()}
-                        disabled={download}
-                    >
-                        {download ? <CircularProgress size={24} color="inherit" /> : 'Download'}
-                    </Button>
                 </div>
 
                 <div className="left-panel">

@@ -89,7 +89,7 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
                     className="popup-input"
                 />
                 
-                <Box className="popup-actions">
+                <Box className="popup-actions-view-form">
                     <Button
                         className="submit-button-edit"
                         onClick={handleSubmit}

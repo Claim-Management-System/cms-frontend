@@ -75,6 +75,7 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
                             onChange={(e) => setSelectedReason(e.target.value)}
                             label="Reason why this request was rejected"
                             className="reason-dropdown-select"
+                            MenuProps={{ className: 'reason-dropdown-menu' }}
                         >
                             {rejectionReasons.map((reason) => (
                                 <MenuItem key={reason} value={reason}>
@@ -84,7 +85,7 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
                         </Select>
                     </FormControl>
                 </Box>
-                <Box className="popup-actions">
+                <Box className="popup-actions-view-form">
                     <Button
                         className="confirm-button"
                         onClick={handleConfirm}

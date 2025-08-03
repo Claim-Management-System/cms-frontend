@@ -22,14 +22,17 @@ function AddRequestButton({ path }: AddRequestButtonProps) {
                 borderRadius: '4px',
                 padding: '0px 24px',
                 textTransform: 'none',
-                fontWeight: 'bold',
-                height: '45px',
-                minWidth: '150px',
+                fontWeight: '100',
+                height: '40px',
+                minWidth: '200px',
                 boxShadow: 'none',
                 '&:hover': {
                     backgroundColor: '#1785b0',
                     boxShadow: 'none',
                 },
+                fontFamily: 'LLCirc',  
+                fontSize: '16px',
+                marginLeft: '10px',
             }}
         >
             Add Request

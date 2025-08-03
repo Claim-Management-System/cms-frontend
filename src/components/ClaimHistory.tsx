@@ -121,14 +121,13 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
   }, [currentStatus, currentPage, searchTerm, apiClaimType]);
 
   return (
-    <Box sx={{ marginX: 3 }}>
+    <Box>
       <Header pageName={pageTitle} />
 
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
-          paddingX: 3,
           marginTop: 2,
           alignItems: 'center'
         }}
@@ -138,7 +137,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
       </Box>
 
       <Box
-        sx={{ paddingX: 3, marginY: 4 }}
+        sx={{ marginY: 2 }}
       >
         <ClaimsStatus
           currentStatus={currentStatus}

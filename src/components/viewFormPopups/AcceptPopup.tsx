@@ -46,7 +46,7 @@ function AcceptPopup ({ open, onClose, onAccept, totalAmount, employee_name, emp
                     <Typography className="total-amount-value">PKR {totalAmount}</Typography>
                 </Box>
                 
-                <Box className="popup-actions">
+                <Box className="popup-actions-view-form">
                     <Button
                         className="submit-button-accept"
                         onClick={onAccept}
