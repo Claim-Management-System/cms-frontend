@@ -90,24 +90,18 @@ export const getClaimImages = async (claimId: number) => {
 
 export const downloadClaimImages = async (claimId: string) => {
   try {
-    // 1. Make the GET request, expecting a 'blob' response
     const response = await apiClient.get('/api/download', {
       params: { module_name: 'claim', ref_number: claimId},
       responseType: 'blob',
     });
 
-    // 2. Create a temporary URL for the blob data
     const url = window.URL.createObjectURL(new Blob([response.data]));
     
-    // 3. Create a temporary link element
     const link = document.createElement('a');
     link.href = url;
     
-    // 4. Set the filename for the download
-    // You can try to get the filename from the 'Content-Disposition' header
-    // or set a default name.
     const contentDisposition = response.headers['content-disposition'];
-    let filename = 'claims.csv'; // Default filename
+    let filename = 'claims.csv';
     if (contentDisposition) {
       const filenameMatch = contentDisposition.match(/filename="(.+)"/);
       if (filenameMatch.length > 1) {
@@ -116,17 +110,13 @@ export const downloadClaimImages = async (claimId: string) => {
     }
     link.setAttribute('download', filename);
     
-    // 5. Append the link to the body, click it, and then remove it
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    // 6. Clean up the temporary URL
     window.URL.revokeObjectURL(url);
 
   } catch (error) {
-    console.error('Download failed:', error);
-    // You can use your error context to show a notification to the user
     throw new Error('Could not download the file.');
   }
 };

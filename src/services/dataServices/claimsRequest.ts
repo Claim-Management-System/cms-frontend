@@ -42,7 +42,6 @@ export const postNewRequest = async (formData: newAddRequest) => {
       }
     });
 
-    console.log('Claim submitted successfully:', response);
     return response;
   } catch (error: any) {
     console.log(error)

@@ -10,16 +10,16 @@ import DeclinePopup from '../../components/popups/DeclinePopup';
 import EditPopup from '../../components/popups/EditPopup';
 import UserTitle from '../../components/userTitle/UserTitle';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
-import { updateClaimStatus } from '../../services/dataServices/claimsHistory';
+import { downloadClaimImages, updateClaimStatus } from '../../services/dataServices/claimsHistory';
 import { getClaimDetails } from '../../utils/ClaimDetailsUtils';
 import { USER_ROLES, STATUS } from '../../services/constantServices/constants';
-import {Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon} from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
+import { Button, CircularProgress } from '@mui/material';
 import type { Claim, Employee } from '../../types';
-import './ViewMore.css';
+import './ClaimDetails.css';
 
 
-function ViewMore() {
+function ClaimDetails() {
     const [formData, setFormData] = useState<Claim | null>(null);
     const [images, setImages] = useState<string[]>([]);
     const [employeeDetails, setEmployeeDetails] = useState<Employee | undefined>(undefined);
@@ -27,6 +27,7 @@ function ViewMore() {
     const [declinePopupOpen, setDeclinePopupOpen] = useState(false);
     const [editPopupOpen, setEditPopupOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [download, setDownload] = useState(false);
 
     const { claimId } = useParams();
     const { user } = useAuth();
@@ -92,6 +93,18 @@ function ViewMore() {
         }
     }, [claimId])
 
+    const downloadClaim = async () => {
+        setDownload(true);
+
+        try {
+            await downloadClaimImages(claimId!)
+        } catch (error: any) {
+            setError(error.message || "Failed to download an image")
+        } finally {
+            setDownload(false);
+        }
+    }
+
     return !isLoading ? (
         <>
             <Header pageName='View Claim Details' />
@@ -126,6 +139,13 @@ function ViewMore() {
                             </Button>
                         </div>
                     )}
+                    <Button
+                        className="accept-button"
+                        onClick={() => downloadClaim()}
+                        disabled={download}
+                    >
+                        {download ? <CircularProgress size={24} color="inherit" /> : 'Download'}
+                    </Button>
                 </div>
 
                 <div className="left-panel">
