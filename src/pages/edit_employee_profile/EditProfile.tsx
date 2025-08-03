@@ -17,6 +17,7 @@ import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Done as DoneIcon } from '@mui/icons-material';
+import EditEmployeePopup from '../../components/editEmployeePopup/EditEmployeePopup';
 import './EditEmployee.css';
 
 
@@ -25,6 +26,7 @@ function EditProfile() {
     const [submitted, setSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const { setError } = useError();
     const { employeeId } = useParams();
@@ -62,6 +64,7 @@ function EditProfile() {
 
             await updateEmployee(employeeDetails, Number(formData.employeeId));
             await updateUser(userCredentials, formData.userId!);
+            setIsPopupOpen(true);
 
         } catch (error) {
             setError('Failed to Update an employee. Please try again.');
@@ -126,6 +129,7 @@ function EditProfile() {
                     </div>
                 </form>
             </div>
+            <EditEmployeePopup open={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
         </div>
     ) : (
         <LoadingScreen />
