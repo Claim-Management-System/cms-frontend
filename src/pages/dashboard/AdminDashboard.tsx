@@ -4,7 +4,14 @@ import UserTitle from '../../components/userTitle/UserTitle';
 import DetailsTable from '../../components/detailsTable/DetailsTable';
 import { useError } from '../../context/errorContext'; 
 import { fetchDashboardData } from '../../services/constantServices/dashboardService';
-import { TextField, Button, Box, CircularProgress } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Box,
+  CircularProgress,
+  InputAdornment,
+} from '@mui/material';
+import { Search } from '@mui/icons-material';
 import type { DashboardData } from "../../types";
 import './Dashboard.css'
 
@@ -58,9 +65,16 @@ function AdminDashboard() {
           onChange={handleEmployeeNumberChange}
           placeholder="Enter 4-digit Employee ID"
           InputLabelProps={{ shrink: true }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search sx={{ color: 'text.secondary' }} />
+              </InputAdornment>
+            ),
+          }}
           inputProps={{
             pattern: '\\d{4}',
-            inputMode: 'numeric'
+            inputMode: 'numeric',
           }}
         />
         <Button

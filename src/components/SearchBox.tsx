@@ -23,16 +23,49 @@ function SearchBox({ onSearchChange, placeholder = "Enter 4-Digit Employee ID" }
 
   return (
     <TextField
+      label="Employee ID"
       placeholder={placeholder}
       size="small"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
       sx={{
-        width: 350,
-        '& .MuiOutlinedInput-root': {
-          '&.Mui-focused fieldset': {
-            borderColor: '#1CA8DD',
+        width: '100%',
+        '& .MuiInputLabel-root': {
+          top: '-4px',
+          fontFamily: "'LLCirc'",
+          fontWeight: 100,
+          color: '#4C4E54',
+          '&.Mui-focused': {
+            color: '#4C4E54',
           },
+        },
+        '& .MuiOutlinedInput-root': {
+          height: '40px',
+          borderRadius: '8px',
+          fontFamily: "'LLCirc'",
+          fontWeight: 100,
+          '& fieldset': {
+            border: '1px solid #77CBEB',
+          },
+          '&:hover fieldset': {
+            borderColor: '#77CBEB',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#77CBEB',
+            borderWidth: '1px',
+          },
+        },
+        '& .MuiInputBase-input': {
+          color: '#4C4E54',
+          '&::placeholder': {
+            fontFamily: "'LLCirc'",
+            fontWeight: 100,
+            color: '#8F9094',
+            opacity: 1,
+          },
+        },
+        '& .MuiOutlinedInput-input': {
+          color: '#4C4E54',
         },
       }}
       InputProps={{
