@@ -3,10 +3,11 @@
 }
 
 .details-table-title {
-    font-family: 'ITCAvantG' !important;
+    font-family: 'LLCirc' !important;
     color: #4C4E54;
     margin-bottom: 10px !important;
     font-size: 20px !important;
+    font-weight: 100 !important;
 }
 
 .details-table-paper {
@@ -32,13 +33,13 @@
     font-family: 'LLCirc';
     border-bottom: none;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 100;
     text-align: center;
 }
 
 .details-table-paper .MuiTableBody-root .MuiTableCell-root {
     font-family: 'LLCirc' !important;
-    font-weight: 450 !important;
+    font-weight: 100 !important;
     font-size: 16px !important;
     background-color: #ffffff;
     border-bottom: none;

@@ -14,7 +14,7 @@ function Header({ pageName }: HeaderProps) {
     <AppBar
       position="static"
       elevation={0}
-      sx={{ bgcolor: "white", color: "text.primary", backgroundColor: "#f9fafb" }}
+      sx={{ color: "text.primary", backgroundColor: "#f9fafb" }}
     >
       <Toolbar sx={{ justifyContent: "space-between", alignItems: "center", padding: '15px !important' }}>
         <Typography 

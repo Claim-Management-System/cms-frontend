@@ -55,7 +55,6 @@
   border-radius: 8px !important;
   font-family: 'LLCirc' !important;
   font-weight: 100 !important;
-  margin-bottom: 30px !important;
   text-transform: capitalize !important;
   padding-top: 8px !important;
   padding-bottom: 8px !important;
@@ -64,8 +63,8 @@
 } 
 
 .total-medical-limit {
-  font-family: 'ITCAvantG' !important;
-  font-weight: 500 !important;
+  font-family: 'LLCirc' !important;
+  font-weight: 100 !important;
   font-size: 20px !important;
   color: #4C4E54 !important;
 

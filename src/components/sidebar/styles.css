@@ -40,7 +40,8 @@ body {
 
 .mobile-toolbar-title {
     color: #4fc3d7;
-    font-weight: bold;
+    font-weight: 100;
+    font-family: 'LLCirc';
     margin-left: 16px;
 }
 
@@ -130,7 +131,7 @@ body {
 
 .list-item-text .MuiListItemText-primary {
     color: #626469;
-    font-weight: 400;
+    font-weight: 100;
     font-size: 15px;
     font-family: 'LLCirc';
 }
@@ -155,7 +156,7 @@ body {
 
 .sub-list-item-text .MuiListItemText-primary {
     color: #626469;
-    font-weight: 400;
+    font-weight: 100;
     font-family: 'LLCirc';
     font-size: 14px;
 }
