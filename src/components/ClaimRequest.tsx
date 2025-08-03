@@ -79,7 +79,7 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
                 loading={isLoading}
             />
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: '10px' }}>
                 <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}

@@ -155,11 +155,13 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
         loading={isLoading}
       />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: '10px' }}>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </Box>
     </Box>
   );
 };

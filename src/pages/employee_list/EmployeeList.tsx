@@ -57,7 +57,7 @@ function EmployeeList() {
                 loading={isLoading}
             />
 
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: '10px' }}>
                 <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}
