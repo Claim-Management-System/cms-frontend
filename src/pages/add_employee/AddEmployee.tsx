@@ -11,6 +11,7 @@ import {
 import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
 import { useError } from '../../context/errorContext';
 import { createEmployee, createUser } from '../../services/dataServices/employee';
+import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
@@ -61,7 +62,7 @@ export default function AddEmployee() {
         e.preventDefault();
         setSubmitted(true);
 
-        if (!isFormValid(formData, 'create')) {
+        if (!isFormValid(formData, EMPLOYEE_INFO_MODE.CREATE)) {
             setError('Please fill out all required fields');
             return;
         }
