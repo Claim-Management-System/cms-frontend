@@ -1,5 +1,6 @@
 .add-employee-container {
-    padding: 20px;
+    padding: 0px !important;
+    padding-top: 10px !important;
     background-color: #f9fafb;
 }
 
@@ -7,8 +8,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 0px !important;
+    margin-top: 10px !important;
+
 }
 
 .validation-error {

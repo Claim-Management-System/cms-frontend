@@ -7,7 +7,8 @@ body {
     padding: 20px;
     background-color: #f9fafb;
     overflow-y: auto;
-    margin-left: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
 }
 
 /* Using a media query to apply styles for screens smaller than 'md' (960px) */
@@ -34,7 +35,7 @@ body {
 /* Mobile App Bar */
 .mobile-appbar {
     background-color: #E8F6FC;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: none !important;
 }
 
 
