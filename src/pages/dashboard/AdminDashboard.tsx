@@ -50,13 +50,14 @@ function AdminDashboard() {
       <Header pageName="Admin Dashboard" />
       <Box className="user-search-container">
         <TextField
+          className="employee-id-field"
           label="Employee ID"
           variant="outlined"
           type="text"
           value={employeeNumber}
           onChange={handleEmployeeNumberChange}
-          placeholder="Enter 4-digit employee number"
-          helperText="Must be a 4-digit number"
+          placeholder="Enter 4-digit Employee ID"
+          InputLabelProps={{ shrink: true }}
           inputProps={{
             pattern: '\\d{4}',
             inputMode: 'numeric'
