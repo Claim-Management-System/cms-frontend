@@ -112,6 +112,7 @@ export interface EmployeeInterface {
     password?: string;
     status: string;
     department?: string;
+    userId?: string;
 }
 
 export type FieldConfig = {

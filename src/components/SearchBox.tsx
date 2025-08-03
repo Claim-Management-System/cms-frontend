@@ -9,7 +9,7 @@ interface SearchBoxProps {
 
 function SearchBox({ onSearchChange, placeholder = "Search..." }: SearchBoxProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const debounceDelay = 500
+  const debounceDelay = 1000
 
   useEffect(() => {
     const timerId = setTimeout(() => {

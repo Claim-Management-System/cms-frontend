@@ -1,35 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import EmployeeInfo from '../../components/employeeInfo/EmployeeInfo';
 import Header from '../../components/Header';
+import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import {
     getInitialFormData,
     isFormValid,
     calculateAge,
     transformToEmployeeDetails,
     transformToUserCredentials,
+    transformIntoFormField,
 } from '../../utils/AddEmployeeUtils';
-import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
 import { useError } from '../../context/errorContext';
-import { createEmployee, createUser } from '../../services/dataServices/employee';
+import { updateEmployee, updateUser, getEmployee, getUser } from '../../services/dataServices/employee';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
-import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
-import './AddEmployee.css';
+import { Done as DoneIcon } from '@mui/icons-material';
+import './EditEmployee.css';
 
-interface NewEmployeeData {
-    employeeId: string;
-    name: string;
-    email: string;
-    password?: string;
-}
 
-export default function AddEmployee() {
+function EditProfile() {
     const [formData, setFormData] = useState<EmployeeInterface>(getInitialFormData());
     const [submitted, setSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [newEmployeeData, setNewEmployeeData] = useState<NewEmployeeData | null>(null);
+    const [pageLoading, setPageLoading] = useState(true);
+
     const { setError } = useError();
+    const { employeeId } = useParams();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -47,16 +44,6 @@ export default function AddEmployee() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleCancel = () => {
-        setFormData(getInitialFormData());
-        setSubmitted(false);
-    };
-
-    const handlePopupClose = () => {
-        setIsPopupOpen(false);
-        handleCancel();
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitted(true);
@@ -72,31 +59,47 @@ export default function AddEmployee() {
             const employeeDetails = transformToEmployeeDetails(formData);
             const userCredentials = transformToUserCredentials(formData);
 
-            await createEmployee(employeeDetails);
-            await createUser(userCredentials);
+            await updateEmployee(employeeDetails, Number(formData.employeeId));
+            await updateUser(userCredentials, formData.userId!);
 
-            setNewEmployeeData({
-                employeeId: formData.employeeId,
-                name: `${formData.firstName} ${formData.lastName}`,
-                email: formData.email,
-                password: userCredentials.password,
-            });
-            setIsPopupOpen(true);
         } catch (error) {
-            setError('Failed to create employee. Please try again.');
+            setError('Failed to Update an employee. Please try again.');
         } finally {
             setIsLoading(false);
             setSubmitted(false);
         }
     };
 
-    return (
-        <>
-            <Header pageName="Add New Employee" />
+    const fetchEmployeeProfileDetails = async (employeeId: number) => {
+        setPageLoading(true);
+
+        try {
+            const employeeData = await getEmployee(employeeId)
+            const userData = await getUser(employeeData.work_email);
+            const formattedData = transformIntoFormField(employeeData, userData)
+            setFormData(formattedData)
+        } catch (error: any) {
+            setError(error.message);
+        } finally {
+            setPageLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        if (employeeId) {
+            fetchEmployeeProfileDetails(Number(employeeId))
+        } else {
+            setError('Employee ID not exists!')
+        }
+    }, [employeeId])
+
+    return !pageLoading ? (
+        <div>
+            <Header pageName="Edit Employee" />
             <div className="add-employee-container">
                 <form onSubmit={handleSubmit} noValidate>
                     <EmployeeInfo
-                        mode="create"
+                        mode="edit"
                         formData={formData}
                         onFormChange={handleChange}
                         onSelectChange={handleSelectChange}
@@ -104,15 +107,6 @@ export default function AddEmployee() {
                     />
                     <div className="form-actions">
                         <div className="buttons-wrapper">
-                            <button
-                                type="button"
-                                className="cancel-btn"
-                                onClick={handleCancel}
-                                disabled={isLoading}
-                            >
-                                Cancel
-                                <BlockIcon className='icon' />
-                            </button>
                             <button
                                 type="submit"
                                 className="submit-btn"
@@ -131,13 +125,10 @@ export default function AddEmployee() {
                     </div>
                 </form>
             </div>
-            {newEmployeeData && (
-                <AddEmployeePopup
-                    open={isPopupOpen}
-                    onClose={handlePopupClose}
-                    employeeData={newEmployeeData}
-                />
-            )}
-        </>
-    );
-};
+        </div>
+    ) : (
+        <LoadingScreen />
+    )
+}
+
+export default EditProfile

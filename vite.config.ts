@@ -18,6 +18,11 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_API_URL,
           changeOrigin: true,
           secure: false,
+        },
+         '/user': {
+          target: env.VITE_API_URL,
+          changeOrigin: true,
+          secure: false,
         }
       }
     }
