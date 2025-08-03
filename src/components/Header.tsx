@@ -19,7 +19,7 @@ function Header({ pageName }: HeaderProps) {
       <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
         <Typography 
           variant="h5" 
-          sx={{ fontWeight: 300, height: 30 }}
+          sx={{ fontWeight: 500, height: 30, fontFamily: 'ITCAvantG', color: '#4C4E54' }}
         >
           {pageName}
         </Typography>
