@@ -27,3 +27,8 @@ export const CLAIM_CATEGORY = Object.freeze({
   REQUEST: 'claim requests',
   HISTORY: 'claim history'
 })
+
+export const EMPLOYEE_INFO_MODE = Object.freeze({
+  CREATE: 'create',
+  EDIT: 'edit'
+})

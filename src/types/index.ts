@@ -90,3 +90,51 @@ export interface Employee {
   work_email: string;
   work_location_id: number;
 }
+
+
+export interface EmployeeInterface {
+    firstName: string;
+    lastName: string;
+    email: string;
+    dob: string;
+    joiningDate: string;
+    role: 'admin' | 'employee' | '';
+    employeeType: 'permanent' | 'contractual' | '';
+    team: string;
+    bankAccountNumber: string;
+    employeeId: string;
+    maritalStatus: 'single' | 'married' | 'family' | '';
+    workLocation: string;
+    jobTitle: string;
+    position: string;
+    phoneNumber: string;
+    age?: number;
+    password?: string;
+    status: string;
+    department?: string;
+}
+
+export type FieldConfig = {
+    name: keyof EmployeeInterface;
+    label: string;
+    type: 'text' | 'email' | 'date' | 'number' | 'password' | 'select';
+    required?: boolean;
+    disabled?: boolean;
+    options?: Array<{ value: string; label: string }>;
+    specialHandling?: 'age' | 'password';
+};
+
+export interface WorkLocation {
+  id: number;
+  address: string;
+}
+
+export interface MaritalStatus {
+  id: number;
+  status: string;
+}
+
+export interface EmployeeType {
+  id: number;
+  type: string;
+}

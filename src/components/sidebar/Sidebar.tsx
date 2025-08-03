@@ -29,6 +29,7 @@ import {
   PersonOutline as PersonOutlineIcon,
   Category as CategoryIcon,
   ExpandMore as ExpandMoreIcon,
+  Person as PersonIcon
 } from "@mui/icons-material"
 import "./styles.css"
 
@@ -85,6 +86,11 @@ const adminMenuItems: MenuItem[] = [
     text: 'Admin Dashboard',
     icon: <DashboardIcon />,
     path: '/admin-dashboard',
+  },
+  {
+    text: 'Add Employee',
+    icon: <PersonIcon />,
+    path: '/add-employee',
   },
   {
     text: 'New Request',
