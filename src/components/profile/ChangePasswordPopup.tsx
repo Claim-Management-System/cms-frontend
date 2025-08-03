@@ -55,10 +55,10 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
   };
   
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth className="change-password-dialog">
+      <DialogTitle className='change-password-title'>
         Change Password
-        <IconButton aria-label="close" onClick={onClose} sx={{ position: 'absolute', right: 20, top: 8 }}>
+        <IconButton aria-label="close" onClick={onClose} sx={{ position: 'absolute', right: 25, top: 8 }}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -67,13 +67,13 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
           <TextField
             key={field.id}
             autoFocus={field.name === 'currentPassword'}
-            margin="dense"
             id={field.id}
             name={field.name}
             label={field.label}
             type={show[field.name as keyof typeof show] ? 'text' : 'password'}
             fullWidth
             variant="outlined"
+            className="new-password-field"
             value={passwords[field.name as keyof typeof passwords]}
             onChange={handleChange}
             InputLabelProps={{ shrink: true }}
@@ -90,7 +90,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
         ))}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} variant="contained">
+        <Button onClick={handleSubmit} variant="contained" className='submit-button-change-password'>
           Submit
         </Button>
       </DialogActions>
