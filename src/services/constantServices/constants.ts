@@ -3,7 +3,8 @@ export const BOUNDARY = 'MULTIPART-IMAGES-BOUNDARY';
 
 export const USER_ROLES = Object.freeze({
     ADMIN: 'admin',
-    USER: 'user'
+    USER: 'user',
+    EMPLOYEE: 'employee'
 });
 
 export const CLAIM_TYPES = Object.freeze({

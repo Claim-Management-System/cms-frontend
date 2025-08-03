@@ -6,7 +6,7 @@ import ClaimTable from './claimsTable/ClaimTable';
 import Pagination from './Pagination';
 import formatDate from '../services/constantServices/formatDate';
 import { useError } from '../context/errorContext';
-import { getClaimsRequest } from '../services/dataServices/claimsRequest';
+import { getClaimsRequest, getEmployeeClaimsRequest } from '../services/dataServices/claimsRequest';
 import { type ClaimRecord } from '../types';
 import { Box } from '@mui/material';
 
@@ -29,9 +29,21 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
     const { setError } = useError();
 
     const fetchAllClaims = async (page: number, search: string) => {
+        if(search.length > 0 && search.length !== 4) {
+            setError("The employee ID should be of 4-Digits");
+            return;
+        }
+
         setIsLoading(true);
         try {
-            const data = await getClaimsRequest({ claimType: apiClaimType, search, page });
+            let data;
+
+            if(search.length) {
+                data = await getEmployeeClaimsRequest(apiClaimType, search, page)
+            } else {
+                data = await getClaimsRequest({ claimType: apiClaimType, page });
+            }
+
             let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
 
             setClaimData(allClaims);
