@@ -10,7 +10,7 @@ interface FormNotAcceptedPopupProps {
 const FormNotAcceptedPopup: React.FC<FormNotAcceptedPopupProps> = ({ onReview, onResubmit }) => {
     return (
         <div className="popup-overlay">
-            <div className="popup-content not-accepted">
+            <div className="popup-content-add-request not-accepted">
                 <div className="text">
                     <div className="popup-icon">
                         <ErrorOutlineOutlinedIcon style={{ color: '#F6772C' }} />

@@ -15,7 +15,7 @@
     z-index: 1300;
 }
 
-.popup-content {
+.popup-content-add-request {
     box-sizing: border-box !important;
     display: flex;
     justify-content: center;
@@ -34,7 +34,7 @@
     max-height: 500px !important;
 }
 
-.popup-content.submitted, .popup-content.not-accepted {
+.popup-content-add-request.submitted, .popup-content-add-request.not-accepted {
     justify-content: center;
 }
 
@@ -77,6 +77,6 @@
     cursor: pointer;
     font-size: 16px;
     font-weight: 100 !important;
-    width: 250px;
+    width: 175px;
     font-family: 'LLCirc';
 } 

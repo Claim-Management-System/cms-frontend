@@ -6,7 +6,7 @@ import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlin
 const FormScanningPopup: React.FC = () => {
     return (
         <div className="popup-overlay">
-            <div className="popup-content">
+            <div className="popup-content-add-request">
                 <div className="popup-icon">
                     <HourglassEmptyOutlinedIcon style={{ color: '#33B1E0' }} />
                 </div>

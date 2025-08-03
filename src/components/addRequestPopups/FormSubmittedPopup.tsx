@@ -11,7 +11,7 @@ interface FormSubmittedPopupProps {
 const FormSubmittedPopup: React.FC<FormSubmittedPopupProps> = ({ onViewHistory, onClose }) => {
     return (
         <div className="popup-overlay">
-            <div className="popup-content submitted">
+            <div className="popup-content-add-request submitted">
                 <div className="text">
                     <div className="popup-icon">
                         <CheckCircleOutlinedIcon style={{ color: '#86B62C' }} />

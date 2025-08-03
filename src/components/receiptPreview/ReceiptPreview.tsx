@@ -73,7 +73,7 @@ function ReceiptPreview({ onImageUpload, submitted, reset, mode = IMAGE_MODE.UPL
 
     const UploadPlaceholder = () => (
         <Box className={`upload-placeholder ${submitted && files.length === 0 ? "error" : ""}`}>
-            <Typography>+ Upload Attachments</Typography>
+            <Typography className="upload-placeholder-text">+ Upload Attachments</Typography>
             <Button component="label" variant="contained" disabled={mode === IMAGE_MODE.VIEW}>
                 Upload
                 <input

@@ -9,7 +9,7 @@
     height: 550px;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
-    background-color: #f8f9fa;
+    background-color: #ebebec;
     position: relative;
 }
 
@@ -66,6 +66,12 @@
     font-size: 12px;
     height: 60px;
     font-family: 'LLCirc' !important;
+}
+
+.upload-placeholder-text {
+    font-size: 12px !important;
+    font-family: 'LLCirc' !important;
+    color: #626469 !important;
 }
 
 
