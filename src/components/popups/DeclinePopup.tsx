@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton, Button } from '@mui/material';
+import { useError } from '../../context/errorContext';
 import CloseIcon from '@mui/icons-material/Close';
 import './Popup.css';
 
@@ -14,6 +15,7 @@ interface DeclinePopupProps {
 
 function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_name, employee_number }: DeclinePopupProps) {
     const [selectedReason, setSelectedReason] = useState('');
+    const { setError } = useError();
 
     const rejectionReasons = [
         'False Information',
@@ -24,12 +26,10 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
 
     const handleConfirm = () => {
         if (selectedReason) {
-            console.log('Claim was declined');
-            console.log('Reason:', selectedReason);
             onReasonSelect(selectedReason);
             onClose();
         } else {
-            console.log('Please select a reason for declining the request.');
+            setError('Please select a reason for declining the request.');
         }
     };
 

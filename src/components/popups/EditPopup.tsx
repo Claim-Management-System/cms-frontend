@@ -37,7 +37,6 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
             totalAmount: numericAmount,
         };
         console.log('Updated Form Data:', updatedFormData);
-        console.log('Reason for change:', reason);
         onEdit(numericAmount, reason);
         onClose();
     };

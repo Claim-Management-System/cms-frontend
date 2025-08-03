@@ -38,7 +38,7 @@ function ClaimDetails() {
     const handleUpdate = async (body: object, successAction: () => void) => {
         try {
             await updateClaimStatus(claimId!, body);
-            await fetchClaimAndEmployee(claimId!);
+            await fetchClaimAndEmployee(claimId!, true);
             successAction();
         } catch (error) {
             setError('Failed to update the claim.');
@@ -71,11 +71,11 @@ function ClaimDetails() {
         handleUpdate(body, () => setEditPopupOpen(false));
     };
 
-    const fetchClaimAndEmployee = async (claimId: string) => {
+    const fetchClaimAndEmployee = async (claimId: string, update = false) => {
         setIsLoading(true)
 
         try {
-            const claimDetails = await getClaimDetails(claimId)
+            const claimDetails = await getClaimDetails(claimId, update)
 
             setFormData(claimDetails.claimData)
             setImages(claimDetails.claimImages)
@@ -112,7 +112,7 @@ function ClaimDetails() {
                 <div className="view-more-header">
                     <UserTitle
                         mainText={employee_name}
-                    // subText={employeeDetails?.work_email!}
+                        subText={employeeDetails?.work_email!}
                     />
                     {user?.role === USER_ROLES.ADMIN && formData?.status === STATUS.PENDING && (
                         <div className="admin-buttons-container">

@@ -11,8 +11,8 @@ interface ClaimDetailsCache {
 
 const cachedClaimDetails: { [key: string]: ClaimDetailsCache } = {};
 
-export const getClaimDetails = async (claimId: string): Promise<ClaimDetailsCache> => {
-    if (cachedClaimDetails[claimId]) {
+export const getClaimDetails = async (claimId: string, update: boolean): Promise<ClaimDetailsCache> => {
+    if (cachedClaimDetails[claimId] && !update) {
         return cachedClaimDetails[claimId];
     }
 

@@ -25,7 +25,6 @@ export const postNewRequest = async (formData: newAddRequest) => {
     const data = new FormData();
      Object.keys(formData).forEach(key => {
       const typedKey = key as keyof newAddRequest;
-      console.log(typedKey, String(formData[typedKey]))
       if (typedKey !== 'images') {
         data.append(typedKey, String(formData[typedKey]));
       }
