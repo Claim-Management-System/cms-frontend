@@ -48,7 +48,7 @@ function EditProfile() {
         e.preventDefault();
         setSubmitted(true);
 
-        if (!isFormValid(formData, 'create')) {
+        if (!isFormValid(formData, 'edit')) {
             setError('Please fill out all required fields');
             return;
         }

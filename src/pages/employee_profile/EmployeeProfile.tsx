@@ -56,13 +56,15 @@ const EmployeeProfile = () => {
                     />
                 ))}
             </div>
-            <Button 
-                variant="contained" 
-                className="edit-button" 
-                onClick={() => navigate(`/employee-profile/edit/${employeeId}`)}
-            >
-                Edit Details
-            </Button>
+            <div className='edit-button-container'>
+                <Button
+                    variant="contained"
+                    className="edit-button"
+                    onClick={() => navigate(`/employee-profile/edit/${employeeId}`)}
+                >
+                    Edit Details
+                </Button>
+            </div>
         </>
     ) : (
         <LoadingScreen />

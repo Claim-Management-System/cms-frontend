@@ -16,3 +16,9 @@
   font-weight: 100 !important;
   text-transform: none !important;
 }
+
+.edit-button-container {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #f9f9f9;
+}

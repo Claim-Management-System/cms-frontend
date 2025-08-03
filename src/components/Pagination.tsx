@@ -30,12 +30,12 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
         boundaryCount={2}
         sx={{
           '& .MuiPaginationItem-root': {
-            fontFamily: 'LLCirc',
+            fontFamily: 'LLCirc !important',
             fontWeight: 100,
             color: '#4C4E54',
           },
           '& .Mui-selected': {
-            backgroundColor: '#1CA8DD',
+            backgroundColor: '#1CA8DD !important',
             color: 'white',
             '&:hover': {
               backgroundColor: '#1785b0',
