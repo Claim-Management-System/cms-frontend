@@ -43,6 +43,7 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
                 headerAlign: 'center',
                 className: 'empty-column',
                 headerClassName: 'empty-column-header',
+                sortable: false,
             },
             {
                 field: 'employee_number',

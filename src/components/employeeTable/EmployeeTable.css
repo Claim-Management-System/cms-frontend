@@ -32,6 +32,10 @@
     background-color: transparent !important;
 }
 
+.employee-table-container .empty-column-header .MuiDataGrid-iconButtonContainer {
+    visibility: hidden;
+}
+
 .employee-table-container .MuiDataGrid-columnHeader .MuiDataGrid-iconButtonContainer {
     visibility: visible;
     width: auto;
