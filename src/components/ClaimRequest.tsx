@@ -33,6 +33,7 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
         try {
             const data = await getClaimsRequest({ claimType: apiClaimType, search, page });
             let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
+
             setClaimData(allClaims);
             setTotalPages(Math.ceil(data.totalCount / 10));
         } catch (error: any) {

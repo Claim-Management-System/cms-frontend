@@ -86,6 +86,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
       }
 
       let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
+
       setClaimData(allClaims);
       setTotalPages(Math.ceil(data.totalCount / 10));
     } catch (error: any) {
