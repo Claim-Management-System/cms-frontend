@@ -24,12 +24,12 @@ import {
   Add as AddIcon,
   History as HistoryIcon,
   Drafts as DraftsIcon,
-  Settings as SettingsIcon,
   Logout as LogoutIcon,
   PersonOutline as PersonOutlineIcon,
   Category as CategoryIcon,
   ExpandMore as ExpandMoreIcon,
-  Person as PersonIcon
+  Person as PersonIcon,
+  AccountCircle as AccountCircleIcon
 } from "@mui/icons-material"
 import "./styles.css"
 
@@ -246,13 +246,13 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
       <Box className="bottom-menu-section">
         <Divider className="divider" />
         <List>
-          <ListItem key="Settings" disablePadding className="menu-item-box">
+          <ListItem key="Profile" disablePadding className="menu-item-box">
             <ListItemButton
-              onClick={() => handleMenuItemClick('/settings')}
-              className={`list-item-button${checkIsActive('/settings') ? ' active' : ''}`}
+              onClick={() => handleMenuItemClick('/profile')}
+              className={`list-item-button${checkIsActive('/profile') ? ' active' : ''}`}
             >
-              <ListItemIcon className={`list-item-icon${checkIsActive('/settings') ? ' active' : ''}`}><SettingsIcon /></ListItemIcon>
-              <ListItemText primary="Settings" className={`list-item-text${checkIsActive('/settings') ? ' active' : ''}`} />
+              <ListItemIcon className={`list-item-icon${checkIsActive('/profile') ? ' active' : ''}`}><AccountCircleIcon /></ListItemIcon>
+              <ListItemText primary="Profile" className={`list-item-text${checkIsActive('/profile') ? ' active' : ''}`} />
             </ListItemButton>
           </ListItem>
           <ListItem key="Log Out" disablePadding className="menu-item-box">

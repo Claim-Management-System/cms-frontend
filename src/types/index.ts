@@ -94,3 +94,28 @@ export interface EmployeeType {
   id: number;
   type: string;
 }
+
+export interface ProfileDetail {
+  label: string;
+  value: string | number;
+}
+
+export interface ProfileSection {
+  title: string;
+  details: ProfileDetail[];
+}
+
+export interface ClaimDetail {
+  type: string;
+  approvedAmount: number;
+  approvedCount: number;
+  pendingAmount: number;
+  pendingCount: number;
+}
+
+export interface DashboardData {
+  claimDetails: ClaimDetail[];
+  totalLimit: number;
+  employeeName: string;
+  employeeEmail: string;
+}
