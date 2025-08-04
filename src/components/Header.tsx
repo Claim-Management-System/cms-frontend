@@ -1,14 +1,11 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, IconButton, Divider } from "@mui/material"
-import { AccountCircle } from "@mui/icons-material"
-import { useNavigate } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Divider } from "@mui/material"
 
 interface HeaderProps {
   pageName: string;
 }
 
 function Header({ pageName }: HeaderProps) {
-  const navigate = useNavigate();
 
   return (
     <AppBar
@@ -23,13 +20,6 @@ function Header({ pageName }: HeaderProps) {
         >
           {pageName}
         </Typography>
-
-        <IconButton 
-          sx={{ width: 32, height: 32}} 
-          onClick={() => navigate('/profile')}
-        >
-          <AccountCircle fontSize="large" />
-        </IconButton>
       </Toolbar>
       <Divider sx={{ marginY: 1.3, backgroundColor: 'rgba(107, 114, 128, 0.2)' }} />
     </AppBar>
