@@ -29,7 +29,9 @@ import {
   Category as CategoryIcon,
   ExpandMore as ExpandMoreIcon,
   Person as PersonIcon,
-  AccountCircle as AccountCircleIcon
+  AccountCircle as AccountCircleIcon,
+  Groups as GroupsIcon,
+  People as PeopleIcon
 } from "@mui/icons-material"
 import "./styles.css"
 
@@ -49,6 +51,7 @@ interface MenuItem {
 interface SubMenuItem {
   text: string
   path: string
+  icon: React.ReactNode
   active?: boolean
 }
 
@@ -62,16 +65,16 @@ const userMenuItems: MenuItem[] = [
     text: 'New Request',
     icon: <AddIcon />,
     subItems: [
-      { text: 'Outpatient', path: '/new-request/outpatient' },
-      { text: 'Miscellaneous', path: '/new-request/miscellaneous' },
+      { text: 'Outpatient', path: '/new-request/outpatient', icon: <PersonOutlineIcon /> },
+      { text: 'Miscellaneous', path: '/new-request/miscellaneous', icon: <CategoryIcon /> },
     ],
   },
   {
     text: 'Claim History',
     icon: <HistoryIcon />,
     subItems: [
-      { text: 'Outpatient', path: '/claim-history/outpatient' },
-      { text: 'Miscellaneous', path: '/claim-history/miscellaneous' },
+      { text: 'Outpatient', path: '/claim-history/outpatient', icon: <PersonOutlineIcon /> },
+      { text: 'Miscellaneous', path: '/claim-history/miscellaneous', icon: <CategoryIcon /> },
     ],
   },
   {
@@ -88,32 +91,35 @@ const adminMenuItems: MenuItem[] = [
     path: '/admin-dashboard',
   },
   {
-    text: 'Add Employee',
-    icon: <PersonIcon />,
-    path: '/add-employee',
+    text: 'Employee',
+    icon: <PeopleIcon />,
+    subItems: [
+      { text: 'Add Employee', path: '/add-employee', icon: <PersonIcon /> },
+      { text: 'View Employees', path: '/employee-list', icon: <GroupsIcon /> },
+    ],
   },
   {
     text: 'New Request',
     icon: <AddIcon />,
     subItems: [
-      { text: 'Outpatient', path: '/new-request/outpatient' },
-      { text: 'Miscellaneous', path: '/new-request/miscellaneous' },
+      { text: 'Outpatient', path: '/new-request/outpatient', icon: <PersonOutlineIcon /> },
+      { text: 'Miscellaneous', path: '/new-request/miscellaneous', icon: <CategoryIcon /> },
     ],
   },
   {
     text: 'Claim Requests',
     icon: <HistoryIcon />,
     subItems: [
-      { text: 'Outpatient', path: '/claim-requests/outpatient' },
-      { text: 'Miscellaneous', path: '/claim-requests/miscellaneous' },
+      { text: 'Outpatient', path: '/claim-requests/outpatient', icon: <PersonOutlineIcon /> },
+      { text: 'Miscellaneous', path: '/claim-requests/miscellaneous', icon: <CategoryIcon /> },
     ],
   },
   {
     text: 'Claim History',
     icon: <HistoryIcon />,
     subItems: [
-      { text: 'Outpatient', path: '/claim-history/outpatient' },
-      { text: 'Miscellaneous', path: '/claim-history/miscellaneous' },
+      { text: 'Outpatient', path: '/claim-history/outpatient', icon: <PersonOutlineIcon /> },
+      { text: 'Miscellaneous', path: '/claim-history/miscellaneous', icon: <CategoryIcon /> },
     ],
   },
 ];
@@ -224,7 +230,7 @@ export default function ResponsiveSidebar({ children }: SidebarProps) {
                             className={`sub-list-item-button${checkIsActive(subItem.path) ? ' active' : ''}`}
                           >
                             <ListItemIcon className={`sub-list-item-icon`}>
-                              {subItem.text === 'Outpatient' ? <PersonOutlineIcon /> : <CategoryIcon />}
+                              {subItem.icon}
                             </ListItemIcon>
                             <ListItemText
                               primary={subItem.text}
