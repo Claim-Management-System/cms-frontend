@@ -76,6 +76,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
             className="new-password-field"
             value={passwords[field.name as keyof typeof passwords]}
             onChange={handleChange}
+            required
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
