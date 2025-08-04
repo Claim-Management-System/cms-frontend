@@ -52,6 +52,12 @@ function AdminDashboard() {
     }
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !loading && employeeNumber.length >= 4) {
+      handleSearch();
+    }
+  };
+
   return (
     <Box>
       <Header pageName="Admin Dashboard" />
@@ -63,6 +69,7 @@ function AdminDashboard() {
           type="text"
           value={employeeNumber}
           onChange={handleEmployeeNumberChange}
+          onKeyDown={handleKeyPress}
           placeholder="Enter 4-digit Employee ID"
           InputLabelProps={{ shrink: true }}
           InputProps={{
