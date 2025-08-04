@@ -1,0 +1,173 @@
+@import '../../index.css';
+
+.receipt-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 16px;
+}
+
+.datetime-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.status-chip {
+    width: 105px;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 6px 8px;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'LLCirc' !important;
+}
+
+.status-chip.pending {
+    background-color: #FDFBF1;
+    color: #E59300;
+}
+
+.status-chip.accepted {
+    background-color: #F6FDF1;
+    color: #85B52C;
+}
+
+.status-chip.completed {
+    background-color: #EFFCE8;
+    color: #86B62C;
+}
+
+.status-chip.denied {
+    background-color: #FDF1F1;
+    color: #F6772C;
+}
+
+.status-chip.forwarded {
+    background-color: #F1FAFD;
+    color: #1CA8DD;
+}
+
+.datetime-box {
+    padding: 6px 8px;
+    border: 1px solid #D2EEF8;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #4C4E54;
+    text-align: center;
+    font-family: 'LLCirc' !important;
+}
+
+.receipt-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- General styling for all custom form controls --- */
+.custom-form-control .MuiOutlinedInput-root {
+    border-radius: 8px;
+    height: 45px;
+    /* Applied border-radius */
+}
+
+/* --- Style for multiline input --- */
+.custom-form-control .MuiInputBase-multiline {
+    height: auto;
+    padding: 12px 0px;
+}
+
+.custom-form-control .MuiOutlinedInput-input {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: 'LLCirc' !important;
+    /* Placeholder and input text size */
+}
+
+/* --- Style for the border of the input field --- */
+.custom-form-control .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+    /* Default border color */
+}
+
+/* --- Style for the border on hover --- */
+.custom-form-control .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+    /* Border color on hover */
+}
+
+/* --- Style for the border when the input is focused --- */
+.custom-form-control .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--s60);
+    border-width: 1px;
+}
+
+/* --- Style for the input label --- */
+.custom-form-control .MuiInputLabel-root {
+    color: var(--s80);
+    /* Default label color */
+    font-weight: 500;
+    font-size: 16px;
+    transform: translate(15px, -17px) scale(1);
+    font-family: 'LLCirc' !important;
+}
+
+.custom-form-control .MuiFormLabel-asterisk {
+    color: #D96758;
+}
+
+.custom-form-control .MuiInputLabel-shrink {
+    background: #F8F9FA;
+    padding: 0 4px;
+}
+
+/* --- When form is submitted, style invalid fields --- */
+.submitted .custom-form-control:has(:invalid) .MuiOutlinedInput-notchedOutline {
+    border-color: #F6772C;
+}
+
+.submitted .custom-form-control:has(:invalid) .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #F6772C;
+}
+
+/* --- Style for the label when the input is focused --- */
+.custom-form-control .MuiInputLabel-root.Mui-focused {
+    color: var(--s80);
+}
+
+/* --- Style for dropdown menu items --- */
+.MuiMenuItem-root {
+    height: 45px;
+    box-sizing: border-box;
+    padding: 10px 16px !important;
+    font-family: 'LLCirc' !important;
+}
+
+/* --- Action Buttons --- */
+.form-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    /* margin-top: 24px; */
+}
+
+.submit-button {
+    background-color: #1CA8DD !important;
+    color: #FFFFFF !important;
+    text-transform: none !important;
+    font-size: 16px !important;
+    padding: 8px 24px !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    min-width: 200px !important;
+}
+
+.error-message {
+    color: #F6772C;
+    margin: 0;
+    font-size: 16px;
+} 

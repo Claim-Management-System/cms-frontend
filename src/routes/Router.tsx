@@ -14,7 +14,7 @@ import ClaimHistory_Miscellaneous from '../pages/claim_history/Miscellaneous';
 import UserProfile from '../pages/user_profile/UserProfile';
 import Drafts from '../pages/draft/Drafts';
 import AddEmployee from '../pages/add_employee/AddEmployee';
-import ClaimDetails from '../pages/claim-details/ClaimDetails';
+import ClaimDetails from '../pages/claim_details/ClaimDetails';
 import EmployeeList from '../pages/employee_list/EmployeeList';
 import EmployeeProfile from '../pages/employee_profile/EmployeeProfile';
 import EditProfile from '../pages/edit_employee_profile/EditProfile';

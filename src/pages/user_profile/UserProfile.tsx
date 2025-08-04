@@ -7,9 +7,10 @@ import { fetchProfile } from '../../utils/userProfileUtils';
 import { useAuth } from '../../context/authContext';
 import { useError } from '../../context/errorContext';
 import { Button } from '@mui/material';
+import { USER_ROLES } from '../../services/constantServices/constants';
+import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import type { ProfileSection } from '../../types';
 import './UserProfile.css';
-import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 
 const UserProfile = () => {
   const [userDetails, setUserDetails] = useState<ProfileSection[]>([]);
@@ -39,7 +40,8 @@ const UserProfile = () => {
 
   return !loading ? (
     <>
-      <Header pageName='User Profile' />
+      <Header pageName={ user?.role === USER_ROLES.EMPLOYEE ? 'User Profile' : 'Admin Profile'} />
+
       <div className="user-profile-container">
         <UserTitle mainText={user?.employee_name!} subText={`Employee ID: ${user?.employee_number!}`} />
         {userDetails.map(userDetail => (

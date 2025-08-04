@@ -42,7 +42,7 @@ export const getEmployeeType = async (id?: number) => {
 export const getMaritalStatus = async (id?: number) => {
     try {
         const response = await apiClient.get( '/api/marital-statuses', {
-            params: { id }
+            params: { marital_status_id: id }
         });
         return response.data;
     } catch (error) {
@@ -96,10 +96,9 @@ export const getUser = async (email: string) => {
 
 export const updateUser = async (body: any, userId: string) => {
   try {
-    const response = await apiClient.put('/api/employees', body, {
+    await apiClient.put('/api/users', body, {
       params: { id: userId }
     })
-    console.log(response)
   } catch (error) {
     throw error
   }
@@ -107,10 +106,9 @@ export const updateUser = async (body: any, userId: string) => {
 
 export const updateEmployee = async (body: any, employeeNumber: number) => {
   try {
-    const response = await apiClient.put('/api/employees', body, {
+    await apiClient.put('/api/employees', body, {
       params: { employeeNumber }
     })
-    console.log(response)
   } catch (error) {
     throw error
   }

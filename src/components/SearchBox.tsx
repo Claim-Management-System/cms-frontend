@@ -7,7 +7,7 @@ interface SearchBoxProps {
   placeholder?: string;
 }
 
-function SearchBox({ onSearchChange, placeholder = "Search..." }: SearchBoxProps) {
+function SearchBox({ onSearchChange, placeholder = "Enter 4-Digit Employee ID" }: SearchBoxProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const debounceDelay = 1000
 

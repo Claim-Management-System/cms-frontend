@@ -3,14 +3,13 @@ import type { newAddRequest, FormType } from '../../types';
 
 type getClaimsRequestProps = {
   claimType: 'miscellaneous' | 'medical';
-  search: string;
   page: number;
 }
 
-export const getClaimsRequest = async ({ claimType, search, page }: getClaimsRequestProps) => {
+export const getClaimsRequest = async ({ claimType, page }: getClaimsRequestProps) => {
   try {
     const response = await apiClient.get('/api/claims', {
-      params: { claimType, page, search, status: 'pending' },
+      params: { claimType, page, status: 'pending' },
     });
     return response.data;
   } catch (error: any) {
@@ -19,13 +18,23 @@ export const getClaimsRequest = async ({ claimType, search, page }: getClaimsReq
 };
 
 
+export const getEmployeeClaimsRequest = async (claimType: string, employeeNumber: string, page: number) => {
+  try {
+    const response = await apiClient.get('/api/claims/employee', {
+      params: { employeeNumber, claimType, page, status: 'pending' },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(`No pending claims for EmployeeId: ${employeeNumber} `);
+  }
+};
+
 
 export const postNewRequest = async (formData: newAddRequest) => {
   try {
     const data = new FormData();
      Object.keys(formData).forEach(key => {
       const typedKey = key as keyof newAddRequest;
-      console.log(typedKey, String(formData[typedKey]))
       if (typedKey !== 'images') {
         data.append(typedKey, String(formData[typedKey]));
       }
@@ -42,7 +51,6 @@ export const postNewRequest = async (formData: newAddRequest) => {
       }
     });
 
-    console.log('Claim submitted successfully:', response);
     return response;
   } catch (error: any) {
     console.log(error)
