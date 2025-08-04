@@ -36,6 +36,13 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         align: 'left',
         headerAlign: 'left',
       },
+      description: {
+        field: 'description',
+        headerName: 'Description',
+        flex: 1.4,
+        align: 'left',
+        headerAlign: 'left',
+      },
       status: {
         field: 'status',
         headerName: 'Status',
@@ -62,7 +69,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       relationship: {
         field: 'relationship',
         headerName: 'Relationship',
-        flex: 1.2,
+        flex: 0.7,
         align: 'left',
         headerAlign: 'left',
       },
@@ -86,6 +93,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
     };
 
     const columnNames = getClaimTableColumns(userRole, claimType, category)
+    console.log(columnNames)
     const finalColumns: GridColDef<ClaimRecord>[] = columnNames?.map(name => baseColumns[name]) ?? [];
     return finalColumns;
   }, [userRole, claimType, category]);
