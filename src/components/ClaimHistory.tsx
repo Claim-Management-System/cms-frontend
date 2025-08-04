@@ -123,17 +123,19 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
     <Box>
       <Header pageName={pageTitle} />
 
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: 2,
-          alignItems: 'center'
-        }}
-      >
-        <SearchBox onSearchChange={setSearchTerm} />
-        <AddRequestButton path={newRequestPath} />
-      </Box>
+      {user?.role !== USER_ROLES.EMPLOYEE && 
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginTop: 2,
+            alignItems: 'center'
+          }}
+        >
+          <SearchBox onSearchChange={setSearchTerm} />
+          <AddRequestButton path={newRequestPath} />
+        </Box>
+      }
 
       <Box
         sx={{ marginY: 2 }}

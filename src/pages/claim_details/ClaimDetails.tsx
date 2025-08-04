@@ -81,8 +81,8 @@ function ClaimDetails() {
             setFormData(claimDetails.claimData)
             setImages(claimDetails.claimImages)
             setEmployeeDetails(claimDetails.employeeData)
-        } catch (error: any) {
-            setError(error.message || 'Failed to fetch data!')
+        } catch (error) {
+            setError('No data to show!')
         } finally {
             setIsLoading(false)
         }
@@ -99,11 +99,15 @@ function ClaimDetails() {
 
         try {
             await downloadClaimImages(claimId!)
-        } catch (error: any) {
-            setError(error.message || "Failed to download an image")
+        } catch (error) {
+            setError("Failed to download an image")
         } finally {
             setDownload(false);
         }
+    }
+
+    if(isLoading) {
+        return <LoadingScreen />
     }
 
     if (!formData || !images) {
@@ -115,7 +119,7 @@ function ClaimDetails() {
         );
     }
 
-    return !isLoading ? (
+    return (
         <>
             <Header pageName='View Claim Details' />
             <div className="view-more-container">
@@ -195,8 +199,6 @@ function ClaimDetails() {
                 />
             </div>
         </>
-    ) : (
-        <LoadingScreen />
     )
 };
 
