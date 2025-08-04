@@ -29,7 +29,16 @@ export const ErrorProvider = ({ children }: { children: ReactNode }) => {
         onClose={clearError}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert onClose={clearError} severity="error" sx={{ width: '100%' }}>
+        <Alert 
+          onClose={clearError} 
+          severity="error" 
+          sx={{ 
+            width: '100%',
+            fontFamily: 'LLCirc',
+            fontWeight: 'normal',
+            fontSize: '16px'
+          }}
+        >
           {error}
         </Alert>
       </Snackbar>
