@@ -148,7 +148,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
 
       <ClaimTable
         data={claimData}
-        userRole={user?.role || 'user'}
+        userRole={user?.role === 'admin' ? 'admin' : 'user'}
         claimType={tableClaimType}
         category="claim history"
         loading={isLoading}

@@ -23,7 +23,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       date: {
         field: 'created_at',
         headerName: 'Date',
-        flex: 0.7,
+        flex: 1,
         align: 'left',
         headerAlign: 'left',
         cellClassName: 'date-column-cell',
@@ -54,7 +54,7 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         field: 'submitted_amount',
         headerName: 'Amount',
         type: 'number',
-        flex: 0.8,
+        flex: 1,
         align: 'center',
         headerAlign: 'center',
         headerClassName: 'amount-column-header',
@@ -62,26 +62,26 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
       relationship: {
         field: 'relationship',
         headerName: 'Relationship',
-        flex: 1.2,
+        flex: 0.75,
         align: 'left',
         headerAlign: 'left',
       },
       name: {
         field: 'employee_name',
         headerName: 'Name',
-        flex: 0.9,
+        flex: 1,
         align: 'left',
         headerAlign: 'left',
       },
       actions: {
         field: 'actions',
         headerName: '',
-        flex: 0.3,
+        flex: 0.5,
         sortable: false,
         filterable: false,
         align: 'left',
         headerAlign: 'left',
-        renderCell: (params) => <ActionsCell params={params} category={category}/>
+        renderCell: (params) => <ActionsCell params={params} />
       }
     };
 
