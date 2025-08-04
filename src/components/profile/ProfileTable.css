@@ -27,7 +27,7 @@
   /* min-width: 900px; */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .profile-table {
     grid-template-columns: 1fr;
   }

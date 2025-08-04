@@ -34,7 +34,7 @@ const AddEmployeePopup = ({ open, onClose, employeeData }: AddEmployeePopupProps
                 >
                     <CloseIcon />
                 </IconButton>
-                <Typography variant="h5" component="h2" className="popup-title">
+                <Typography variant="h5" component="h2" className="popup-title-add-employee">
                     Employee Created Successfully
                 </Typography>
                 <Box className="employee-details">

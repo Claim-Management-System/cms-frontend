@@ -53,6 +53,15 @@
     gap: 16px;
 }
 
+@media (max-width: 1024px) {
+    .admin-buttons-container {
+        flex-wrap: wrap;
+        max-width: 450px;
+        justify-content: flex-end;
+    }
+}
+
+
 .decline-button {
     width: 100% !important;
     max-width: 120px !important;
@@ -89,6 +98,7 @@
 .download-button{
     width: 100% !important;
     min-width: 200px !important;
+    max-width: 200px !important;
     height: 40px !important;
     border-radius: 4px !important;
     padding: 8px 24px !important;
@@ -112,6 +122,7 @@
 .editing-button {
     width: 100% !important;
     min-width: 200px !important;
+    max-width: 200px !important;
     height: 40px !important;
     border-radius: 4px !important;
     padding: 8px 24px !important;
