@@ -10,6 +10,7 @@ import {
   Box,
   CircularProgress,
   InputAdornment,
+  Typography,
 } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import type { DashboardData } from "../../types";
@@ -21,19 +22,25 @@ function AdminDashboard() {
   const [employeeNumber, setEmployeeNumber] = useState('');
   const [isSearched, setIsSearched] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
 
   const { setError } = useError();
 
   const handleSearch = async () => {
     setLoading(true);
     setIsSearched(false);
+    setUserNotFound(false);
 
     try {
       const data = await fetchDashboardData(parseInt(employeeNumber));
       setDashboardData(data);
       setIsSearched(true);
     } catch (error: any) {
-      setError(error.message || 'Failed to fetch dashboard data');
+      if (error.response && error.response.status === 404) {
+        setUserNotFound(true);
+      } else {
+        setError(error.message || 'Failed to fetch dashboard data');
+      }
       setIsSearched(false);
     } finally {
       setLoading(false);
@@ -42,6 +49,10 @@ function AdminDashboard() {
 
   const handleEmployeeNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+
+    if (userNotFound) {
+      setUserNotFound(false);
+    }
 
     if (/^\d*$/.test(value)) {
       if (value.length <= 4) {
@@ -93,6 +104,11 @@ function AdminDashboard() {
         >
           {loading ? <CircularProgress size={20} color="inherit" /> : 'Search'}
         </Button>
+        {userNotFound && (
+          <Typography className="user-not-found-message">
+            User does not exist
+          </Typography>
+        )}
       </Box>
 
       {isSearched && dashboardData && (

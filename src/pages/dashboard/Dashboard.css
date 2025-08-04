@@ -60,13 +60,20 @@
   padding-bottom: 8px !important;
   height: 40px !important;
   font-size: 16px !important;
-  margin-bottom: 20px !important;
+  margin-bottom: 5px !important;
 } 
 
 .total-medical-limit {
   font-family: 'LLCirc' !important;
   font-weight: 100 !important;
   font-size: 20px !important;
-  color: #4C4E54 !important;
+      color: #4C4E54 !important;
 
+}
+
+.user-not-found-message {
+  color: #4C4E54 !important;
+  font-family: 'LLCirc' !important;
+  font-weight: 100 !important;
+  font-size: 24px !important;
 }
