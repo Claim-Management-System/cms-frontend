@@ -106,6 +106,15 @@ function ClaimDetails() {
         }
     }
 
+    if (!formData || !images) {
+        return (
+            <div>
+                <Header pageName="View Claim Details" />
+                <h2 style={{ textAlign: 'center', marginTop: '2rem' }}>No Claim Details data available.</h2>
+            </div>
+        );
+    }
+
     return !isLoading ? (
         <>
             <Header pageName='View Claim Details' />
