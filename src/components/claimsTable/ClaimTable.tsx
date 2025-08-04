@@ -93,6 +93,8 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
     };
 
     const columnNames = getClaimTableColumns(userRole, claimType, category)
+    console.log(columnNames)
+    console.log(userRole, claimType, category)
     const finalColumns: GridColDef<ClaimRecord>[] = columnNames?.map(name => baseColumns[name]) ?? [];
     return finalColumns;
   }, [userRole, claimType, category]);

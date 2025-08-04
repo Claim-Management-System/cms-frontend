@@ -11,7 +11,7 @@ import { useError } from '../context/errorContext';
 import { useAuth } from '../context/authContext';
 import { getClaimsHistory, getEmployeeClaimsHistory, getClaimsCount } from '../services/dataServices/claimsHistory';
 import formatDate from '../services/constantServices/formatDate';
-import { USER_ROLES } from '../services/constantServices/constants';
+import { USER_ROLES, CLAIM_CATEGORY } from '../services/constantServices/constants';
 import type { ClaimRecord, ClaimCounts } from '../types';
 
 
@@ -147,9 +147,9 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
 
       <ClaimTable
         data={claimData}
-        userRole={user?.role === 'admin' ? 'admin' : 'user'}
+        userRole={user?.role === USER_ROLES.ADMIN ? USER_ROLES.ADMIN : USER_ROLES.EMPLOYEE}
         claimType={tableClaimType}
-        category="claim history"
+        category={CLAIM_CATEGORY.HISTORY}
         loading={isLoading}
       />
 
