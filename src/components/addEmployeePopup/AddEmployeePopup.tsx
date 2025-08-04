@@ -40,7 +40,7 @@ const AddEmployeePopup = ({ open, onClose, employeeData }: AddEmployeePopupProps
                 <Box className="employee-details">
                     {displayContent.map(item => (
                         <Typography className="employee-details-text">
-                            <span className="employee-details-label">{`${item.label} : `}</span>{item.value}
+                            <span className="employee-details-label" key={item.label}>{`${item.label} : `}</span>{item.value}
                         </Typography>
                     ))}
                 </Box>

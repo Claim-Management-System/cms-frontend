@@ -63,7 +63,6 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
 
       if(user?.role === USER_ROLES.ADMIN && /^\d{4}$/.test(searchTerm)) {
         const employeeNumber = Number(searchTerm);
-        console.log(employeeNumber)
 
         countsData = await getClaimsCount(apiClaimType, employeeNumber);
         data = await getEmployeeClaimsHistory({
