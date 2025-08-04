@@ -34,6 +34,10 @@ const LoginCard: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         try {
+            if(email.trim().length === 0 || password.trim().length === 0) {
+                throw Error('Please Fill all fields!')
+            }
+
             const result = await loginUser(email, password);
             if (result.success && result.user) {
                 if (result.user.role === "admin") {

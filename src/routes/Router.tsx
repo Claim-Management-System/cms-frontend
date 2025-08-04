@@ -12,7 +12,6 @@ import ClaimRequests_Miscellaneous from '../pages/claim_requests/Miscellaneous'
 import ClaimHistory_OutPatient from '../pages/claim_history/OutPatient';
 import ClaimHistory_Miscellaneous from '../pages/claim_history/Miscellaneous';
 import UserProfile from '../pages/user_profile/UserProfile';
-import Drafts from '../pages/draft/Drafts';
 import AddEmployee from '../pages/add_employee/AddEmployee';
 import ClaimDetails from '../pages/claim_details/ClaimDetails';
 import EmployeeList from '../pages/employee_list/EmployeeList';
@@ -30,7 +29,6 @@ export const router = createBrowserRouter([
         element: <ProtectedRoute allowedRoles={['employee']} />,
         children: [
           { path: '/', element: <UserDashboard />},
-          { path: 'drafts', element: <Drafts /> },
         ],
       },
 
