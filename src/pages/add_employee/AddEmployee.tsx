@@ -111,7 +111,7 @@ export default function AddEmployee() {
                                 onClick={handleCancel}
                                 disabled={isLoading}
                             >
-                                Cancel
+                                Reset
                                 <BlockIcon className='icon' />
                             </button>
                             <button
