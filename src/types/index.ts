@@ -19,7 +19,7 @@ export interface ClaimCounts {
   pending: number;
 }
 
-export type UserRole = 'admin' | 'user';
+export type UserRole = 'admin' | 'user' | 'employee';
 export type ClaimCategory = 'claim history' | 'claim requests';
 export type ClaimType = 'miscellaneous' | 'outpatient';
 
