@@ -23,7 +23,6 @@ import {
   Dashboard as DashboardIcon,
   Add as AddIcon,
   History as HistoryIcon,
-  Drafts as DraftsIcon,
   Logout as LogoutIcon,
   PersonOutline as PersonOutlineIcon,
   Category as CategoryIcon,
@@ -77,11 +76,6 @@ const userMenuItems: MenuItem[] = [
       { text: 'Outpatient', path: '/claim-history/outpatient', icon: <PersonOutlineIcon /> },
       { text: 'Miscellaneous', path: '/claim-history/miscellaneous', icon: <CategoryIcon /> },
     ],
-  },
-  {
-    text: 'Drafts',
-    icon: <DraftsIcon />,
-    path: '/drafts',
   },
 ];
 
