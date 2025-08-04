@@ -34,7 +34,7 @@ export const formatDashboardData = (apiData: DashboardApiData) => {
 export const tableColumns:  { key: string; header: string; }[] = [
   { key: 'type', header: 'Type' },
   { key: 'approvedAmount', header: 'Approved Claim Amount' },
-  { key: 'approvedCount', header: 'Approved Count' },
+  { key: 'approvedCount', header: 'Approved Claims' },
   { key: 'pendingAmount', header: 'Pending Claim Amount' },
-  { key: 'pendingCount', header: 'Pending Count' },
+  { key: 'pendingCount', header: 'Pending Claims' },
 ];
