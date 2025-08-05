@@ -13,7 +13,7 @@ function Header({ pageName }: HeaderProps) {
       elevation={0}
       sx={{ color: "text.primary", backgroundColor: "#f9fafb" }}
     >
-      <Toolbar sx={{ justifyContent: "space-between", alignItems: "center", padding: '15px !important' }}>
+      <Toolbar sx={{ alignItems: "center", padding: '0px !important' }}>
         <Typography 
           variant="h5" 
           sx={{ fontWeight: 500, height: 30, fontFamily: 'ITCAvantG', color: '#4C4E54' }}
