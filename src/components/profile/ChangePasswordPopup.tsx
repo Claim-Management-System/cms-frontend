@@ -3,7 +3,7 @@ import { useError } from '../../context/errorContext';
 import { useAuth } from '../../context/authContext';
 import { updatePassword } from '../../services/dataServices/employee'
 import {
-  Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, IconButton, InputAdornment
+  Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, IconButton, InputAdornment, CircularProgress
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -23,7 +23,8 @@ const passwordFields = [
 const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose }) => {
   const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
   const [show, setShow] = useState({ currentPassword: false, newPassword: false, confirmPassword: false });
-  
+  const [isLoading, setIsLoading] = useState(false)
+
   const { setError } = useError();
   const { user } = useAuth();
 
@@ -35,7 +36,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
   const toggleShowPassword = (field: keyof typeof passwords) => {
     setShow(prev => ({ ...prev, [field]: !prev[field] }));
   };
-  
+
   const handleSubmit = async () => {
     if (passwords.newPassword.length < 8) {
       setError("Password must be at least 8 characters long.");
@@ -45,15 +46,19 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
       setError("New passwords do not match.");
       return;
     }
-    
+
+    setIsLoading(true);
     try {
       await updatePassword(user?.email!, passwords.currentPassword, passwords.newPassword)
       onClose();
     } catch (apiError: any) {
-      setError(apiError.message || 'Failed to update password.');
+      // setError(apiError.message || 'Failed to update password.');
+      setError('Unauthorized Request.');
+    } finally {
+      setIsLoading(false);
     }
   };
-  
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth className="change-password-dialog">
       <DialogTitle className='change-password-title'>
@@ -92,8 +97,13 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSubmit} variant="contained" className='submit-button-change-password'>
-          Submit
+        {isLoading ? (
+          <CircularProgress size={24} color="inherit" />
+        ) : (
+          'Submit'
+        )}
         </Button>
+
       </DialogActions>
     </Dialog>
   );
