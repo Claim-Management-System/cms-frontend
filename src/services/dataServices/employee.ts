@@ -116,7 +116,7 @@ export const updateEmployee = async (body: any, employeeNumber: number) => {
 
 export const updatePassword = async (email: string, previous_password: string, new_password: string) => {
   try {
-    const response = await apiClient.put('/user/change-password', {
+    const response = await apiClient.put('/api/users/change-password', {
       params: { email, previous_password, new_password }
     })
     console.log(response)
