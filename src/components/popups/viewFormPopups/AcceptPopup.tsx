@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, Typography, Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import ActionButton from '../actionButton/ActionButton';
+import ActionButton from '../../actionButton/ActionButton';
 import './Popup.css';
 
 interface AcceptPopupProps {

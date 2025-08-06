@@ -1,41 +1,40 @@
 import React from 'react';
 import './Popups.css';
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
-import ActionButton from '../actionButton/ActionButton';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+import ActionButton from '../../actionButton/ActionButton';
 
-interface FormNotAcceptedPopupProps {
-    onReview: () => void;
-    onResubmit: () => void;
+interface FormSubmittedPopupProps {
+    onViewHistory: () => void;
+    onClose: () => void;
 }
 
-const FormNotAcceptedPopup: React.FC<FormNotAcceptedPopupProps> = ({ onReview, onResubmit }) => {
+const FormSubmittedPopup: React.FC<FormSubmittedPopupProps> = ({ onViewHistory, onClose }) => {
     return (
         <div className="popup-overlay">
-            <div className="popup-content-add-request not-accepted">
+            <div className="popup-content-add-request submitted">
                 <div className="text">
                     <div className="popup-icon">
-                        <ErrorOutlineOutlinedIcon style={{ color: '#F6772C' }} />
+                        <CheckCircleOutlinedIcon style={{ color: '#86B62C' }} />
                     </div>
                     <div className="popup-main-text" style={{ color: '#4C4E54' }}>
-                        Form not accepted
+                        Form Submitted
                     </div>
                     <div className="popup-secondary-text" style={{ color: '#626469' }}>
-                        There was an error in submitting your form.
+                        The request has been accepted. View request in Claim History.
                     </div>
                 </div>
                 <div className="popup-actions">
                     <ActionButton
                         className="popup-button primary-button"
-                        handleEvent={onReview}
+                        handleEvent={onViewHistory}
                         type="button"
-                        placeholder="Review Request"
+                        placeholder="View Claim History"
                     />
-
                     <ActionButton
                         className="popup-button secondary-popup-button"
-                        handleEvent={onResubmit}
+                        handleEvent={onClose}
                         type="button"
-                        placeholder="Resubmit"
+                        placeholder="Close"
                     />
                 </div>
             </div>
@@ -43,4 +42,4 @@ const FormNotAcceptedPopup: React.FC<FormNotAcceptedPopupProps> = ({ onReview, o
     );
 };
 
-export default FormNotAcceptedPopup;
+export default FormSubmittedPopup;

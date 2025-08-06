@@ -8,7 +8,7 @@ import {
     transformToEmployeeDetails,
     transformToUserCredentials,
 } from '../../utils/AddEmployeeUtils';
-import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
+import AddEmployeePopup from '../../components/popups/addEmployeePopup/AddEmployeePopup';
 import { useError } from '../../context/errorContext';
 import { createEmployee, createUser } from '../../services/dataServices/employee';
 import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';

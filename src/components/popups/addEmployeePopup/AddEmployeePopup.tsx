@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Modal, Typography, IconButton } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
-import ActionButton from '../actionButton/ActionButton';
+import ActionButton from '../../actionButton/ActionButton';
 import './AddEmployeePopup.css';
 
 interface AddEmployeePopupProps {

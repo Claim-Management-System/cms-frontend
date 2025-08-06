@@ -2,7 +2,7 @@ import React from 'react';
 import { Dialog, DialogActions, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
-import ActionButton from '../actionButton/ActionButton';
+import ActionButton from '../../actionButton/ActionButton';
 import './EditEmployeePopup.css';
 
 interface PopupProps {

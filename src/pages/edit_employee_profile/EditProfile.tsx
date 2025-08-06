@@ -17,7 +17,7 @@ import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Done as DoneIcon } from '@mui/icons-material';
-import EditEmployeePopup from '../../components/editEmployeePopup/EditEmployeePopup';
+import EditEmployeePopup from '../../components/popups/editEmployeePopup/EditEmployeePopup';
 import ActionButton from '../../components/actionButton/ActionButton';
 import './EditEmployee.css';
 

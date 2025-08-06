@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, Typography, Box, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import ActionButton from '../actionButton/ActionButton';
+import ActionButton from '../../actionButton/ActionButton';
 import './Popup.css';
 
 interface EditPopupProps {

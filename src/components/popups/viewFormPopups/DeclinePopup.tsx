@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton } from '@mui/material';
-import { useError } from '../../context/errorContext';
+import { useError } from '../../../context/errorContext';
 import CloseIcon from '@mui/icons-material/Close';
-import ActionButton from '../actionButton/ActionButton';
+import ActionButton from '../../actionButton/ActionButton';
 import './Popup.css';
 
 interface DeclinePopupProps {

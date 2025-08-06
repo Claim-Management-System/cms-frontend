@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useError } from '../../context/errorContext';
-import { useAuth } from '../../context/authContext';
-import { updatePassword } from '../../services/dataServices/employee'
+import { useError } from '../../../context/errorContext';
+import { useAuth } from '../../../context/authContext';
+import { updatePassword } from '../../../services/dataServices/employee'
 import {
   Dialog, DialogTitle, DialogContent, TextField, DialogActions, IconButton, InputAdornment, CircularProgress
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import ActionButton from '../actionButton/ActionButton';
+import ActionButton from '../../actionButton/ActionButton';
 import './ChangePasswordPopup.css';
 
 interface ChangePasswordPopupProps {
