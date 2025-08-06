@@ -18,6 +18,7 @@ import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Done as DoneIcon } from '@mui/icons-material';
 import EditEmployeePopup from '../../components/editEmployeePopup/EditEmployeePopup';
+import ActionButton from '../../components/actionButton/ActionButton';
 import './EditEmployee.css';
 
 
@@ -111,20 +112,22 @@ function EditProfile() {
                     />
                     <div className="form-actions">
                         <div className="buttons-wrapper">
-                            <button
+                            <ActionButton
                                 type="submit"
-                                className="submit-btn"
+                                className="page-button primary-button"
                                 disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <CircularProgress size={24} color="inherit" />
-                                ) : (
-                                    <>
-                                        Submit
-                                        <DoneIcon className='icon' />
-                                    </>
-                                )}
-                            </button>
+                                handleEvent={() => {}}
+                                placeholder={
+                                    isLoading ? (
+                                        <CircularProgress size={24} color="inherit" />
+                                    ) : (
+                                        <>
+                                            Submit
+                                            <DoneIcon className='icon' />
+                                        </>
+                                    )
+                                }
+                            />
                         </div>
                     </div>
                 </form>

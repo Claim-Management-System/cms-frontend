@@ -14,8 +14,8 @@ import { downloadClaimImages, updateClaimStatus } from '../../services/dataServi
 import { getClaimDetails } from '../../utils/ClaimDetailsUtils';
 import { USER_ROLES, STATUS } from '../../services/constantServices/constants';
 import { Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon, Download as DownloadIcon } from '@mui/icons-material';
-
-import { Button, CircularProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
+import ActionButton from '../../components/actionButton/ActionButton';
 import type { Claim, Employee } from '../../types';
 import './ClaimDetails.css';
 
@@ -130,35 +130,31 @@ function ClaimDetails() {
                     />
                     {user?.role === USER_ROLES.ADMIN && formData?.status === STATUS.PENDING && (
                         <div className="admin-buttons-container">
-                            <Button
-                                className="download-button"
-                                onClick={() => downloadClaim()}
+                            <ActionButton
+                                className="secondary-page-button page-button"
+                                handleEvent={() => setDeclinePopupOpen(true)}
+                                endIcon={<DoNotDisturbIcon />}
+                                placeholder="Decline"
+                            />
+                            <ActionButton
+                                className="primary-button page-button"
+                                handleEvent={downloadClaim}
                                 disabled={download}
                                 endIcon={download ? null : <DownloadIcon />}
-                            >
-                                {download ? <CircularProgress size={24} color="inherit" /> : 'Download Images'}
-                            </Button>
-                            <Button
-                                className="decline-button"
-                                onClick={() => setDeclinePopupOpen(true)}
-                                endIcon={<DoNotDisturbIcon />}
-                            >
-                                Decline
-                            </Button>
-                            <Button
-                                className="editing-button"
-                                onClick={() => setEditPopupOpen(true)}
+                                placeholder={download ? <CircularProgress size={24} color="inherit" /> : 'Download'}
+                            />
+                            <ActionButton
+                                className="primary-button page-button"
+                                handleEvent={() => setEditPopupOpen(true)}
                                 endIcon={<EditIcon />}
-                            >
-                                Edit and Accept
-                            </Button>
-                            <Button
-                                className="accept-button"
-                                onClick={() => setAcceptPopupOpen(true)}
+                                placeholder="Edit and Accept"
+                            />
+                            <ActionButton
+                                className="primary-button page-button"
+                                handleEvent={() => setAcceptPopupOpen(true)}
                                 endIcon={<DoneIcon />}
-                            >
-                                Accept
-                            </Button>
+                                placeholder="Accept"
+                            />
                         </div>
                     )}
                 </div>

@@ -44,7 +44,7 @@ function SearchBox({ onSearchChange, placeholder = "Enter 4-Digit Employee ID" }
           },
         },
         '& .MuiOutlinedInput-root': {
-          height: '40px',
+          height: '45px',
           borderRadius: '8px',
           fontFamily: "'LLCirc'",
           fontWeight: 100,

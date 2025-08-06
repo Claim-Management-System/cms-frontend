@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import {Button } from '@mui/material';
+import ActionButton from '../actionButton/ActionButton';
 import type { GridRenderCellParams } from '@mui/x-data-grid';
 import type { ClaimRecord } from '../../types';
 
@@ -17,14 +17,12 @@ const ActionsCell = ({ params }: ActionsCellProps) => {
     };
 
     return (
-        <Button
-            variant="outlined"
+        <ActionButton
             size="small"
-            onClick={handleViewClick}
-            className="view-button-claims-table"
-        >
-            View
-        </Button>
+            handleEvent={handleViewClick}
+            className="view-button primary-button"
+            placeholder='View'
+        />
     );
 };
 

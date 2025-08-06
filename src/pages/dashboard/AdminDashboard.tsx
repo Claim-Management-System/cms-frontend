@@ -6,7 +6,6 @@ import { useError } from '../../context/errorContext';
 import { fetchDashboardData } from '../../services/constantServices/dashboardService';
 import {
   TextField,
-  Button,
   Box,
   CircularProgress,
   InputAdornment,
@@ -14,6 +13,7 @@ import {
 } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import type { DashboardData } from "../../types";
+import ActionButton from '../../components/actionButton/ActionButton';
 import './Dashboard.css'
 
 
@@ -95,15 +95,14 @@ function AdminDashboard() {
             inputMode: 'numeric',
           }}
         />
-        <Button
+        <ActionButton
           variant="contained"
           color="primary"
-          className="search-button"
-          onClick={handleSearch}
+          className="page-button primary-button"
+          handleEvent={handleSearch}
           disabled={loading || employeeNumber.length < 4}
-        >
-          {loading ? <CircularProgress size={20} color="inherit" /> : 'Search'}
-        </Button>
+          placeholder={loading ? <CircularProgress size={20} color="inherit" /> : 'Search'}
+        />
         {userNotFound && (
           <Typography className="user-not-found-message">
             User does not exist

@@ -15,6 +15,7 @@ import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
+import ActionButton from '../../components/actionButton/ActionButton';
 import './AddEmployee.css';
 
 interface NewEmployeeData {
@@ -105,29 +106,29 @@ export default function AddEmployee() {
                     />
                     <div className="form-actions">
                         <div className="buttons-wrapper">
-                            <button
+                            <ActionButton
                                 type="button"
-                                className="cancel-btn"
-                                onClick={handleCancel}
+                                className="secondary-page-button page-button"
+                                handleEvent={handleCancel}
                                 disabled={isLoading}
-                            >
-                                Reset
-                                <BlockIcon className='icon' />
-                            </button>
-                            <button
+                                placeholder={<>Reset<BlockIcon className='icon' /></>}
+                            />
+                            <ActionButton
                                 type="submit"
-                                className="submit-btn"
+                                className="primary-button page-button"
                                 disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <CircularProgress size={24} color="inherit" />
-                                ) : (
-                                    <>
-                                        Submit
-                                        <DoneIcon className='icon' />
-                                    </>
-                                )}
-                            </button>
+                                handleEvent={() => {}}
+                                placeholder={
+                                    isLoading ? (
+                                        <CircularProgress size={24} color="inherit" />
+                                    ) : (
+                                        <>
+                                            Submit
+                                            <DoneIcon className='icon' />
+                                        </>
+                                    )
+                                }
+                            />
                         </div>
                     </div>
                 </form>

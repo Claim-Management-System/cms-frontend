@@ -48,7 +48,7 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
             {
                 field: 'employee_number',
                 headerName: 'Employee ID',
-                flex: 0.7,
+                flex: 1,
                 align: 'left',
                 headerAlign: 'left',
             },

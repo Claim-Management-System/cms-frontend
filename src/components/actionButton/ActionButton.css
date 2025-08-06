@@ -1,0 +1,83 @@
+/* In this file, MuiButton-root class has to be called as well because of precedence issues in MUI. If we remove that class and only use the classname of the button, styles will not be applied */
+
+.MuiButton-root{
+    font-family: 'LLCirc' !important;
+    text-transform: none !important;
+    border-radius: 4px !important;
+    font-weight: 100 !important;
+    box-shadow: none !important; 
+    user-select: none !important;
+    box-sizing: border-box !important;
+}
+
+/*  main button classes
+
+Login - the button that will be on the login component
+Primary - for buttons that have a positive, constructive action, like submit, accept, confirm, etc
+Secondary Page - for buttons that have a destructive action, like decline, reset, etc that are on the page
+Secondary Popup - for buttons that have a destructive action, like decline, reset, etc that are in the popup
+Page - for buttons that will be on the main page itself
+Popup - for buttons that will be in the popup components
+
+There can be other misc classes for styling very specific buttons, like the remove image button and upload button
+*/
+
+.MuiButton-root.primary-button,
+.MuiButton-root.primary-button:hover {
+    background-color: #1CA8DD;
+    color: #ffffff
+}
+
+.MuiButton-root.secondary-page-button,
+.MuiButton-root.secondary-page-button:hover {
+    background-color: #f9fafb;
+    color: #4C4E54;
+    border: 1px solid #4C4E54;
+}
+
+.MuiButton-root.secondary-popup-button,
+.MuiButton-root.secondary-popup-button:hover {
+    background-color: #E9E9EA;
+    color: #4C4E54;
+}
+
+.MuiButton-root.page-button,
+.MuiButton-root.page-button:hover {
+    height: 45px;
+    font-size: 1rem;
+    padding: 6px 20px;
+    min-width: 150px
+}
+
+.MuiButton-root.login-button,
+.MuiButton-root.login-button:hover {
+    padding: 0.5rem 4.5rem;
+    font-size: 0.875rem;
+    max-width: 14.0625rem;
+    height: 40px;
+}
+
+.MuiButton-root.popup-button,
+.MuiButton-root.popup-button:hover {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 8px 24px
+}
+
+.MuiButton-root.view-button,
+.MuiButton-root.view-button:hover {
+    font-size: 0.9rem;
+    width: 50%;
+}
+
+.MuiButton-root.upload-image-button,
+.MuiButton-root.upload-image-button:hover {
+    background-color: #BBE5F5;
+    height: 30px;
+    width: 65px;
+    color: #35383E;
+    font-size: 12px;
+}
+
+/*  */
+

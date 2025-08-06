@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 import Header from '../Header';
 import ReceiptInfoForm from '../receiptInfoForm/ReceiptInfoForm';
 import ReceiptPreview from '../receiptPreview/ReceiptPreview';
@@ -11,6 +10,7 @@ import { useError } from '../../context/errorContext';
 import { useAuth } from '../../context/authContext';
 import { postNewRequest } from '../../services/dataServices/claimsRequest';
 import type { FormType, FormData, newAddRequest } from '../../types';
+import ActionButton from '../actionButton/ActionButton';
 import './NewRequest.css';
 
 interface NewRequestProps {
@@ -138,9 +138,14 @@ export default function NewRequest({ formType }: NewRequestProps) {
                     </div>
                 </main>
 
-                <Button variant="contained" color="primary" className="submit-button" type="submit">
-                    Submit Form
-                </Button>
+                <ActionButton
+                    variant="contained"
+                    color="primary"
+                    className="page-button primary-button"
+                    type="submit"
+                    placeholder='Submit Form'
+                    handleEvent={() => { }}
+                />
 
                 {
                     popupState === 'scanning' &&

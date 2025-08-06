@@ -85,24 +85,6 @@
     justify-content: center;
 }
 
-.submit-button-accept {
-    height: 35px !important;
-    padding: 8px 16px !important;
-    background-color: #1CA8DD !important;
-    color: white !important;
-    font-size: 16px !important;
-    text-transform: none !important;
-    border-radius: 4px !important;
-    box-shadow: none !important;
-    width: 100% !important;
-    font-family: 'LLCirc' !important;
-    margin-top: 25px !important;
-}
-
-.submit-button-accept:hover {
-    background-color: #1991c4 !important;
-}
-
 .reason-dropdown {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
@@ -154,23 +136,6 @@
     font-size: 14px !important;
 }
 
-.submit-button-edit {
-    height: 35px !important;
-    padding: 8px 16px !important;
-    background-color: #e79d19 !important;
-    color: white !important;
-    font-size: 15px !important;
-    text-transform: none !important;
-    border-radius: 4px !important;
-    box-shadow: none !important;
-    width: 100%;
-    font-family: 'LLCirc' !important;
-}
-
-.submit-button-edit:hover {
-    background-color: #d48700 !important;
-}
-
 .popup-input {
     margin-top: 8px !important;
     margin-bottom: 10px !important;
@@ -204,23 +169,5 @@
 
 .popup-input .MuiInputLabel-root.Mui-focused {
     color: var(--s80) !important;
-}
-
-.confirm-button {
-    background-color: #ff4949 !important;
-    color: white !important;
-    text-transform: none !important;
-    font-size: 15px !important;
-    padding: 8px 16px !important;
-    border-radius: 4px !important;
-    box-shadow: none !important;
-    width: 100%;
-    font-family: 'LLCirc' !important;
-    height: 35px !important;
-}
-
-.confirm-button:hover {
-    background-color: #d32f2f !important;
-    font-family: 'LLCirc' !important;
 }
 

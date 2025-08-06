@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import SearchBox from './SearchBox';
-import AddRequestButton from './AddRequestButton';
 import ClaimsStatus from './ClaimsStatus';
 import Pagination from './Pagination';
 import ClaimTable from './claimsTable/ClaimTable';
@@ -13,6 +12,8 @@ import { getClaimsHistory, getEmployeeClaimsHistory, getClaimsCount } from '../s
 import formatDate from '../services/constantServices/formatDate';
 import { USER_ROLES, CLAIM_CATEGORY } from '../services/constantServices/constants';
 import type { ClaimRecord, ClaimCounts } from '../types';
+import ActionButton from './actionButton/ActionButton';
+import AddIcon from '@mui/icons-material/Add';
 
 
 interface ClaimHistoryProps {
@@ -38,6 +39,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
   const { user } = useAuth();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const currentStatus = searchParams.get('status') || 'total';
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
@@ -123,17 +125,20 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
     <Box>
       <Header pageName={pageTitle} />
 
-      {user?.role !== USER_ROLES.EMPLOYEE && 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: 2,
-            alignItems: 'center'
-          }}
-        >
-          <SearchBox onSearchChange={setSearchTerm} />
-          <AddRequestButton path={newRequestPath} />
+      {user?.role !== USER_ROLES.EMPLOYEE &&
+        <Box sx={{ display: 'flex', marginTop: 2, alignItems: 'center', width: '100%', gap: 2 }}>
+          <Box sx={{ flex: 5 }}>
+            <SearchBox onSearchChange={setSearchTerm} />
+          </Box>
+          <Box>
+            <ActionButton
+              variant="contained"
+              endIcon={<AddIcon />}
+              handleEvent={() => navigate(newRequestPath)}
+              className="page-button primary-button"
+              placeholder="Add Request"
+            />
+          </Box>
         </Box>
       }
 

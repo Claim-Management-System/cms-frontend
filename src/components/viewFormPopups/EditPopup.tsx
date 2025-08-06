@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, Button, Typography, Box, IconButton, TextField } from '@mui/material';
+import { Dialog, DialogContent, Typography, Box, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import ActionButton from '../actionButton/ActionButton';
 import './Popup.css';
 
 interface EditPopupProps {
@@ -76,7 +77,7 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
                     value={amount}
                     onChange={handleAmountChange}
                     fullWidth
-                    className="popup-input"
+                    className="popup-input popup-input-amount"
                 />
 
                 <TextField
@@ -90,16 +91,15 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
                 />
                 
                 <Box className="popup-actions-view-form">
-                    <Button
-                        className="submit-button-edit"
-                        onClick={handleSubmit}
-                    >
-                        Submit
-                    </Button>
+                    <ActionButton
+                        className="primary-button popup-button"
+                        handleEvent={handleSubmit}
+                        placeholder='Submit'
+                    />
                 </Box>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default EditPopup; 
+export default EditPopup;

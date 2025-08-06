@@ -1,7 +1,7 @@
-
 import React from 'react';
 import './Popups.css';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+import ActionButton from '../actionButton/ActionButton';
 
 interface FormSubmittedPopupProps {
     onViewHistory: () => void;
@@ -24,26 +24,22 @@ const FormSubmittedPopup: React.FC<FormSubmittedPopupProps> = ({ onViewHistory, 
                     </div>
                 </div>
                 <div className="popup-actions">
-                    <button
-                        className="popup-button"
-                        style={{ backgroundColor: '#1CA8DD', color: '#FFFFFF' }}
-                        onClick={onViewHistory}
-                        type="button" 
-                    >
-                        View Claim History
-                    </button>
-                    <button
-                        className="popup-button"
-                        style={{ backgroundColor: '#E9E9EA', color: '#4C4E54' }}
-                        onClick={onClose}
-                        type="button" 
-                    >
-                        Close
-                    </button>
+                    <ActionButton
+                        className="popup-button primary-button"
+                        handleEvent={onViewHistory}
+                        type="button"
+                        placeholder="View Claim History"
+                    />
+                    <ActionButton
+                        className="popup-button secondary-popup-button"
+                        handleEvent={onClose}
+                        type="button"
+                        placeholder="Close"
+                    />
                 </div>
             </div>
         </div>
     );
 };
 
-export default FormSubmittedPopup; 
+export default FormSubmittedPopup;

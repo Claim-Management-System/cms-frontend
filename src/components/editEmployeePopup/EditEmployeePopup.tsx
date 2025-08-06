@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { Dialog, DialogActions, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import ActionButton from '../actionButton/ActionButton';
 import './EditEmployeePopup.css';
 
 interface PopupProps {
@@ -27,12 +28,16 @@ const EditEmployeePopup: React.FC<PopupProps> = ({ open, onClose }) => {
             </DialogTitle>
 
             <DialogActions className="popup-actions">
-                <Button onClick={() => handleNavigate('/admin-dashboard')} className="dashboard-btn">
-                    Go to Dashboard
-                </Button>
-                <Button onClick={() => handleNavigate('/employee-list')} className="view-employees-btn">
-                    View Employees
-                </Button>
+                <ActionButton 
+                    handleEvent={() => handleNavigate('/admin-dashboard')} 
+                    className="popup-button primary-button"
+                    placeholder='Go to Dashboard' 
+                />
+                <ActionButton 
+                    handleEvent={() => handleNavigate('/employee-list')} 
+                    className="popup-button primary-button"
+                    placeholder='View Employees'
+                />
             </DialogActions>
         </Dialog>
     );

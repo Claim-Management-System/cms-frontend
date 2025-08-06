@@ -1,5 +1,3 @@
-@import '../../index.css';
-
 .receipt-form-container {
     display: flex;
     flex-direction: column;

@@ -24,7 +24,6 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
         count={totalPages}
         page={currentPage}
         onChange={handlePageChange}
-        color="primary"
         shape="rounded"
         siblingCount={0}
         boundaryCount={2}

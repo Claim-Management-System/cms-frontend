@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Modal, Typography, IconButton } from '@mui/material';
+import { Box, Modal, Typography, IconButton } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
+import ActionButton from '../actionButton/ActionButton';
 import './AddEmployeePopup.css';
 
 interface AddEmployeePopupProps {
@@ -39,21 +40,20 @@ const AddEmployeePopup = ({ open, onClose, employeeData }: AddEmployeePopupProps
                 </Typography>
                 <Box className="employee-details">
                     {displayContent.map(item => (
-                        <Typography className="employee-details-text">
-                            <span className="employee-details-label" key={item.label}>{`${item.label} : `}</span>{item.value}
+                        <Typography className="employee-details-text" key={item.label}>
+                            <span className="employee-details-label" >{`${item.label} : `}</span>{item.value}
                         </Typography>
                     ))}
                 </Box>
-                <Button
+                <ActionButton
                     variant="contained"
-                    onClick={onClose}
-                    className="add-another-employee-btn"
-                >
-                    Add Another Employee
-                </Button>
+                    handleEvent={onClose}
+                    className="popup-button primary-button"
+                    placeholder='Add Another Employee'
+                />
             </Box>
         </Modal>
     );
 };
 
-export default AddEmployeePopup; 
+export default AddEmployeePopup;

@@ -103,34 +103,6 @@
     margin-right: -0.5rem !important;
 }
 
-/* Styled Textfield - END *
-
-/* Button and Divider - START */
-
-.MuiButton-root.login-button {
-    padding: 0.5rem 4.5rem;
-    background-color: #1CA8DD;
-    color: #ffffff;
-    box-shadow: none;
-    text-transform: none;
-    font-weight: 100;
-    font-size: 0.875rem;
-    max-width: 14.0625rem;
-    border-radius: 0.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    font-family: 'LLCirc', sans-serif;
-    font-weight: 100;
-}
-
-.MuiButton-root.login-button:hover {
-    background-color: #1CA8DD;
-    box-shadow: none;
-}
-
-/* Button and Divider - END */
 
 
 

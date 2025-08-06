@@ -7,7 +7,7 @@ import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { fetchProfile } from '../../utils/userProfileUtils';
 import { useError } from '../../context/errorContext';
 import type { ProfileSection } from '../../types';
-import { Button } from '@mui/material';
+import ActionButton from '../../components/actionButton/ActionButton';
 import './EmployeeProfile.css';
 
 
@@ -57,13 +57,12 @@ const EmployeeProfile = () => {
                 ))}
             </div>
             <div className='edit-button-container'>
-                <Button
+                <ActionButton
                     variant="contained"
-                    className="edit-button"
-                    onClick={() => navigate(`/employee-profile/edit/${employeeId}`)}
-                >
-                    Edit Details
-                </Button>
+                    className="page-button primary-button"
+                    handleEvent={() => navigate(`/employee-profile/edit/${employeeId}`)}
+                    placeholder='Edit Details'
+                />
             </div>
         </>
     ) : (

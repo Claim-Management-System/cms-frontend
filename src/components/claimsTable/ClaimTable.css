@@ -137,16 +137,3 @@
 .scrollable-x {
   scrollbar-width: none; 
 }
-
-.view-button-claims-table {
-  font-family: 'LLCirc' !important;
-  font-weight: 100;
-  background-color: #1CA8DD !important;
-  color: #ffffff !important;
-  font-size: 14px !important;
-  text-transform: capitalize !important;
-  border-radius: 4px !important;
-  box-shadow: none !important;
-  width: 50% !important;
-  border: none !important;
-}

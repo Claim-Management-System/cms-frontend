@@ -1,8 +1,7 @@
-@import '../../index.css';
-
 .employee-info-form {
     padding-top: 20px;
     background-color: #f9fafb;
+    margin-bottom: 35px;
 }
 
 .custom-form-control .MuiOutlinedInput-input {

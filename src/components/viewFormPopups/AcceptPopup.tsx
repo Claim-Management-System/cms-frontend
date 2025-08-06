@@ -1,5 +1,6 @@
-import { Dialog, DialogContent, Button, Typography, Box, IconButton } from '@mui/material';
+import { Dialog, DialogContent, Typography, Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import ActionButton from '../actionButton/ActionButton';
 import './Popup.css';
 
 interface AcceptPopupProps {
@@ -47,16 +48,15 @@ function AcceptPopup ({ open, onClose, onAccept, totalAmount, employee_name, emp
                 </Box>
                 
                 <Box className="popup-actions-view-form">
-                    <Button
-                        className="submit-button-accept"
-                        onClick={onAccept}
-                    >
-                        Submit
-                    </Button>
+                    <ActionButton
+                        className="popup-button primary-button"
+                        handleEvent={onAccept}
+                        placeholder='Submit'
+                    />
                 </Box>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default AcceptPopup; 
+export default AcceptPopup;

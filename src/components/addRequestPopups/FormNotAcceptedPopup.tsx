@@ -1,6 +1,7 @@
 import React from 'react';
 import './Popups.css';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import ActionButton from '../actionButton/ActionButton';
 
 interface FormNotAcceptedPopupProps {
     onReview: () => void;
@@ -23,26 +24,23 @@ const FormNotAcceptedPopup: React.FC<FormNotAcceptedPopupProps> = ({ onReview, o
                     </div>
                 </div>
                 <div className="popup-actions">
-                    <button
-                        className="popup-button"
-                        style={{ backgroundColor: '#1CA8DD', color: '#FFFFFF' }}
-                        onClick={onReview}
-                        type="button" 
-                    >
-                        Review Request
-                    </button>
-                    <button
-                        className="popup-button"
-                        style={{ backgroundColor: '#E9E9EA', color: '#4C4E54' }}
-                        onClick={onResubmit}
-                        type="button" 
-                    >
-                        Resubmit
-                    </button>
+                    <ActionButton
+                        className="popup-button primary-button"
+                        handleEvent={onReview}
+                        type="button"
+                        placeholder="Review Request"
+                    />
+
+                    <ActionButton
+                        className="popup-button secondary-popup-button"
+                        handleEvent={onResubmit}
+                        type="button"
+                        placeholder="Resubmit"
+                    />
                 </div>
             </div>
         </div>
     );
 };
 
-export default FormNotAcceptedPopup; 
+export default FormNotAcceptedPopup;

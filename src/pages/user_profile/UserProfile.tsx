@@ -6,9 +6,9 @@ import ChangePasswordPopup from '../../components/profile/ChangePasswordPopup';
 import { fetchProfile } from '../../utils/userProfileUtils';
 import { useAuth } from '../../context/authContext';
 import { useError } from '../../context/errorContext';
-import { Button } from '@mui/material';
 import { USER_ROLES } from '../../services/constantServices/constants';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
+import ActionButton from '../../components/actionButton/ActionButton';
 import type { ProfileSection } from '../../types';
 import './UserProfile.css';
 
@@ -52,9 +52,12 @@ const UserProfile = () => {
           />
         ))}
         <div className="change-password-container">
-          <Button variant="contained" className="change-password-button" onClick={() => setShowPopup(true)}>
-            Change Password
-          </Button>
+          <ActionButton 
+            variant="contained" 
+            className="page-button primary-button" 
+            handleEvent={() => setShowPopup(true)}
+            placeholder='Change Password'
+          />
         </div>
         <ChangePasswordPopup open={showPopup} onClose={() => setShowPopup(false)} />
       </div>

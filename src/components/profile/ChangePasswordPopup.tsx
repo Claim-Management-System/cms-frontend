@@ -3,10 +3,11 @@ import { useError } from '../../context/errorContext';
 import { useAuth } from '../../context/authContext';
 import { updatePassword } from '../../services/dataServices/employee'
 import {
-  Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, IconButton, InputAdornment, CircularProgress
+  Dialog, DialogTitle, DialogContent, TextField, DialogActions, IconButton, InputAdornment, CircularProgress
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ActionButton from '../actionButton/ActionButton';
 import './ChangePasswordPopup.css';
 
 interface ChangePasswordPopupProps {
@@ -96,14 +97,13 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
         ))}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} variant="contained" className='submit-button-change-password'>
-        {isLoading ? (
-          <CircularProgress size={24} color="inherit" />
-        ) : (
-          'Submit'
-        )}
-        </Button>
-
+        <ActionButton
+          handleEvent={handleSubmit}
+          variant="contained"
+          className='popup-button primary-button'
+          disabled={isLoading}
+          placeholder={isLoading ? <CircularProgress size={24} color="inherit" /> : 'Submit'}
+        />
       </DialogActions>
     </Dialog>
   );

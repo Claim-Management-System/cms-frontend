@@ -23,12 +23,10 @@
     flex-direction: column;
     text-align: center;
     background: #ffffff;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    padding-right: 50px;
-    padding-left: 50px;
+    padding: 30px;
     border-radius: 8px;
-    width: 435px;
+    width: min(435px, 80vw) !important;
+    height: 380px;
     font-family: 'LLCirc';
     font-weight: 100 !important;
     max-height: 500px !important;
@@ -65,18 +63,9 @@
 
 .popup-actions {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    flex-direction: column !important;
+    width: 100%;
     gap: 12px;
+    padding: 0px !important;
 }
-
-.popup-button {
-    padding: 12px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 100 !important;
-    width: 175px;
-    font-family: 'LLCirc';
-} 
+ 

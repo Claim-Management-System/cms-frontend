@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import { useError } from '../../context/errorContext';
-import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material'; 
+import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material';
 import {
     Card,
     CardContent,
     Typography,
     TextField,
-    Button,
     Box,
     InputAdornment,
     IconButton,
     CircularProgress
 } from '@mui/material';
+import ActionButton from '../actionButton/ActionButton';
 import './LoginCard.css';
 
 
@@ -117,15 +117,15 @@ const LoginCard: React.FC = () => {
                         />
                     </Box>
 
-                    <Button
+                    <ActionButton
                         fullWidth
                         variant="contained"
-                        className="login-button"
+                        className="login-button primary-button"
                         type="submit"
                         disabled={loading}
-                    >
-                        {loading ? <CircularProgress size={24} color="inherit" /> : 'LOG IN'}
-                    </Button>
+                        placeholder={loading ? <CircularProgress size={24} color="inherit" /> : 'LOG IN'}
+                        handleEvent={() => {}}
+                    />
 
                 </Box>
             </CardContent>

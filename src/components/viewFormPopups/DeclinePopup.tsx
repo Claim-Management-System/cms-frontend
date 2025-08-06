@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton, Button } from '@mui/material';
+import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton } from '@mui/material';
 import { useError } from '../../context/errorContext';
 import CloseIcon from '@mui/icons-material/Close';
+import ActionButton from '../actionButton/ActionButton';
 import './Popup.css';
 
 interface DeclinePopupProps {
@@ -86,16 +87,15 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
                     </FormControl>
                 </Box>
                 <Box className="popup-actions-view-form">
-                    <Button
-                        className="confirm-button"
-                        onClick={handleConfirm}
-                    >
-                        Confirm
-                    </Button>
+                    <ActionButton
+                        className="secondary-popup-button popup-button"
+                        handleEvent={handleConfirm}
+                        placeholder='Confirm'
+                    />
                 </Box>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default DeclinePopup; 
+export default DeclinePopup;

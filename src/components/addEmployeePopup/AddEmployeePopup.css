@@ -28,16 +28,6 @@
     margin-bottom: 8px;
 }
 
-.add-another-employee-btn {
-    margin-top: 16px !important;
-    text-transform: capitalize !important;
-    box-shadow: none !important;
-    background-color: #1CA8DD !important;
-    font-family: 'LLCirc' !important;
-    font-size: 15px !important;
-    font-weight: 100 !important;
-}
-
 .close-button {
     position: absolute !important;
     right: 16px;
