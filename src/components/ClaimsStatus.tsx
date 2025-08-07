@@ -13,11 +13,11 @@ const STATUS_MAP = ['total', 'approved', 'rejected', 'pending'];
 function ClaimsStatus({ currentStatus, onStatusChange, counts }: ClaimsStatusProps) {
 
   const renderTabLabel = (label: string, count: number) => (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, fontFamily: 'LLCirc', fontWeight: '100' }}>
       <Chip
         label={count}
         size="small"
-        sx={{ borderRadius: '4px' }}
+        sx={{ borderRadius: '4px', fontFamily: 'LLCirc', fontWeight: '100' }}
       />
       {label}
     </Box>
@@ -40,7 +40,13 @@ function ClaimsStatus({ currentStatus, onStatusChange, counts }: ClaimsStatusPro
       onChange={handleTabChange}
       variant="fullWidth"
       TabIndicatorProps={{ style: { backgroundColor: '#1CA8DD' } }}
-      sx={{ '& .Mui-selected': { color: '#1CA8DD' } }}
+      sx={{
+        '& .Mui-selected': { color: '#1CA8DD' },
+        '& .Mui-selected .MuiChip-root': {
+          backgroundColor: '#1CA8DD',
+          color: 'white',
+        },
+      }}
     >
       {tabConfig.map((tab) => (
         <Tab

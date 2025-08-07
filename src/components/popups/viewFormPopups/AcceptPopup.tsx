@@ -1,5 +1,6 @@
-import { Dialog, DialogContent, Button, Typography, Box, IconButton } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, Typography, Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import ActionButton from '../../actionButton/ActionButton';
 import './Popup.css';
 
 interface AcceptPopupProps {
@@ -17,24 +18,17 @@ function AcceptPopup ({ open, onClose, onAccept, totalAmount, employee_name, emp
             open={open}
             onClose={onClose}
             className="popup-dialog"
-            PaperProps={{
-                sx: {
-                    width: '350px',
-                    height: '250px',
-                    maxWidth: 'none',
-                    position: 'relative'
-                }
-            }}
         >
-            <IconButton
-                className="close-button"
-                onClick={onClose}
-            >
-                <CloseIcon />
-            </IconButton>
-            
+
+            <DialogTitle id="form-dialog-title" className="popup-title">
+                {employee_name}
+                <IconButton aria-label="close" className="close-button" onClick={onClose}>
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+
+
             <DialogContent className="popup-content">
-                <Typography className="employee-name">{employee_name}</Typography>
                 
                 <Box className="popup-field">
                     <Typography className="popup-label">Employee Number:</Typography>
@@ -46,17 +40,16 @@ function AcceptPopup ({ open, onClose, onAccept, totalAmount, employee_name, emp
                     <Typography className="total-amount-value">PKR {totalAmount}</Typography>
                 </Box>
                 
-                <Box className="popup-actions">
-                    <Button
-                        className="submit-button-accept"
-                        onClick={onAccept}
-                    >
-                        Submit
-                    </Button>
+                <Box className="popup-actions-view-form">
+                    <ActionButton
+                        className="popup-button primary-button"
+                        handleEvent={onAccept}
+                        placeholder='Submit'
+                    />
                 </Box>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default AcceptPopup; 
+export default AcceptPopup;

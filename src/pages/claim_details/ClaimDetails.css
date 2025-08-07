@@ -1,6 +1,5 @@
 .view-more-container {
     display: flex;
-    padding-top: 20px;
     background-color: #F8F9FA;
     box-sizing: border-box;
     flex-wrap: wrap;
@@ -11,7 +10,7 @@
 .right-panel {
     flex: 1;
     background-color: #F8F9FA;
-    padding: 24px;
+    padding: 10px;
     overflow-y: auto;
 }
 
@@ -19,8 +18,6 @@
     display: flex;
     justify-content: space-between;
     flex-basis: 100%;
-    margin-left: 24px;
-    margin-right: 24px;
     border-bottom: solid 1px #E9E9EA;
     padding-bottom: 12px;
     margin-bottom: 12px;
@@ -51,62 +48,16 @@
 /* Buttons Styling */
 
 .admin-buttons-container {
+    align-items: center;
     display: flex;
     gap: 16px;
 }
 
-.decline-button {
-    width: 100% !important;
-    max-width: 120px !important;
-    height: 40px !important;
-    border-radius: 4px !important;
-    padding: 8px 24px !important;
-    background-color: #ff3535 !important;
-    color: white !important;
-    font-size: 14px !important;
-    text-transform: none !important;
-    box-shadow: none !important;
-    font-family: 'LLCirc' !important;
+@media (max-width: 1024px) {
+    .admin-buttons-container {
+        flex-wrap: wrap;
+        max-width: 450px;
+        justify-content: flex-end;
+    }
 }
 
-.decline-button .MuiSvgIcon-root {
-    color: white !important;
-}
-
-.accept-button {
-    width: 100% !important;
-    max-width: 120px !important;
-    height: 40px !important;
-    border-radius: 4px !important;
-    padding: 8px 24px !important;
-    border: 1px solid #1CA8DD !important;
-    background-color: #1CA8DD !important;
-    color: white !important;
-    font-size: 14px !important;
-    text-transform: none !important;
-    box-shadow: none !important;
-    font-family: 'LLCirc' !important;
-}
-
-.accept-button .MuiSvgIcon-root {
-    color: white !important;
-} 
-
-.editing-button {
-    width: 100% !important;
-    max-width: 200px !important;
-    height: 40px !important;
-    border-radius: 4px !important;
-    padding: 8px 24px !important;
-    border: 1px solid #E59300 !important;
-    background-color: #E59300 !important;
-    color: white !important;
-    font-size: 14px !important;
-    text-transform: none !important;
-    box-shadow: none !important;
-    font-family: 'LLCirc' !important;
-}
-
-.editing-button .MuiSvgIcon-root {
-    color: white !important;
-} 

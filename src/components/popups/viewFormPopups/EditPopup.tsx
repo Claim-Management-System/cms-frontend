@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, Button, Typography, Box, IconButton, TextField } from '@mui/material';
+import { Dialog, DialogContent, Typography, Box, IconButton, TextField, DialogTitle } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import ActionButton from '../../actionButton/ActionButton';
 import './Popup.css';
 
 interface EditPopupProps {
@@ -46,24 +47,16 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
             open={open}
             onClose={onClose}
             className="popup-dialog"
-            PaperProps={{
-                sx: {
-                    width: '350px',
-                    height: 'auto',
-                    maxWidth: 'none',
-                    position: 'relative'
-                }
-            }}
         >
-            <IconButton
-                className="close-button"
-                onClick={onClose}
-            >
-                <CloseIcon />
-            </IconButton>
+
+            <DialogTitle id="form-dialog-title" className="popup-title">
+                {employee_name}
+                <IconButton aria-label="close" className="close-button" onClick={onClose}>
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
             
             <DialogContent className="popup-content">
-                <Typography className="employee-name">{employee_name}</Typography>
                 
                 <Box className="popup-field">
                     <Typography className="popup-label">Employee ID:</Typography>
@@ -76,7 +69,7 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
                     value={amount}
                     onChange={handleAmountChange}
                     fullWidth
-                    className="popup-input"
+                    className="popup-input popup-input-amount"
                 />
 
                 <TextField
@@ -86,20 +79,19 @@ function EditPopup({ open, onClose, onEdit, formData, employee_name, employee_nu
                     fullWidth
                     multiline
                     rows={2}
-                    className="popup-input"
+                    className="popup-input popup-input-reason"
                 />
                 
-                <Box className="popup-actions">
-                    <Button
-                        className="submit-button-edit"
-                        onClick={handleSubmit}
-                    >
-                        Submit
-                    </Button>
+                <Box className="popup-actions-view-form">
+                    <ActionButton
+                        className="primary-button popup-button"
+                        handleEvent={handleSubmit}
+                        placeholder='Submit'
+                    />
                 </Box>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default EditPopup; 
+export default EditPopup;

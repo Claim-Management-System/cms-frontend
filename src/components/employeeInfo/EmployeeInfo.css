@@ -1,8 +1,7 @@
-@import '../../index.css';
-
 .employee-info-form {
-    padding: 20px;
+    padding-top: 20px;
     background-color: #f9fafb;
+    margin-bottom: 35px;
 }
 
 .custom-form-control .MuiOutlinedInput-input {
@@ -11,6 +10,8 @@
     font-family: 'LLCirc';
     height: 45px !important;
     box-sizing: border-box;
+    font-weight: 100 !important;
+    color: #4C4E54;
 }
 
 .custom-form-control .MuiOutlinedInput-root {
@@ -36,7 +37,7 @@
 
 .custom-form-control .MuiInputLabel-root {
     color: var(--s80);
-    font-weight: 450;
+    font-weight: 100 !important;
     font-size: 14px;
     font-family: 'LLCirc';
 }
@@ -73,6 +74,7 @@
     padding: 10px 16px !important;
     font-family: 'LLCirc' !important;
     font-size: 14px !important;
+    font-weight: 100 !important;
 }
 
 /* Style for the calendar picker icon */

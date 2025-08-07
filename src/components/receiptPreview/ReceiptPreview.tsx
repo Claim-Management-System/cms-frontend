@@ -1,8 +1,9 @@
 import { useState, type ChangeEvent, useEffect } from "react"
-import { Button, Box, Typography, IconButton } from "@mui/material"
+import { Box, Typography, IconButton } from "@mui/material"
 import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch"
 import { IMAGE_MODE } from "../../services/constantServices/constants"
+import ActionButton from "../actionButton/ActionButton"
 import "./ReceiptPreview.css"
 
 interface ReceiptPreviewProps {
@@ -73,18 +74,25 @@ function ReceiptPreview({ onImageUpload, submitted, reset, mode = IMAGE_MODE.UPL
 
     const UploadPlaceholder = () => (
         <Box className={`upload-placeholder ${submitted && files.length === 0 ? "error" : ""}`}>
-            <Typography>+ Upload Attachments</Typography>
-            <Button component="label" variant="contained" disabled={mode === IMAGE_MODE.VIEW}>
-                Upload
-                <input
-                    type="file"
-                    hidden
-                    multiple
-                    onChange={handleFileChange}
-                    accept="image/png, image/jpeg, application/pdf"
-                    disabled={mode === IMAGE_MODE.VIEW}
-                />
-            </Button>
+            <Typography className="upload-placeholder-text">+ Upload Attachments</Typography>
+            <ActionButton
+                component="label"
+                variant="contained"
+                disabled={mode === IMAGE_MODE.VIEW}
+                handleEvent={() => {}}
+                className="upload-image-button"
+                placeholder={<>
+                    Upload
+                    <input
+                        type="file"
+                        hidden
+                        multiple
+                        onChange={handleFileChange}
+                        accept="image/png, image/jpeg, application/pdf"
+                        disabled={mode === IMAGE_MODE.VIEW}
+                    />
+                </>}
+            />
         </Box>
     )
 
@@ -155,12 +163,11 @@ function ReceiptPreview({ onImageUpload, submitted, reset, mode = IMAGE_MODE.UPL
                 </Box>
                 {mode === IMAGE_MODE.UPLOAD && activeIndex < previews.length && (
                     <Box className="remove-button-section">
-                        <Button
+                        <ActionButton
                             className="remove-image-button"
-                            onClick={() => handleRemovePreview(activeIndex)}
-                        >
-                            Remove
-                        </Button>
+                            handleEvent={() => handleRemovePreview(activeIndex)}
+                            placeholder="Remove"
+                        />
                     </Box>
                 )}
             </Box>

@@ -1,16 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 import Header from '../Header';
 import ReceiptInfoForm from '../receiptInfoForm/ReceiptInfoForm';
 import ReceiptPreview from '../receiptPreview/ReceiptPreview';
-import FormScanningPopup from '../addRequestPopups/FormScanningPopup';
-import FormSubmittedPopup from '../addRequestPopups/FormSubmittedPopup';
-import FormNotAcceptedPopup from '../addRequestPopups/FormNotAcceptedPopup';
+import FormScanningPopup from '../popups/addRequestPopups/FormScanningPopup';
+import FormSubmittedPopup from '../popups/addRequestPopups/FormSubmittedPopup';
+import FormNotAcceptedPopup from '../popups/addRequestPopups/FormNotAcceptedPopup';
 import { useError } from '../../context/errorContext';
 import { useAuth } from '../../context/authContext';
 import { postNewRequest } from '../../services/dataServices/claimsRequest';
 import type { FormType, FormData, newAddRequest } from '../../types';
+import ActionButton from '../actionButton/ActionButton';
 import './NewRequest.css';
 
 interface NewRequestProps {
@@ -138,21 +138,25 @@ export default function NewRequest({ formType }: NewRequestProps) {
                     </div>
                 </main>
 
-                <Button variant="contained" color="primary" className="submit-button" type="submit">
-                    Submit Form
-                </Button>
+                <ActionButton
+                    variant="contained"
+                    color="primary"
+                    className="page-button primary-button"
+                    type="submit"
+                    placeholder='Submit Form'
+                />
 
                 {
                     popupState === 'scanning' &&
-                    <FormScanningPopup />
+                    <FormScanningPopup open={popupState === 'scanning'} />
                 }
                 {
                     popupState === 'submitted' &&
-                    <FormSubmittedPopup onViewHistory={() => navigate(config.successNavPath)} onClose={handleClose} />
+                    <FormSubmittedPopup open={popupState === 'submitted'} onViewHistory={() => navigate(config.successNavPath)} onClose={handleClose} />
                 }
                 {
                     popupState === 'not-accepted' &&
-                    <FormNotAcceptedPopup onReview={() => setPopupState('none')} onResubmit={handleResubmit} />
+                    <FormNotAcceptedPopup open={popupState === 'not-accepted'} onClose={() => setPopupState('none')} onReview={() => setPopupState('none')} onResubmit={handleResubmit} />
                 }
             </form>
         </>

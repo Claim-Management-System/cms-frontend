@@ -5,7 +5,6 @@ import UserTitle from '../../components/userTitle/UserTitle';
 import DetailsTable from '../../components/detailsTable/DetailsTable';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { useAuth } from '../../context/authContext';
-import { useError } from '../../context/errorContext';
 import { fetchDashboardData } from '../../services/constantServices/dashboardService';
 import type { DashboardData } from "../../types";
 
@@ -13,7 +12,6 @@ const UserDashboard = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const { setError } = useError();
   const { user } = useAuth();
 
   const fetchUserDashboard = async (employee_number: number) => {
@@ -22,7 +20,7 @@ const UserDashboard = () => {
       const data = await fetchDashboardData(employee_number);
       setDashboardData(data);
     } catch (error: any) {
-      setError(error.message || "Failed to fetch dashboard data");
+      console.log(error.message || "Failed to fetch dashboard data");
     } finally {
       setLoading(false);
     }
@@ -56,8 +54,8 @@ const UserDashboard = () => {
         mainText={dashboardData.employeeName}
         subText={dashboardData.employeeEmail}
       />
+      <h2 className='total-medical-limit'>Total Medical Limit: {dashboardData.totalLimit}</h2>
       <DetailsTable data={dashboardData.claimDetails} />
-      <h2>Total Medical Limit: {dashboardData.totalLimit}</h2>
     </Box>
   );
 };

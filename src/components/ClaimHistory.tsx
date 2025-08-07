@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import SearchBox from './SearchBox';
-import AddRequestButton from './AddRequestButton';
 import ClaimsStatus from './ClaimsStatus';
 import Pagination from './Pagination';
 import ClaimTable from './claimsTable/ClaimTable';
@@ -11,8 +10,10 @@ import { useError } from '../context/errorContext';
 import { useAuth } from '../context/authContext';
 import { getClaimsHistory, getEmployeeClaimsHistory, getClaimsCount } from '../services/dataServices/claimsHistory';
 import formatDate from '../services/constantServices/formatDate';
-import { USER_ROLES } from '../services/constantServices/constants';
+import { USER_ROLES, CLAIM_CATEGORY } from '../services/constantServices/constants';
 import type { ClaimRecord, ClaimCounts } from '../types';
+import ActionButton from './actionButton/ActionButton';
+import AddIcon from '@mui/icons-material/Add';
 
 
 interface ClaimHistoryProps {
@@ -38,6 +39,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
   const { user } = useAuth();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const currentStatus = searchParams.get('status') || 'total';
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
@@ -50,7 +52,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
   };
 
   const fetchAllClaims = async () => {
-    if(searchTerm.length > 0 && !/^\d{4}$/.test(searchTerm)) {
+    if (searchTerm.length > 0 && !/^\d{4}$/.test(searchTerm)) {
       setError('Enter 4-Digit Employee ID');
       return;
     }
@@ -58,45 +60,38 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
     setIsLoading(true);
 
     try {
-      let data;
-      let countsData;
+      let countsPromise;
+      let claimsPromise;
 
-      if(user?.role === USER_ROLES.ADMIN && /^\d{4}$/.test(searchTerm)) {
+      if (user?.role === USER_ROLES.ADMIN && /^\d{4}$/.test(searchTerm)) {
         const employeeNumber = Number(searchTerm);
-        console.log(employeeNumber)
-
-        countsData = await getClaimsCount(apiClaimType, employeeNumber);
-        data = await getEmployeeClaimsHistory({
-          employeeNumber: employeeNumber,
-          claimType: apiClaimType,
-          status: currentStatus,
-          page: currentPage,
+        countsPromise = getClaimsCount(apiClaimType, employeeNumber);
+        claimsPromise = getEmployeeClaimsHistory({ 
+          employeeNumber, 
+          claimType: apiClaimType, 
+          status: currentStatus, 
+          page: currentPage 
         });
-      }
-      else if (user?.role === USER_ROLES.ADMIN) {
-        countsData = await getClaimsCount(apiClaimType);
-        data = await getClaimsHistory({
-          claimType: apiClaimType,
-          status: currentStatus,
-          page: currentPage,
+      } else if (user?.role === USER_ROLES.ADMIN) {
+        countsPromise = getClaimsCount(apiClaimType);
+        claimsPromise = getClaimsHistory({ 
+          claimType: apiClaimType, 
+          status: currentStatus, 
+          page: currentPage 
         });
-      }
-      else {
+      } else {
         const employeeNumber = user?.employee_number;
-        if (!employeeNumber) {
-          throw Error("Employee ID not found!");
-        }
-
-        countsData = await getClaimsCount(apiClaimType, user?.employee_number);
-        data = await getEmployeeClaimsHistory({
-          employeeNumber: user?.employee_number,
-          claimType: apiClaimType,
-          status: currentStatus,
-          page: currentPage,
+        if (!employeeNumber) throw new Error("Employee ID not found!");
+        countsPromise = getClaimsCount(apiClaimType, employeeNumber);
+        claimsPromise = getEmployeeClaimsHistory({ 
+          employeeNumber, 
+          claimType: apiClaimType, 
+          status: currentStatus, 
+          page: currentPage 
         });
       }
 
-      let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
+      const [countsData, data] = await Promise.all([countsPromise, claimsPromise]);
 
       const counts = {
         total: countsData.approved_count + countsData.rejected_count + countsData.pending_count,
@@ -104,8 +99,9 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
         denied: countsData.rejected_count,
         pending: countsData.pending_count,
       };
-
       setClaimsCounts(counts);
+
+      const allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
       setClaimData(allClaims);
       setTotalPages(Math.ceil(data.totalCount / 10));
 
@@ -121,24 +117,28 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
   }, [currentStatus, currentPage, searchTerm, apiClaimType]);
 
   return (
-    <Box sx={{ marginX: 3 }}>
+    <Box>
       <Header pageName={pageTitle} />
 
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          paddingX: 3,
-          marginTop: 2,
-          alignItems: 'center'
-        }}
-      >
-        <SearchBox onSearchChange={setSearchTerm} />
-        <AddRequestButton path={newRequestPath} />
-      </Box>
+      {user?.role !== USER_ROLES.EMPLOYEE &&
+        <Box sx={{ display: 'flex', marginTop: 2, alignItems: 'center', width: '100%', gap: 2 }}>
+          <Box sx={{ flex: 5 }}>
+            <SearchBox onSearchChange={setSearchTerm} />
+          </Box>
+          <Box>
+            <ActionButton
+              variant="contained"
+              endIcon={<AddIcon />}
+              handleEvent={() => navigate(newRequestPath)}
+              className="page-button primary-button"
+              placeholder="Add Request"
+            />
+          </Box>
+        </Box>
+      }
 
       <Box
-        sx={{ paddingX: 3, marginY: 4 }}
+        sx={{ marginY: 2 }}
       >
         <ClaimsStatus
           currentStatus={currentStatus}
@@ -149,17 +149,19 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
 
       <ClaimTable
         data={claimData}
-        userRole={user?.role || 'user'}
+        userRole={user?.role === USER_ROLES.ADMIN ? USER_ROLES.ADMIN : USER_ROLES.EMPLOYEE}
         claimType={tableClaimType}
-        category="claim history"
+        category={CLAIM_CATEGORY.HISTORY}
         loading={isLoading}
       />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: '10px' }}>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </Box>
     </Box>
   );
 };

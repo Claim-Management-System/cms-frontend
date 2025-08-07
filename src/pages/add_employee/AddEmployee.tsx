@@ -8,13 +8,14 @@ import {
     transformToEmployeeDetails,
     transformToUserCredentials,
 } from '../../utils/AddEmployeeUtils';
-import AddEmployeePopup from '../../components/addEmployeePopup/AddEmployeePopup';
+import AddEmployeePopup from '../../components/popups/addEmployeePopup/AddEmployeePopup';
 import { useError } from '../../context/errorContext';
 import { createEmployee, createUser } from '../../services/dataServices/employee';
 import { EMPLOYEE_INFO_MODE } from '../../services/constantServices/constants';
 import type { EmployeeInterface } from '../../types';
 import { type SelectChangeEvent, CircularProgress } from '@mui/material';
 import { Block as BlockIcon, Done as DoneIcon } from '@mui/icons-material';
+import ActionButton from '../../components/actionButton/ActionButton';
 import './AddEmployee.css';
 
 interface NewEmployeeData {
@@ -73,8 +74,10 @@ export default function AddEmployee() {
             const employeeDetails = transformToEmployeeDetails(formData);
             const userCredentials = transformToUserCredentials(formData);
 
-            await createEmployee(employeeDetails);
-            await createUser(userCredentials);
+            await Promise.all([
+                createEmployee(employeeDetails),
+                createUser(userCredentials)
+            ])
 
             setNewEmployeeData({
                 employeeId: formData.employeeId,
@@ -82,7 +85,9 @@ export default function AddEmployee() {
                 email: formData.email,
                 password: userCredentials.password,
             });
+            
             setIsPopupOpen(true);
+
         } catch (error) {
             setError('Failed to create employee. Please try again.');
         } finally {
@@ -105,29 +110,29 @@ export default function AddEmployee() {
                     />
                     <div className="form-actions">
                         <div className="buttons-wrapper">
-                            <button
+                            <ActionButton
                                 type="button"
-                                className="cancel-btn"
-                                onClick={handleCancel}
+                                className="secondary-page-button page-button"
+                                handleEvent={handleCancel}
                                 disabled={isLoading}
-                            >
-                                Cancel
-                                <BlockIcon className='icon' />
-                            </button>
-                            <button
+                                placeholder={<>Reset<BlockIcon className='icon' /></>}
+                            />
+                            <ActionButton
                                 type="submit"
-                                className="submit-btn"
+                                className="primary-button page-button"
                                 disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <CircularProgress size={24} color="inherit" />
-                                ) : (
-                                    <>
-                                        Submit
-                                        <DoneIcon className='icon' />
-                                    </>
-                                )}
-                            </button>
+                                handleEvent={() => {}}
+                                placeholder={
+                                    isLoading ? (
+                                        <CircularProgress size={24} color="inherit" />
+                                    ) : (
+                                        <>
+                                            Submit
+                                            <DoneIcon className='icon' />
+                                        </>
+                                    )
+                                }
+                            />
                         </div>
                     </div>
                 </form>

@@ -1,0 +1,17 @@
+
+
+.close-button {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    color: grey;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: center !important;
+    flex-direction: row;
+}
+
+
+

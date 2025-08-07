@@ -1,0 +1,46 @@
+.MuiDialog-paper {
+    width: min(400px, 80vw) !important;
+    padding: 20px !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+}
+
+.MuiDialogTitle-root,
+.MuiDialogContent-root,
+.MuiDialogActions-root {
+    padding: 5px !important;
+}
+
+.MuiDialogTitle-root{
+    font-weight: 400 !important;
+    font-family: 'ITCAvantG' !important;
+    font-size: 24px !important;
+    color: #4C4E54 !important;
+}
+
+.MuiDialogContent-root {
+    border: none !important;
+}
+
+.employee-details-text {
+    font-weight: 100 !important;
+    font-family: 'LLCirc' !important;
+    font-size: 1rem !important;
+    color: #4C4E54 !important;
+    margin-bottom: 5px !important;
+}
+
+.employee-details-label {
+    font-weight: 400 !important;
+    font-family: 'LLCirc' !important;
+    color: #4C4E54 !important;
+    margin-bottom: 5px !important;
+    font-size: 1rem !important;
+}
+
+.employee-details{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+

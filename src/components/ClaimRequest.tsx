@@ -64,10 +64,10 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
     };
 
     return (
-        <Box sx={{ marginX: 3 }}>
+        <Box >
             <Header pageName={pageTitle} />
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingX: 3, marginTop: 2, marginBottom: 4, alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: 4, alignItems: 'center' }}>
                 <SearchBox onSearchChange={setSearchTerm} />
             </Box>
 
@@ -79,7 +79,7 @@ function ClaimRequest({ pageTitle, apiClaimType, tableClaimType }: ClaimRequestP
                 loading={isLoading}
             />
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: '10px' }}>
                 <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}

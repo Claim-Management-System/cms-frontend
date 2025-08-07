@@ -2,21 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import { useError } from '../../context/errorContext';
-import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material'; 
+import { USER_ROLES } from '../../services/constantServices/constants';
+import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material';
 import {
     Card,
     CardContent,
     Typography,
     TextField,
-    Button,
     Box,
-    FormControlLabel,
-    Checkbox,
     InputAdornment,
     IconButton,
     CircularProgress
 } from '@mui/material';
-import googleIcon from '../../assets/logos/google-gsuite.svg';
+import ActionButton from '../actionButton/ActionButton';
 import './LoginCard.css';
 
 
@@ -37,9 +35,13 @@ const LoginCard: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         try {
+            if(email.trim().length === 0 || password.trim().length === 0) {
+                throw Error('Please Fill all fields!')
+            }
+
             const result = await loginUser(email, password);
             if (result.success && result.user) {
-                if (result.user.role === "admin") {
+                if (result.user.role === USER_ROLES.ADMIN) {
                     navigate('/admin-dashboard');
                 } else {
                     navigate('/');
@@ -57,9 +59,7 @@ const LoginCard: React.FC = () => {
     return (
         <Card className='login-card'>
             <CardContent className="login-card-content">
-                <Typography component="h1">
-                    LOG IN
-                </Typography>
+                <Typography component="h1"> LOG IN </Typography>
 
                 <Box component="form" noValidate autoComplete="off" className="login-form" onSubmit={handleLogin}>
                     <Box className="fields-container"> {/* This was made so that the remember me checkbox is right below the password field*/}
@@ -114,51 +114,17 @@ const LoginCard: React.FC = () => {
                                 ),
                             }}
                         />
-
-                        <FormControlLabel
-                            className="remember-me-control"
-                            control={
-                                <Checkbox
-                                    name="remember"
-                                    className="remember-me-checkbox"
-                                />
-                            }
-                            label={
-                                <Typography className="remember-me-label">
-                                    Remember me
-                                </Typography>
-                            }
-                        />
                     </Box>
 
-                    <Button
+                    <ActionButton
                         fullWidth
                         variant="contained"
-                        className="login-button"
+                        className="login-button primary-button"
                         type="submit"
                         disabled={loading}
-                    >
-                        {loading ? <CircularProgress size={24} color="inherit" /> : 'LOG IN'}
-                    </Button>
+                        placeholder={loading ? <CircularProgress size={24} color="inherit" /> : 'LOG IN'}
+                    />
 
-                    <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        className="divider-text"
-                    >
-                        OR
-                    </Typography>
-
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        startIcon={
-                            <img src={googleIcon} alt="Google G" /> 
-                        }
-                        className="google-login-button"
-                    >
-                        LOG IN WITH GOOGLE
-                    </Button>
                 </Box>
             </CardContent>
         </Card>

@@ -33,6 +33,7 @@
 .fields-container {
     width: 100%;
     max-width: 21.25rem;
+    margin-bottom: 2rem;
 }
 
 /* Styled Textfield - START */
@@ -50,7 +51,7 @@
     padding-bottom: 0.625rem;
     font-size: 0.75rem;
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 .styled-textfield .MuiOutlinedInput-notchedOutline {
@@ -73,7 +74,7 @@
     padding-right: 0.3125rem;
     color: var(--s80);
     font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
+    font-weight: 100;
 }
 
 .styled-textfield .MuiInputLabel-root.Mui-focused {
@@ -102,103 +103,6 @@
     margin-right: -0.5rem !important;
 }
 
-/* Styled Textfield - END */
-
-/* Remember Me Checkbox - START */
-
-.MuiFormControlLabel-root.remember-me-control {
-    margin-bottom: 1.5625rem;
-    width: 100%;
-    margin-left: -0.25rem;
-}
-
-.remember-me-checkbox {
-    width: 0.65625rem;
-    height: 0.65625rem;
-    color: var(--s50);
-}
-
-.remember-me-checkbox .MuiSvgIcon-root {
-    font-size: 0.75rem;
-}
-
-.MuiTypography-root.remember-me-label {
-    color: var(--s50);
-    font-weight: 450;
-    font-size: 0.75rem; 
-    user-select: none;
-    font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
-}
-
-/* Remember Me Checkbox - END */
-
-/* Button and Divider - START */
-
-.MuiButton-root.login-button {
-    padding: 0.5rem 4.5rem;
-    background-color: #1CA8DD;
-    color: #ffffff;
-    box-shadow: none;
-    text-transform: none;
-    font-weight: 450;
-    font-size: 0.875rem;
-    margin-bottom: 2.1875rem;
-    max-width: 14.0625rem;
-    border-radius: 0.25rem;
-    display: block;
-    user-select: none;
-    font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
-}
-
-.MuiButton-root.login-button:hover {
-    background-color: #1CA8DD;
-    box-shadow: none;
-}
-
-.MuiDivider-root.form-divider {
-    width: 100%;
-}
-
-.MuiDivider-root.form-divider::before,
-.MuiDivider-root.form-divider::after {
-    border: none;
-}
-
-.MuiTypography-root.divider-text {
-    color: #000000;
-    font-size: 1rem;
-    font-weight: 450;
-    user-select: none;
-    font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
-}
-
-
-.MuiButton-root.google-login-button {
-    padding: 0.5rem 1.5rem;
-    color: #000000; 
-    text-transform: none;
-    font-weight: 450;
-    font-size: 0.875rem;
-    margin-top: 1.25rem;
-    margin-bottom: -0.9375rem;
-    max-width: 14.0625rem;
-    border-radius: 0.25rem;
-    white-space: nowrap;
-    border: solid 1px var(--s80);
-    user-select: none;
-    font-family: 'LLCirc', sans-serif;
-    font-weight: 450;
-}
-
-.MuiButton-root.google-login-button:hover {
-    background-color: transparent;
-    border-color: var(--s80);
-}
-
-/* Button and Divider - END */
 
 
 

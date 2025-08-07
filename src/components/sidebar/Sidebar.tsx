@@ -23,7 +23,6 @@ import {
   Dashboard as DashboardIcon,
   Add as AddIcon,
   History as HistoryIcon,
-  Drafts as DraftsIcon,
   Logout as LogoutIcon,
   PersonOutline as PersonOutlineIcon,
   Category as CategoryIcon,
@@ -33,6 +32,7 @@ import {
   Groups as GroupsIcon,
   People as PeopleIcon
 } from "@mui/icons-material"
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import "./styles.css"
 
 
@@ -77,11 +77,6 @@ const userMenuItems: MenuItem[] = [
       { text: 'Miscellaneous', path: '/claim-history/miscellaneous', icon: <CategoryIcon /> },
     ],
   },
-  {
-    text: 'Drafts',
-    icon: <DraftsIcon />,
-    path: '/drafts',
-  },
 ];
 
 const adminMenuItems: MenuItem[] = [
@@ -108,7 +103,7 @@ const adminMenuItems: MenuItem[] = [
   },
   {
     text: 'Claim Requests',
-    icon: <HistoryIcon />,
+    icon: <FormatListBulletedIcon />,
     subItems: [
       { text: 'Outpatient', path: '/claim-requests/outpatient', icon: <PersonOutlineIcon /> },
       { text: 'Miscellaneous', path: '/claim-requests/miscellaneous', icon: <CategoryIcon /> },

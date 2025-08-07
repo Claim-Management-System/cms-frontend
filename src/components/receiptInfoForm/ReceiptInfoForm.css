@@ -1,5 +1,3 @@
-@import '../../index.css';
-
 .receipt-form-container {
     display: flex;
     flex-direction: column;
@@ -23,6 +21,7 @@
     padding: 10px 16px;
     font-size: 14px;
     font-family: 'LLCirc';
+    font-weight: 100 !important;
     /* Placeholder and input text size */
 }
 
@@ -48,7 +47,7 @@
 .custom-form-control .MuiInputLabel-root {
     color: var(--s80);
     /* Default label color */
-    font-weight: 500;
+    font-weight: 100 !important;
     font-size: 16px;
     font-family: 'LLCirc';
     transform: translate(15px, -17px) scale(1);

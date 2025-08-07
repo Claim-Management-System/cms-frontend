@@ -1,7 +1,6 @@
 @import '../../index.css';
 
 .new-request-container {
-    padding: 24px;
     background-color: #f9fafb;
     width: 100%;
 }
@@ -10,9 +9,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
-    margin-top: 24px;
+    margin-top: 10px;
     box-sizing: border-box;
     font-family: 'LLCirc' !important;
+    font-weight: 100 !important;
 }
 
 .form-section {
@@ -30,10 +30,9 @@
 }
 
 .footer-note {
-    font-size: 0.8rem;
-    color: #555;
+    font-size: 12px;
+    color: #626469;
     text-align: left;
-    color: #8F9094;
 }
 
 .footer-note .asterisk {

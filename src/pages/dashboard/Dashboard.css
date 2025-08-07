@@ -1,61 +1,65 @@
-.employee-details {
-    max-width: 1000px;
-    font-size: 28px;
-    font-family: 'ITCAvantG';
-    font-weight: 450;
-    color: #626469;
-    border-bottom: 1px solid #d3d3d3;;
-    border-top: 1px solid #d3d3d3;;
-    margin-left: 20px;
-}
-
 .user-search-container {
   display: flex;
   flex-direction: column;
-  /* margin: 20px auto; */
-  margin-left: 20px;
-  margin-right: 24px;
+  /* margin-right: 24px; */
   margin-top: 20px;
   gap: 20px;
 }
 
+.employee-id-field .MuiInputBase-input {
+  color: #4C4E54 !important;
+}
+
 .employee-id-field .MuiInputBase-root {
-  height: 40px;
-  border-radius: 6px;
+  height: 45px;
+  border-radius: 8px;
   width: 100%;
   font-family: 'LLCirc' !important;
-  font-weight: 450 !important;
+  font-weight: 100 !important;
+}
+
+.employee-id-field .MuiInputBase-input::placeholder {
+  font-family: 'LLCirc' !important;
+  font-weight: 100 !important;
+  color: #8F9094;
+  opacity: 1;
 }
 
 .employee-id-field .MuiOutlinedInput-notchedOutline {
-  border: 1px solid #797A7F !important;
+  border: 1px solid #77CBEB !important;
 }
 
 .employee-id-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-  border-color: #797A7F !important;
+  border-color: #77CBEB !important;
 }
 
 .employee-id-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #797A7F !important;
+  border-color: #77CBEB !important;
   border-width: 1px !important;
 }
 
 .employee-id-field .MuiInputLabel-root {
-  top: -7px;
+  top: -4px;
   font-family: 'LLCirc' !important;
-  font-weight: 450 !important;
-  color: #797A7F;
+  font-weight: 100 !important;
+  color: #4C4E54;
 }
 
 .employee-id-field .MuiInputLabel-root.Mui-focused {
-    color: #797A7F !important;
+    color: #4C4E54 !important;
 }
 
-.search-button {
-  background-color: #1CA8DD !important;
-  box-shadow: none !important;
-  border-radius: 6px !important;
+.total-medical-limit {
   font-family: 'LLCirc' !important;
-  font-weight: 450 !important;
-  margin-bottom: 30px !important;
-} 
+  font-weight: 100 !important;
+  font-size: 20px !important;
+      color: #4C4E54 !important;
+
+}
+
+.user-not-found-message {
+  color: #4C4E54 !important;
+  font-family: 'LLCirc' !important;
+  font-weight: 100 !important;
+  font-size: 24px !important;
+}

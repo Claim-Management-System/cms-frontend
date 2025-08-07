@@ -1,5 +1,4 @@
 .add-employee-container {
-    padding: 20px;
     background-color: #f9fafb;
 }
 
@@ -27,12 +26,13 @@
 
 h1 {
     font-family: 'ITCAvantG';
-    font-weight: 450;
+    font-weight: 500;
     padding-left: 20px;
 }
 
 .submit-btn,
 .cancel-btn {
+    margin-top: 20px !important;
     width: 200px;
     padding: 10px 20px;
     border: 1px solid transparent;

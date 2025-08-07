@@ -46,9 +46,7 @@ function EmployeeList() {
 
     return (
         <>
-            <Box sx={{ marginX: 3 }}>
-                <Header pageName="Employee List" />
-            </Box>
+            <Header pageName="Employee List" />
 
             <Box className='search-box-container'>
                 <SearchBox onSearchChange={setSearchTerm} placeholder="Enter 4-digit Employee ID" />
@@ -59,7 +57,7 @@ function EmployeeList() {
                 loading={isLoading}
             />
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: '10px' }}>
                 <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}

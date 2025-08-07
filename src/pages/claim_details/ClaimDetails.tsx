@@ -5,16 +5,17 @@ import { useError } from '../../context/errorContext';
 import Header from '../../components/Header';
 import ReceiptView from '../../components/receiptView/ReceiptView';
 import ReceiptPreview from '../../components/receiptPreview/ReceiptPreview';
-import AcceptPopup from '../../components/popups/AcceptPopup';
-import DeclinePopup from '../../components/popups/DeclinePopup';
-import EditPopup from '../../components/popups/EditPopup';
+import AcceptPopup from '../../components/popups/viewFormPopups/AcceptPopup';
+import DeclinePopup from '../../components/popups/viewFormPopups/DeclinePopup';
+import EditPopup from '../../components/popups/viewFormPopups/EditPopup';
 import UserTitle from '../../components/userTitle/UserTitle';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { downloadClaimImages, updateClaimStatus } from '../../services/dataServices/claimsHistory';
 import { getClaimDetails } from '../../utils/ClaimDetailsUtils';
 import { USER_ROLES, STATUS } from '../../services/constantServices/constants';
-import { Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
-import { Button, CircularProgress } from '@mui/material';
+import { Done as DoneIcon, Edit as EditIcon, DoNotDisturb as DoNotDisturbIcon, Download as DownloadIcon } from '@mui/icons-material';
+import { CircularProgress } from '@mui/material';
+import ActionButton from '../../components/actionButton/ActionButton';
 import type { Claim, Employee } from '../../types';
 import './ClaimDetails.css';
 
@@ -80,8 +81,8 @@ function ClaimDetails() {
             setFormData(claimDetails.claimData)
             setImages(claimDetails.claimImages)
             setEmployeeDetails(claimDetails.employeeData)
-        } catch (error: any) {
-            setError(error.message || 'Failed to fetch data!')
+        } catch (error) {
+            setError('No data to show!')
         } finally {
             setIsLoading(false)
         }
@@ -98,14 +99,27 @@ function ClaimDetails() {
 
         try {
             await downloadClaimImages(claimId!)
-        } catch (error: any) {
-            setError(error.message || "Failed to download an image")
+        } catch (error) {
+            setError("Failed to download an image")
         } finally {
             setDownload(false);
         }
     }
 
-    return !isLoading ? (
+    if(isLoading) {
+        return <LoadingScreen />
+    }
+
+    if (!formData || !images) {
+        return (
+            <div>
+                <Header pageName="View Claim Details" />
+                <h2 style={{ textAlign: 'center', marginTop: '2rem' }}>No Claim Details data available.</h2>
+            </div>
+        );
+    }
+
+    return (
         <>
             <Header pageName='View Claim Details' />
             <div className="view-more-container">
@@ -116,36 +130,33 @@ function ClaimDetails() {
                     />
                     {user?.role === USER_ROLES.ADMIN && formData?.status === STATUS.PENDING && (
                         <div className="admin-buttons-container">
-                            <Button
-                                className="decline-button"
-                                onClick={() => setDeclinePopupOpen(true)}
+                            <ActionButton
+                                className="secondary-page-button page-button"
+                                handleEvent={() => setDeclinePopupOpen(true)}
                                 endIcon={<DoNotDisturbIcon />}
-                            >
-                                Decline
-                            </Button>
-                            <Button
-                                className="editing-button"
-                                onClick={() => setEditPopupOpen(true)}
+                                placeholder="Decline"
+                            />
+                            <ActionButton
+                                className="primary-button page-button"
+                                handleEvent={downloadClaim}
+                                disabled={download}
+                                endIcon={download ? null : <DownloadIcon />}
+                                placeholder={download ? <CircularProgress size={24} color="inherit" /> : 'Download'}
+                            />
+                            <ActionButton
+                                className="primary-button page-button"
+                                handleEvent={() => setEditPopupOpen(true)}
                                 endIcon={<EditIcon />}
-                            >
-                                Edit and Accept
-                            </Button>
-                            <Button
-                                className="accept-button"
-                                onClick={() => setAcceptPopupOpen(true)}
+                                placeholder="Edit and Accept"
+                            />
+                            <ActionButton
+                                className="primary-button page-button"
+                                handleEvent={() => setAcceptPopupOpen(true)}
                                 endIcon={<DoneIcon />}
-                            >
-                                Accept
-                            </Button>
+                                placeholder="Accept"
+                            />
                         </div>
                     )}
-                    <Button
-                        className="accept-button"
-                        onClick={() => downloadClaim()}
-                        disabled={download}
-                    >
-                        {download ? <CircularProgress size={24} color="inherit" /> : 'Download'}
-                    </Button>
                 </div>
 
                 <div className="left-panel">
@@ -184,8 +195,6 @@ function ClaimDetails() {
                 />
             </div>
         </>
-    ) : (
-        <LoadingScreen />
     )
 };
 

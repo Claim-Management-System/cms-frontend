@@ -16,26 +16,25 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
   return (
     totalPages > 1 && <Box 
       sx={{
-        display: "flex", 
-        alignItems: "center", 
-        paddingX: 3, 
-        paddingY: 2, 
-        position: "fixed", 
-        right: "2vw", 
-        bottom: "2vw"
+        display: "flex",
+        alignItems: "center",
       }}
     >
       <MuiPagination
         count={totalPages}
         page={currentPage}
         onChange={handlePageChange}
-        color="primary"
         shape="rounded"
         siblingCount={0}
         boundaryCount={2}
         sx={{
+          '& .MuiPaginationItem-root': {
+            fontFamily: 'LLCirc !important',
+            fontWeight: 100,
+            color: '#4C4E54',
+          },
           '& .Mui-selected': {
-            backgroundColor: '#1CA8DD',
+            backgroundColor: '#1CA8DD !important',
             color: 'white',
             '&:hover': {
               backgroundColor: '#1785b0',

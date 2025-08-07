@@ -1,0 +1,64 @@
+.MuiDialog-paper {
+    width: min(400px, 80vw) !important;
+    padding: 20px !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+}
+
+.MuiDialogTitle-root,
+.MuiDialogContent-root,
+.MuiDialogActions-root {
+    padding: 5px !important;
+}
+
+.MuiDialogTitle-root {
+    font-weight: 400 !important;
+    font-family: 'ITCAvantG' !important;
+    font-size: 24px !important;
+    color: #4C4E54 !important;
+}
+
+.popup-content-add-request.submitted, .popup-content-add-request.not-accepted {
+    justify-content: center;
+}
+
+.popup-icon {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.popup-icon .MuiSvgIcon-root {
+    width: 100px;
+    height: 100px;
+}
+
+.popup-main-text {
+    font-size: 18px;
+    font-weight: 100 !important;
+    margin-bottom: 8px;
+    color: #4C4E54;
+    font-family: 'LLCirc';
+    text-align: center;
+}
+
+.popup-secondary-text {
+    font-size: 16px;
+    margin-bottom: 24px;
+    color: #626469;
+    font-family: 'LLCirc';
+    font-weight: 100 !important;
+    text-align: center;
+}
+
+.popup-actions {
+    display: flex;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+/* for some reason MUI is applying a weird style with 8px margin left below is how i am getting rid of it */
+
+.popup-actions > :not(style) ~ :not(style) {
+    margin: 0 !important;
+}
+ 
