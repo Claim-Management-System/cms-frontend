@@ -144,7 +144,6 @@ export default function NewRequest({ formType }: NewRequestProps) {
                     className="page-button primary-button"
                     type="submit"
                     placeholder='Submit Form'
-                    handleEvent={() => { }}
                 />
 
                 {
