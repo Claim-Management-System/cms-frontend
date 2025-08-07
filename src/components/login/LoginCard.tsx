@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import { useError } from '../../context/errorContext';
+import { USER_ROLES } from '../../services/constantServices/constants';
 import { Visibility, VisibilityOff, MailOutline } from '@mui/icons-material';
 import {
     Card,
@@ -40,7 +41,7 @@ const LoginCard: React.FC = () => {
 
             const result = await loginUser(email, password);
             if (result.success && result.user) {
-                if (result.user.role === "admin") {
+                if (result.user.role === USER_ROLES.ADMIN) {
                     navigate('/admin-dashboard');
                 } else {
                     navigate('/');
@@ -58,9 +59,7 @@ const LoginCard: React.FC = () => {
     return (
         <Card className='login-card'>
             <CardContent className="login-card-content">
-                <Typography component="h1">
-                    LOG IN
-                </Typography>
+                <Typography component="h1"> LOG IN </Typography>
 
                 <Box component="form" noValidate autoComplete="off" className="login-form" onSubmit={handleLogin}>
                     <Box className="fields-container"> {/* This was made so that the remember me checkbox is right below the password field*/}
@@ -124,7 +123,6 @@ const LoginCard: React.FC = () => {
                         type="submit"
                         disabled={loading}
                         placeholder={loading ? <CircularProgress size={24} color="inherit" /> : 'LOG IN'}
-                        handleEvent={() => {}}
                     />
 
                 </Box>
