@@ -11,8 +11,10 @@ export const fetchDashboardData = async (employeeNumber: number) => {
     }
 
     try {
-        const data = await getDashboardDetails(employeeNumber);
-        const employeeInfo = await getEmployee(employeeNumber);
+        const [data, employeeInfo] = await Promise.all([
+            getDashboardDetails(employeeNumber),
+            getEmployee(employeeNumber)
+        ])
 
         const formatData = formatDashboardData(data);
         cachedResult[employeeNumber] = { 

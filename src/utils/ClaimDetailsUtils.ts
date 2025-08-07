@@ -11,19 +11,24 @@ interface ClaimDetailsCache {
 
 const cachedClaimDetails: { [key: string]: ClaimDetailsCache } = {};
 
-export const getClaimDetails = async (claimId: string, update: boolean): Promise<ClaimDetailsCache> => {
+export const getClaimDetails = async (claimId: string, update?: boolean): Promise<ClaimDetailsCache> => {
     if (cachedClaimDetails[claimId] && !update) {
         return cachedClaimDetails[claimId];
     }
 
     try {
         const data = await getClaim(claimId);
-        const rawImagesData = await getClaimImages(Number(claimId));
+        const claim = data.claims;
+
+        const [rawImagesData, employee] = await Promise.all([
+            getClaimImages(Number(claimId)),
+            getEmployee(claim.employee_number)
+        ]);
+
         const imageUrls = parseMultipartImages(rawImagesData, BOUNDARY);
-        const employee = await getEmployee(data.claims.employee_number);
 
         const result = {
-            claimData: data.claims,
+            claimData: claim,
             claimImages: imageUrls,
             employeeData: employee
         };

@@ -4,7 +4,7 @@ import './ActionButton.css';
 
 interface ActionButtonProps extends Omit<MuiButtonProps, 'onClick' | 'children'> {
   className?: string;
-  handleEvent: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleEvent?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   placeholder: React.ReactNode;
 }
 

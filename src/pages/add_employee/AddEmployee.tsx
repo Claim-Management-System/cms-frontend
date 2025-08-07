@@ -74,8 +74,10 @@ export default function AddEmployee() {
             const employeeDetails = transformToEmployeeDetails(formData);
             const userCredentials = transformToUserCredentials(formData);
 
-            await createEmployee(employeeDetails);
-            await createUser(userCredentials);
+            await Promise.all([
+                createEmployee(employeeDetails),
+                createUser(userCredentials)
+            ])
 
             setNewEmployeeData({
                 employeeId: formData.employeeId,
@@ -83,7 +85,9 @@ export default function AddEmployee() {
                 email: formData.email,
                 password: userCredentials.password,
             });
+            
             setIsPopupOpen(true);
+
         } catch (error) {
             setError('Failed to create employee. Please try again.');
         } finally {

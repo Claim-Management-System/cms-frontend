@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import ActionsCell from './ActionCell';
+import { useNavigate } from 'react-router-dom';
+import ActionButton from '../actionButton/ActionButton';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import './EmployeeTable.css';
@@ -33,6 +34,8 @@ interface EmployeeTableProps {
 }
 
 export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
+    const navigate = useNavigate();
+
     const columns: GridColDef<NewEmployeeInterface>[] = useMemo(
         () => [
             {
@@ -97,10 +100,15 @@ export default function EmployeeTable({ data, loading }: EmployeeTableProps) {
                 align: 'center',
                 headerAlign: 'center',
                 className: 'actions-column',
-                renderCell: (params) => <ActionsCell employeeId={params.row.employee_number} />,
+                renderCell: (params) => (
+                    <ActionButton 
+                        className={"view-button primary-button"} 
+                        placeholder={"View"} 
+                        handleEvent={() => navigate(`/employee-profile/${params.row.employee_number}`)} 
+                    />
+                )
             },
-        ],
-        []
+        ], []
     );
 
     return (

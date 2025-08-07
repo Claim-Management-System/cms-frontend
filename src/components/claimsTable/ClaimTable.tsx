@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import ActionsCell from './ActionCell';
-import getClaimTableColumns from '../../utils/ClaimTableUtils'; 
+import { useNavigate } from 'react-router-dom';
+import ActionButton from '../actionButton/ActionButton';
+import getClaimTableColumns from '../../utils/ClaimTableUtils';
 import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Chip } from '@mui/material';
 import type { ClaimRecord, UserRole, ClaimType, ClaimCategory } from '../../types';
@@ -17,6 +18,7 @@ interface ClaimTableProps {
 }
 
 export default function ClaimTable({ data, userRole, claimType, category, loading }: ClaimTableProps) {
+  const navigate = useNavigate();
 
   const columns: GridColDef<(typeof data)[number]>[] = useMemo(() => {
     const baseColumns: Record<string, GridColDef<ClaimRecord>> = {
@@ -88,13 +90,17 @@ export default function ClaimTable({ data, userRole, claimType, category, loadin
         filterable: false,
         align: 'left',
         headerAlign: 'left',
-        renderCell: (params) => <ActionsCell params={params} />
+        renderCell: (params) => (
+          <ActionButton
+            className={"view-button primary-button"}
+            placeholder={"View"}
+            handleEvent={() => navigate(`/claim-details/${params.row.id}`)}
+          />
+        )
       }
     };
 
     const columnNames = getClaimTableColumns(userRole, claimType, category)
-    console.log(columnNames)
-    console.log(userRole, claimType, category)
     const finalColumns: GridColDef<ClaimRecord>[] = columnNames?.map(name => baseColumns[name]) ?? [];
     return finalColumns;
   }, [userRole, claimType, category]);

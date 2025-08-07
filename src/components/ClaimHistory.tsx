@@ -52,7 +52,7 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
   };
 
   const fetchAllClaims = async () => {
-    if(searchTerm.length > 0 && !/^\d{4}$/.test(searchTerm)) {
+    if (searchTerm.length > 0 && !/^\d{4}$/.test(searchTerm)) {
       setError('Enter 4-Digit Employee ID');
       return;
     }
@@ -60,44 +60,38 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
     setIsLoading(true);
 
     try {
-      let data;
-      let countsData;
+      let countsPromise;
+      let claimsPromise;
 
-      if(user?.role === USER_ROLES.ADMIN && /^\d{4}$/.test(searchTerm)) {
+      if (user?.role === USER_ROLES.ADMIN && /^\d{4}$/.test(searchTerm)) {
         const employeeNumber = Number(searchTerm);
-
-        countsData = await getClaimsCount(apiClaimType, employeeNumber);
-        data = await getEmployeeClaimsHistory({
-          employeeNumber: employeeNumber,
-          claimType: apiClaimType,
-          status: currentStatus,
-          page: currentPage,
+        countsPromise = getClaimsCount(apiClaimType, employeeNumber);
+        claimsPromise = getEmployeeClaimsHistory({ 
+          employeeNumber, 
+          claimType: apiClaimType, 
+          status: currentStatus, 
+          page: currentPage 
         });
-      }
-      else if (user?.role === USER_ROLES.ADMIN) {
-        countsData = await getClaimsCount(apiClaimType);
-        data = await getClaimsHistory({
-          claimType: apiClaimType,
-          status: currentStatus,
-          page: currentPage,
+      } else if (user?.role === USER_ROLES.ADMIN) {
+        countsPromise = getClaimsCount(apiClaimType);
+        claimsPromise = getClaimsHistory({ 
+          claimType: apiClaimType, 
+          status: currentStatus, 
+          page: currentPage 
         });
-      }
-      else {
+      } else {
         const employeeNumber = user?.employee_number;
-        if (!employeeNumber) {
-          throw Error("Employee ID not found!");
-        }
-
-        countsData = await getClaimsCount(apiClaimType, user?.employee_number);
-        data = await getEmployeeClaimsHistory({
-          employeeNumber: user?.employee_number,
-          claimType: apiClaimType,
-          status: currentStatus,
-          page: currentPage,
+        if (!employeeNumber) throw new Error("Employee ID not found!");
+        countsPromise = getClaimsCount(apiClaimType, employeeNumber);
+        claimsPromise = getEmployeeClaimsHistory({ 
+          employeeNumber, 
+          claimType: apiClaimType, 
+          status: currentStatus, 
+          page: currentPage 
         });
       }
 
-      let allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
+      const [countsData, data] = await Promise.all([countsPromise, claimsPromise]);
 
       const counts = {
         total: countsData.approved_count + countsData.rejected_count + countsData.pending_count,
@@ -105,8 +99,9 @@ function ClaimHistory({ pageTitle, apiClaimType, tableClaimType, newRequestPath 
         denied: countsData.rejected_count,
         pending: countsData.pending_count,
       };
-
       setClaimsCounts(counts);
+
+      const allClaims = data.claims?.length > 0 ? formatDate(data.claims) : [];
       setClaimData(allClaims);
       setTotalPages(Math.ceil(data.totalCount / 10));
 
