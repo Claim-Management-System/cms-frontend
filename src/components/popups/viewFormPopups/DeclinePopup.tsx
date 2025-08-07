@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton } from '@mui/material';
+import { Dialog, DialogContent, Typography, Box, FormControl, InputLabel, Select, MenuItem, IconButton, DialogTitle } from '@mui/material';
 import { useError } from '../../../context/errorContext';
 import CloseIcon from '@mui/icons-material/Close';
 import ActionButton from '../../actionButton/ActionButton';
@@ -48,15 +48,16 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
                 }
             }}
         >
-            <IconButton
-                className="close-button"
-                onClick={onClose}
-            >
-                <CloseIcon />
-            </IconButton>
+
+            <DialogTitle id="form-dialog-title" className="popup-title">
+                {employee_name}
+                <IconButton aria-label="close" className="close-button" onClick={onClose}>
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+
             
             <DialogContent className="popup-content">
-                <Typography className="employee-name">{employee_name}</Typography>
                 
                 <Box className="popup-field">
                     <Typography className="popup-label">Employee ID:</Typography>
@@ -69,7 +70,7 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
                 </Box>
                 
                 <Box>
-                    <FormControl className="reason-dropdown">
+                    <FormControl className="reason-dropdown" fullWidth>
                         <InputLabel>Reason why this request was rejected</InputLabel>
                         <Select
                             value={selectedReason}
@@ -88,7 +89,7 @@ function DeclinePopup({ open, onClose, onReasonSelect, totalAmount, employee_nam
                 </Box>
                 <Box className="popup-actions-view-form">
                     <ActionButton
-                        className="secondary-popup-button popup-button"
+                        className="primary-button popup-button"
                         handleEvent={handleConfirm}
                         placeholder='Confirm'
                     />

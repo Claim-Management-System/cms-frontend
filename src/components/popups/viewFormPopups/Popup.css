@@ -1,5 +1,6 @@
 .popup-dialog .MuiDialog-paper {
     border-radius: 8px;
+    width: min(400px, 80vw) !important;
 }
 
 .close-button {
@@ -8,23 +9,6 @@
     top: 8px !important;
     color: #797A7F !important;
     z-index: 1;
-}
-
-.popup-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-    gap: 5px;
-    font-family: 'LLCirc' !important;
-    max-width: 350px !important;
-}
-
-.employee-name {
-    font-size: 24px !important;
-    color: #35383E !important;
-    font-weight: 100 !important;
-    font-family: 'LLCirc' !important;
 }
 
 .popup-field {
@@ -63,7 +47,6 @@
 .total-amount-section {
     display: flex;
     flex-direction: column;
-
 }
 
 .total-amount-label {
@@ -80,20 +63,15 @@
     font-family: 'LLCirc' !important;
 }
 
-.popup-actions-view-form .MuiBox-root {
-    display: flex;
-    justify-content: center;
-}
-
 .reason-dropdown {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
+
 }
 
 .reason-dropdown .MuiOutlinedInput-root {
     border-radius: 8px;
     height: 45px;
-    min-width: 300px;
 }
 
 .reason-dropdown .MuiInputLabel-root {
@@ -137,8 +115,7 @@
 }
 
 .popup-input {
-    margin-top: 8px !important;
-    margin-bottom: 10px !important;
+    margin-top: 15px !important;
 }
 
 .popup-input .MuiInputBase-input,
@@ -169,5 +146,13 @@
 
 .popup-input .MuiInputLabel-root.Mui-focused {
     color: var(--s80) !important;
+}
+
+.popup-input-amount .MuiOutlinedInput-root {
+    height: 45px;
+}
+
+.popup-input-reason {
+    margin-bottom: 10px !important;
 }
 

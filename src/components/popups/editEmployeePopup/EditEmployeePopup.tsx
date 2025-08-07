@@ -21,7 +21,7 @@ const EditEmployeePopup: React.FC<PopupProps> = ({ open, onClose }) => {
     return (
         <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth="sm" fullWidth>
             <DialogTitle id="form-dialog-title" className="popup-title">
-                Information Updated Successfully
+                Information Updated
                 <IconButton aria-label="close" className="close-button" onClick={onClose}>
                     <CloseIcon />
                 </IconButton>

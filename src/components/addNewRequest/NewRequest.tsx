@@ -149,15 +149,15 @@ export default function NewRequest({ formType }: NewRequestProps) {
 
                 {
                     popupState === 'scanning' &&
-                    <FormScanningPopup />
+                    <FormScanningPopup open={popupState === 'scanning'} />
                 }
                 {
                     popupState === 'submitted' &&
-                    <FormSubmittedPopup onViewHistory={() => navigate(config.successNavPath)} onClose={handleClose} />
+                    <FormSubmittedPopup open={popupState === 'submitted'} onViewHistory={() => navigate(config.successNavPath)} onClose={handleClose} />
                 }
                 {
                     popupState === 'not-accepted' &&
-                    <FormNotAcceptedPopup onReview={() => setPopupState('none')} onResubmit={handleResubmit} />
+                    <FormNotAcceptedPopup open={popupState === 'not-accepted'} onClose={() => setPopupState('none')} onReview={() => setPopupState('none')} onResubmit={handleResubmit} />
                 }
             </form>
         </>

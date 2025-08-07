@@ -17,6 +17,7 @@ import ClaimDetails from '../pages/claim_details/ClaimDetails';
 import EmployeeList from '../pages/employee_list/EmployeeList';
 import EmployeeProfile from '../pages/employee_profile/EmployeeProfile';
 import EditProfile from '../pages/edit_employee_profile/EditProfile';
+import TestingPopups from '../pages/testing_popups/TestingPopups';
 
 export const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
@@ -56,6 +57,7 @@ export const router = createBrowserRouter([
           { path: 'employee-profile/edit/:employeeId', element: <EditProfile /> },
         ],
       },
+      { path: 'testing-popups', element: <TestingPopups /> },
     ],
   },
 ]);

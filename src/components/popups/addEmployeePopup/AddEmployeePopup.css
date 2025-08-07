@@ -1,48 +1,46 @@
-.add-employee-popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    background-color: white;
-    padding: 28px;
-    border-radius: 8px;
-    text-align: center;
+.MuiDialog-paper {
+    width: min(400px, 80vw) !important;
+    padding: 20px !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
 }
 
-.popup-title-add-employee {
-    margin-bottom: 24px !important;
+.MuiDialogTitle-root,
+.MuiDialogContent-root,
+.MuiDialogActions-root {
+    padding: 5px !important;
+}
+
+.MuiDialogTitle-root{
     font-weight: 400 !important;
-    font-family: 'LLCirc' !important;
-    font-size: 26px !important;
+    font-family: 'ITCAvantG' !important;
+    font-size: 24px !important;
     color: #4C4E54 !important;
 }
 
-.employee-details {
-    /* margin-bottom: 24px; */
-    text-align: left;
+.MuiDialogContent-root {
     border: none !important;
 }
-
-.employee-details p {
-    margin-bottom: 8px;
-}
-
-.close-button {
-    position: absolute !important;
-    right: 16px;
-    top: 8px;
-} 
 
 .employee-details-text {
     font-weight: 100 !important;
     font-family: 'LLCirc' !important;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     color: #4C4E54 !important;
+    margin-bottom: 5px !important;
 }
 
 .employee-details-label {
     font-weight: 400 !important;
     font-family: 'LLCirc' !important;
-    color: #4C4E54 !important
+    color: #4C4E54 !important;
+    margin-bottom: 5px !important;
+    font-size: 1rem !important;
 }
+
+.employee-details{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+

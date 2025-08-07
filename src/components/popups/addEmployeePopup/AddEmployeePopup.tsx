@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, Modal, Typography, IconButton } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, IconButton, Box } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import ActionButton from '../../actionButton/ActionButton';
 import './AddEmployeePopup.css';
@@ -23,11 +23,13 @@ const AddEmployeePopup = ({ open, onClose, employeeData }: AddEmployeePopupProps
         { label: "Employee Name", value: employeeData.name },
         { label: "Email", value: employeeData.email },
         { label: "Password", value: employeeData.password },
-    ]
+    ];
 
     return (
-        <Modal open={open} onClose={onClose}>
-            <Box className="add-employee-popup">
+        <Dialog open={open} onClose={onClose}>
+
+            <DialogTitle className="popup-title-add-employee">
+                Employee Created
                 <IconButton
                     aria-label="close"
                     onClick={() => navigate('/admin-dashboard')}
@@ -35,24 +37,28 @@ const AddEmployeePopup = ({ open, onClose, employeeData }: AddEmployeePopupProps
                 >
                     <CloseIcon />
                 </IconButton>
-                <Typography variant="h5" component="h2" className="popup-title-add-employee">
-                    Employee Created Successfully
-                </Typography>
+            </DialogTitle>
+
+            <DialogContent>
                 <Box className="employee-details">
                     {displayContent.map(item => (
                         <Typography className="employee-details-text" key={item.label}>
-                            <span className="employee-details-label" >{`${item.label} : `}</span>{item.value}
+                            <span className="employee-details-label">{`${item.label}: `}</span>{item.value}
                         </Typography>
                     ))}
                 </Box>
+            </DialogContent>
+
+            <DialogActions>
                 <ActionButton
                     variant="contained"
                     handleEvent={onClose}
                     className="popup-button primary-button"
                     placeholder='Add Another Employee'
                 />
-            </Box>
-        </Modal>
+            </DialogActions>
+
+        </Dialog>
     );
 };
 

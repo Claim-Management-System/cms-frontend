@@ -61,7 +61,11 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ open, onClose
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth className="change-password-dialog">
+    <Dialog
+      open={open}
+      onClose={onClose}
+      className="change-password-dialog"
+    >
       <DialogTitle className='change-password-title'>
         Change Password
         <IconButton aria-label="close" onClick={onClose} sx={{ position: 'absolute', right: 25, top: 8 }}>
